@@ -12,6 +12,6 @@ async function bootstrap() {
 
   app.use(helmet());
 
-  await app.listen(process.env.PORT);
+  await app.listen(AppModule.port);
 }
 bootstrap();

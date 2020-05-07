@@ -1,0 +1,63 @@
+
+
+
+.banner{
+    margin:5rem 2rem;
+    &>*{
+        width: 50%;
+    }
+    @media only screen and (max-width:600px){
+        @include column();
+    }
+}
+
+
+.divider{
+    height: .25rem;
+    width: 30%;
+    border-radius: 10px;
+    margin:15px;
+    background-color: $color-primary-light;
+}
+
+
+
+.hero{
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0) ){
+        -webkit-clip-path: polygon(0 0 , 100% 0, 100% 75%,0 100%); // firefox no lo soporta
+        clip-path: polygon(0 0 , 100% 0, 100% 75%,0 100%);
+        height: 95vh; /*95% of the viewport height*/
+    }
+
+    @media  only screen and (max-width:600px){
+        -webkit-clip-path: polygon(0 0 , 100% 0, 100% 100%,0 100%); // firefox no lo soporta
+        clip-path: polygon(0 0 , 100% 0, 100% 100%,0 100%);
+        height: max-content; /*95% of the viewport height*/
+    }
+}
+
+.home{
+    background-image: linear-gradient(to right bottom,$color-primary-light, $color-primary-dark)
+}
+
+.logo{
+    height: 5rem;
+    width: 5rem;
+    margin: 0 10px;
+}
+
+.bg-white{
+    background-color: white;
+}
+
+      
+.icon{
+    height: 5rem;
+    margin-bottom:15px;
+    fill: $color-secondary-light;
+}
+
+.small-icon{
+    height: 1rem;
+}
+

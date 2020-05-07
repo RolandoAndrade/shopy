@@ -1,0 +1,44 @@
+/*typography*/
+.title-center{
+    text-align: center;
+    font-size: 1.5rem!important;
+   // margin:10px;
+}
+.title-terciary{
+    font-size: 1.5rem!important;
+    color:black
+}
+.title-secondary{
+    font-size: 3rem!important;
+}
+.title-primary{
+    font-size: 5rem!important;
+    letter-spacing: .5rem;
+}
+.title-white{
+    color:white;
+}
+.title-black{
+    color:black;
+}
+
+
+//vuetify
+
+.v-btn{
+    font-size: 2.5rem !important;
+}
+
+.v-icon{
+     font-size: 3rem !important;
+}
+.icon-small{
+     font-size: 2.5rem !important;
+}
+.v-list-item{
+        font-size: 4rem !important;
+
+}
+.v-col{
+     font-size: 5rem !important;
+}

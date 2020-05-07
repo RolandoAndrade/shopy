@@ -1,0 +1,9 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    font-size: 62.5% !important;
+
+    @include respond (big-desktop){font-size: 75% !important;}
+    @include respond (tab-land){font-size: 56.25% !important;} // 1rem = 9px , 9/16 =56.25%
+    @include respond (tab-port){font-size: 50% !important;} // 1rem = 8px , 8/16 =50%
+    @include respond (phone){font-size: 30% !important;}
+}

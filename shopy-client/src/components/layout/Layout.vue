@@ -2,20 +2,22 @@
 <div>
       
     <Header/>  
-    <v-fade-transition hide-on-leave>
-        <v-content >
-            <slot ></slot>
-        </v-content>
-    </v-fade-transition>
+
+        <v-fade-transition hide-on-leave>
+            <v-content >
+                <slot ></slot>
+            </v-content>
+        </v-fade-transition>
+
     <Footer/>
-    
+
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Footer from '../layout/Footer.vue';
-import Header from '../layout/Header.vue';
+import Footer from '@/components/layout/general/Footer.vue';
+import Header from '@/components/layout/general/Header.vue';
 
 @Component({
     components:{

@@ -37,8 +37,15 @@
 }
 .v-list-item{
         font-size: 4rem !important;
+       // margin: 2rem 5rem;
 
+}
+.v-list-item__action{
+        margin-left: 2px;
 }
 .v-col{
      font-size: 5rem !important;
+}
+.item-small{
+    font-size: 2.5rem !important;
 }

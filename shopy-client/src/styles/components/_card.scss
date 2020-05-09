@@ -7,7 +7,7 @@
 
 .card-us{
     background-color: $color-white;
-    border-radius: 3px;
+    border-radius: $border;
     width: 20rem;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     transition: all .3s;
@@ -21,7 +21,7 @@
     width: 200px;
     background-color:$color-grey-light-3;
     cursor: pointer;
-
+    transition: all .2s;
     .icon{
         fill: $color-primary-dark;
     }
@@ -30,8 +30,99 @@
         background-color:$color-primary-light;
     }
 
-    &:hover .icon{
+    &:hover .icon-big{
       fill: white;
     }
   //  @respond
+}
+
+
+
+
+
+.container-space{
+    justify-content: space-between;
+}
+
+.cart{
+    width: 25%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5rem;
+    padding-left:1.75rem;
+    background-color: $color-secondary-light;
+    cursor: pointer;
+    @include clip(25%,100%);
+}
+
+  .card-product{
+    position: relative;
+    background-color: white;
+    width: 22rem;
+    margin: 2rem .75rem;
+    padding:2rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    border-radius:$border;
+    overflow: hidden;
+    @include absCenter();
+    @include column();
+    transition: all .3s;
+
+
+    &__title{
+        cursor:pointer;
+        text-align: center;
+        font-size: 1.5rem !important;
+        padding: 1rem .3rem;
+        background-color: white;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        width: 80%;
+        border-radius: 3px;
+        color: black;
+        transform: translateY(-2.5rem);
+        &:hover{
+        color:#ff7855;
+        
+        }
+    }
+  
+  
+        &__price{
+        font-family: 'Abel', sans-serif;
+        width:80%;
+        margin: 0 auto;
+        font-size: 3rem !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        transform: translateY(-1.5rem)
+    }
+    
+    &__description1{
+        font-family: 'Abel', sans-serif;
+        font-size:1.5rem !important;
+        align-self:flex-start;
+        width:80%;
+        margin: 0 auto;
+    }
+  }
+
+  .card-product:hover{
+          transform: scale(1.03)          translateY(-1.5rem);
+      }
+  
+  .card-image{
+    height: 15rem;
+  }
+  
+  .img-container{
+      width: auto;  
+  }
+  
+ /// card de productos
+
+
+.v-toolbar__content{
+    padding:  0 30px;
+
+    @include respond(phone){padding: 0;justify-content: flex-start !important;}
 }

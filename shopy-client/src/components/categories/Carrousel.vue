@@ -57,5 +57,5 @@ export default class Carrousel extends Vue{
 
 }
 </script>
-
+<style>
 </style>

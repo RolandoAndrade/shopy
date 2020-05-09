@@ -1,6 +1,6 @@
 <template>
   
-    <v-footer color="purple" padless class="size">
+    <v-footer color="purple" padless >
         <v-row justify="center" no-gutters>
 
                 <v-btn
@@ -19,14 +19,12 @@
                 class="purple py-4 text-center white--text title-center"
                 cols="12"
                 >
-                      <v-menu open-on-hover top offset-y class="margin-medium">
-                            <template v-slot:activator="{ on }">
-                               
+                      <v-menu  top  offset-y class="margin-medium">
+                            <template v-slot:activator="{ on }">    
                                 <v-btn color="purple" dark v-on="on">
-                                     <v-icon class="small-icon mr-2" color="white">mdi-earth</v-icon>
-                                   {{activeLan}}
-                                     <v-icon class="small-icon" color="white">mdi-chevron-down</v-icon>
-
+                                    <Icon :size="'icon-small'"  :icon="'icon-sphere'" class="mr-2"/>
+                                        {{activeLan}}
+                                    <v-icon class="smallest-icon" color="white">mdi-chevron-down</v-icon>
                                 </v-btn>
                             </template>
   
@@ -34,6 +32,7 @@
                                 <v-list-item
                                     v-for="(item, index) in languages"
                                     :key="index"
+                                    class="item-small"
                                     @click=""
                                 >
                                     <v-list-item-title>{{ item }}</v-list-item-title>
@@ -49,8 +48,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Icon from '@/components/typography/Icon.vue';
 
-@Component({})
+@Component({
+    components:{Icon}
+})
 export default class Footer extends Vue{
     public  footerLinks: Array<string> =[
       'Home',

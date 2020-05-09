@@ -1,63 +1,89 @@
-
-
-
-.banner{
-    margin:5rem 2rem;
-    &>*{
+.banner {
+    margin: 5rem 2rem;
+    & > * {
         width: 50%;
     }
-    @media only screen and (max-width:600px){
+    @media only screen and (max-width: 600px) {
         @include column();
+        padding: 0;
     }
 }
 
-
-.divider{
-    height: .25rem;
+.divider {
+    height: 0.25rem;
     width: 30%;
     border-radius: 10px;
-    margin:15px;
+    margin: 15px;
     background-color: $color-primary-light;
 }
 
+.hero {
+    height: 95vh;
+   @include clip(0%,75%);
 
-
-.hero{
-    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0) ){
-        -webkit-clip-path: polygon(0 0 , 100% 0, 100% 75%,0 100%); // firefox no lo soporta
-        clip-path: polygon(0 0 , 100% 0, 100% 75%,0 100%);
-        height: 95vh; /*95% of the viewport height*/
-    }
-
-    @media  only screen and (max-width:600px){
-        -webkit-clip-path: polygon(0 0 , 100% 0, 100% 100%,0 100%); // firefox no lo soporta
-        clip-path: polygon(0 0 , 100% 0, 100% 100%,0 100%);
+    @media only screen and (max-width: 600px) {
+       @include clip(0%, 100%);
         height: max-content; /*95% of the viewport height*/
     }
 }
 
-.home{
-    background-image: linear-gradient(to right bottom,$color-primary-light, $color-primary-dark)
+.home {
+    background-image: linear-gradient(
+        to right bottom,
+        $color-primary-light,
+        $color-primary-dark
+    );
 }
 
-.logo{
+.logo {
     height: 5rem;
     width: 5rem;
     margin: 0 10px;
+    cursor: pointer;
 }
 
-.bg-white{
+.bg-white {
     background-color: white;
 }
 
-      
-.icon{
+//svgs "Icon" component
+.icon-big {
     height: 5rem;
-    margin-bottom:15px;
+    margin-bottom: 15px;
     fill: $color-secondary-light;
 }
 
-.small-icon{
+.icon-medium{
+    height: 2.5rem;
+    width: 2.5rem;
+   
+}
+
+.icon-small {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: 0;
+    padding: 0;
+    fill:$color-white;
+}
+
+.orange-i {
+    fill: $color-secondary-light;
+}
+
+.white-i{
+    fill: $color-white;
+}
+//vuetify
+.small-icon {
     height: 1rem;
 }
+.medium-icon{
+    height: 1.5rem;
+}
+
+
+
+
+
 

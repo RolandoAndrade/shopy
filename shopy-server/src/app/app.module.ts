@@ -4,10 +4,12 @@ import { AppService } from './app.service';
 import {ConfigModule} from "../config/config.module";
 import {ConfigService} from "../config/config.service";
 import {ConfigKeys} from "../config/config.keys";
+import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
   imports: [
-      ConfigModule
+      ConfigModule,
+      DatabaseModule
   ],
   controllers: [AppController],
   providers: [AppService],

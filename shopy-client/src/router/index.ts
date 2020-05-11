@@ -15,7 +15,20 @@ const routes: Array<RouteConfig> = [
         name: 'Products',
         component: () =>
             import('../views/Products.vue')
-    }
+    },
+    {
+        path: '/products/:id',
+        name: 'ProductView',
+        component: () =>
+            import('../views/ProductView.vue'),
+       
+      },{
+        path: '/prueba:id',
+        name: 'Prueba',
+        component: () =>
+            import('../views/Prueba.vue'),
+      }
+
 ];
 
 const router = new VueRouter({

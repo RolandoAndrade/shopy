@@ -1,0 +1,84 @@
+.product-detail-container{
+    //margin:0 auto;
+    max-width: 85%;
+    padding: 2rem;
+    border-radius: .5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    background-color:$color-grey-light-3;
+    & > *{
+      width:50%;
+    }
+  }
+  
+
+  .product-detail {
+    align-self: flex-start;
+    border-left: 1.5px solid $color-primary-light;
+    padding: 5rem;
+    margin-top:5%;
+    & > * {
+        align-self: flex-start;
+    }
+
+    &__title{
+        font-size: 3.5rem !important;
+    }
+
+    &__author{
+        font-size: 1.25rem !important;
+        color:$color-primary-dark;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin-bottom:10px;
+    }
+
+    &__price{
+        justify-self: flex-end;
+        font-size: 2.5rem !important;
+    }
+
+    &__rating{
+        align-self:flex-end;
+        justify-self: end;
+    }
+
+    &__description{
+        font-size: 1.5rem !important;
+        margin-top:10px;
+    }
+    &__condition{
+      font-size: 1.25rem !important;
+    }
+}
+
+  .product__image-container{
+      width: 250px;
+      height: 250px;
+        background-color:white;
+      display:flex;
+      align-items:center;
+      justify-content: center;
+      flex-direction: column;
+  
+      &__img{
+          height: 100%;
+  
+      }
+    }
+  
+  
+    .image-slider {
+      width: 100%;
+      margin: 1rem;
+  
+      &__img {
+          width: 40px;
+          height: 40px;
+          transition: all 0.2s;
+          &:hover {
+              filter: brightness(50%);
+              transform: scale(1.25);
+              cursor: pointer;
+          }
+      }
+  }
+  

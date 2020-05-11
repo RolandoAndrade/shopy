@@ -38,3 +38,12 @@
          /*95% of the viewport height*/
     }
 }
+
+@mixin toColumn(){
+    @media only screen and (max-width:600px){
+        flex-direction: column; 
+        .product-images, .product-detail{
+            width: 100%;
+        }
+    }
+}

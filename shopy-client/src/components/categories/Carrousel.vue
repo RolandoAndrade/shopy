@@ -9,8 +9,11 @@
                            <HomeCard v-for="(cat, ind) in slide.x" :key="ind" 
                                  :type="'card-categories'"
                                  :title="cat.title"
-                                 :icon="cat.icon" 
-                                />
+                                 
+                                >
+                                <Icon :icon="cat.icon" :size="'icon-big'"/>
+                           </HomeCard>
+
                         </div>
                  </v-sheet>
             </v-carousel-item>
@@ -23,10 +26,13 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import HomeCard from '../cards/HomeCard.vue';
 import Title from '../typography/Title.vue';
+import Icon from '@/components/typography/Icon.vue';
+
 @Component({
     components:{
         HomeCard,
-        Title
+        Title,
+        Icon
     }
 })
 export default class Carrousel extends Vue{

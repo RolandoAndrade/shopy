@@ -1,9 +1,13 @@
+
+
 <template>
      <div class="flex wrap padding-medium">           
             <HomeCard v-for="(item,k) in items" :key="k" 
                         :title="item.title" 
-                        :icon="item.icon"
-                        :type="'card-us margin-medium'"/> 
+                        
+                        :type="'card-us margin-medium'">
+                        <img :src="require(`@/assets/${item.icon}`)" class="prueb"/>
+                        </HomeCard> 
      </div>
 </template>
 

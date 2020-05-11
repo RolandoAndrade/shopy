@@ -8,10 +8,10 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter());
 
-  app.enableCors();
-
+  app.enableCors(); 
   app.use(helmet());
 
   await app.listen(AppModule.port);
 }
+
 bootstrap();

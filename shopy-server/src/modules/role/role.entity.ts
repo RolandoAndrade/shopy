@@ -15,5 +15,5 @@ export class Role extends BaseEntity {
 
     @OneToMany(type => User, user => user.role, 
         { onUpdate: 'CASCADE'})
-    users?: User[];
+    users?: User[];   //
 }

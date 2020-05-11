@@ -1,21 +1,29 @@
 <template>
     <div>
         <div class="flex wrap padding-medium container-space">
-            <div class="card-product" v-for="n in visibleProducts" :key="n.id">
-                <div class="img-container">
-                    <img class="card-image" src="../../assets/prueba.jpg" />
-                    <div class="cart">
-                        <Icon
-                            :size="'icon-medium'"
-                            :icon="'icon-add_shopping_cart'"
-                            :color="'white-i'"
-                        />
-                    </div>
-                </div>
-                <div class="card-product__title">{{n.title}}</div>
-                <div class="card-product__price">$ {{n.price}}</div>
-                <div class="card-product__description">{{n.description}}</div>
+           
+                <div class="card-product" v-for="n in visibleProducts" :key="n.id">
+                <router-link :to="{name: 'ProductView', path: 'products',params:{id: n.id}}" class="none">   
+                        <div class="img-container">
+                            <img class="card-image" src="../../assets/prueba.jpg" />
+                            <div class="cart">
+                                <Icon
+                                    :size="'icon-medium'"
+                                    :icon="'icon-add_shopping_cart'"
+                                    :color="'white-i'"
+                                />
+                            </div>
+                        </div>
+                        <div class="card-product__title">
+                            <div class="card-product__title-text">
+                                {{n.title}}  
+                            </div>  
+                        </div>
+                        <div class="card-product__price">$ {{n.price}}</div>
+                        <div class="card-product__description">{{n.description}}</div>
+                </router-link>  
             </div>
+            
         </div>
         <div class="text-center margin-medium">
             <v-pagination
@@ -48,87 +56,111 @@ export default class ProductCard extends Vue {
     private products: Product[] = [
         {
             id: 1,
-            title: 'iPad Pro max',
+            title: 'iPad Pro max asjdnajbfa jhsd qaldnajbsd ',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 2,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 3,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 4,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 5,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 6,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 7,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 8,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 9,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 10,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 11,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         },
         {
             id: 12,
             title: 'iPad Pro max',
             price: 200,
+            condition:'Used',
             description: 'lorem ipsum d',
-            image: 'prueba.jpeg'
+            image: 'prueba.jpeg',
+            author:'Tete'
         }
     ];
 
@@ -141,6 +173,7 @@ export default class ProductCard extends Vue {
     }
 
     private changePage(): void {
+        window.scrollTo(0,0);
         this.updateVisibleProducts();
     }
 
@@ -153,3 +186,9 @@ export default class ProductCard extends Vue {
 }
 </script>
 
+<style scoped>
+    .none{
+        text-decoration:none;
+        color:black;
+    }
+</style>

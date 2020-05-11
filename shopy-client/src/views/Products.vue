@@ -6,19 +6,15 @@
                         <ProductFilter :items="items"/>
                 </SideNavDrawer>      
             </v-col>
-
-          
             <v-col :cols="9" >
                 <ProductCard/>
-            </v-col>
-                                
+            </v-col>                              
     </v-row>
     <v-row v-else >
         <div class="width-cover">
-         <ProductFilter :items="items"/>
+            <ProductFilter :items="items"/>
         </div>
-          <ProductCard/>
-        
+        <ProductCard/>     
     </v-row>
 </div>
 </template>

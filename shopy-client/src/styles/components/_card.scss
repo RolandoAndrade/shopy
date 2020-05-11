@@ -33,7 +33,7 @@
     &:hover .icon-big{
       fill: white;
     }
-  //  @respond
+  
 }
 
 
@@ -59,7 +59,8 @@
   .card-product{
     position: relative;
     background-color: white;
-    width: 22rem;
+    text-decoration: none;
+    width: 22rem ;
     margin: 2rem .75rem;
     padding:2rem;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -71,19 +72,25 @@
 
 
     &__title{
+        margin:0 auto;
         cursor:pointer;
         text-align: center;
-        font-size: 1.5rem !important;
         padding: 1rem .3rem;
         background-color: white;
         box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        width: 80%;
+        width: 90%;
+        height: 7rem;
         border-radius: 3px;
         color: black;
         transform: translateY(-2.5rem);
+        @include absCenter();
         &:hover{
         color:#ff7855;
         
+        }
+        &-text{
+            font-size: 1.25rem !important;
+            
         }
     }
   

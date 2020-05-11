@@ -1,6 +1,8 @@
+
 <template>
             <div :class="getClass()">
-                    <Icon :icon="icon" :size="'icon-big'"/>
+                   <!-- <Icon :icon="icon" :size="'icon-big'"/> -->
+                   <slot></slot>
                     <Title :size="'title-terciary'">{{title}}</Title>
             </div>
 </template>
@@ -8,12 +10,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Title from '../typography/Title.vue';
-import Icon from '../typography/Icon.vue';
+//import Icon from '../typography/Icon.vue';
 
 @Component({
     components:{
         Title,
-        Icon
+       // Icon
     }
 })
 export default class HomeCard extends Vue{
@@ -29,5 +31,7 @@ export default class HomeCard extends Vue{
 </script>
 
 <style>
-
+.prueb{
+    height: 15rem;
+}
 </style>

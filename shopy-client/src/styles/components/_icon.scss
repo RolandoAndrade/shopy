@@ -1,0 +1,36 @@
+//svgs "Icon" component
+.icon-big {
+    height: 5rem;
+    margin-bottom: 15px;
+    fill: $color-secondary-light;
+}
+
+.icon-medium{
+    height: 2rem;
+    width: 2rem;
+    margin: 0 2.5px;
+}
+
+.icon-small {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: 0;
+    padding: 0;
+    fill:$color-white;
+}
+
+.orange-i {
+    fill: $color-secondary-light;
+}
+
+.white-i{
+    fill: $color-white;
+}
+
+.success-i{
+    fill: $color-success;
+}
+
+.error-i{
+    fill: $color-error;
+}

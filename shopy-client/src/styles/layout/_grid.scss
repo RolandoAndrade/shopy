@@ -1,7 +1,11 @@
 
 .flex{
-    @include absCenter;   
+    @include absCenter;  
 }
+.end{
+    align-self: flex-end;
+}
+
 .inline{
     display: flex;
 }
@@ -11,7 +15,6 @@
 
 .column{
     @include column();
-
 }
 
 .space-between{
@@ -29,3 +32,7 @@
     width: 100%;
 }
 
+
+.to-column{
+    @include toColumn();
+}

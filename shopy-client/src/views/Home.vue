@@ -1,3 +1,4 @@
+
 <template>
     <div class="home">
         <div class="hero bg-white">
@@ -9,7 +10,6 @@
 </template>
 
 <script lang="ts">
-// @ is an alias to /src
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import CardContainer from '../components/cards/CardContainer.vue';
@@ -27,10 +27,10 @@ import Carrousel from '../components/categories/Carrousel.vue';
 })
 export default class Home extends Vue{
 
-    public homeItems: Object =[{title:'Secure payments',icon:'icon-credit-card'},
-                                {title:'Give the best gifts',icon:'icon-gift'},
-                                {title:'5 languages available',icon:'icon-sphere'},
-                                {title:'Sell for free',icon:'icon-banknote'}];
+    public homeItems: Object =[{title:'Give the best gifts',icon:'home1.png'},
+                                {title:'Secure payments',icon:'home2.png'},
+                                {title:'5 languages available',icon:'home3.png'},
+                                {title:'Sell for free',icon:'home4.png'}];
 
 }
 </script>

@@ -1,5 +1,6 @@
 import  * as fs from 'fs'
 import {parse} from 'dotenv'
+
 export class ConfigService
 {
     private readonly envConfig: {[key: string]:string};

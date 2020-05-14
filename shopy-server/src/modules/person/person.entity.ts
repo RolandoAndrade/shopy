@@ -16,8 +16,8 @@ export class Person extends BaseEntity {
     @Column({ name: 'birth_date', type: 'timestamp', nullable: false })
     birthDate: string;
 
-    @Column({ type: 'varchar' })
-    image: string;
+    @Column({ type: 'varchar', nullable: true })
+    image?: string;
 
     @OneToOne(type => User, user => user.person, 
         { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })

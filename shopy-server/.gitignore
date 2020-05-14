@@ -36,3 +36,6 @@ lerna-debug.log*
 # Configuration
 .env
 ormconfig.json
+
+# Database
+src/Database/migrations

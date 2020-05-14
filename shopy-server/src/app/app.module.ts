@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {ConfigModule} from "../config/config.module";
-import {ConfigService} from "../config/config.service";
-import {ConfigKeys} from "../config/config.keys";
-import { DatabaseModule } from 'src/database/database.module';
+import { ConfigModule } from "../config/config.module";
+import { ConfigService } from "../config/config.service";
+import { ConfigKeys } from "../config/config.keys";
+import { DatabaseModule } from '../database/database.module';
+import { indexModules } from '../modules/indexModule';
 
 @Module({
   imports: [
-      ConfigModule,
-      DatabaseModule
+        ...indexModules,
+        ConfigModule,
+        DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

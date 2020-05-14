@@ -5,8 +5,8 @@ import { Badge } from "../badge/badge.entity";
 import { Address } from "../address/address.entity";
 import { ShoppingHistory } from "../shopping-history/shopping-history.entity";
 import { Cart } from "../cart/cart.entity";
-import { Stock } from "../stock/stock.entity";
 import { Review } from "../review/review.entity";
+import { Product } from "../product/product.entity";
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -50,9 +50,9 @@ export class User extends BaseEntity {
         { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     carts?: Cart[];
 
-    @OneToMany(type => Stock, stock => stock.user, 
+    @OneToMany(type => Product, prodcut => prodcut.user, 
         { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    stockpile?: Stock[];
+    products?: Product[];
 
     @OneToMany(type => Review, review => review.user, 
         { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })

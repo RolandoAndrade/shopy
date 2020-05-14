@@ -1,7 +1,11 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { Review } from "../review/review.entity";
 import { Stock } from "../stock/stock.entity";
 import { ProductCategory } from "../product-category/product-category.entity";
+import { User } from "../user/user.entity";
+import { ShoppingHistory } from "../shopping-history/shopping-history.entity";
+import { Cart } from "../cart/cart.entity";
+import { ProductImage } from "../product-image/product-image.entity";
 
 @Entity({ name: 'products' })
 export class Product extends BaseEntity {
@@ -14,9 +18,6 @@ export class Product extends BaseEntity {
 
     @Column({ type: 'float', nullable: false })
     price: number;
-
-    @Column({ type: 'varchar', nullable: false })
-    image: string;
 
     @Column({ type: 'varchar', nullable: false })
     description: string;
@@ -36,15 +37,35 @@ export class Product extends BaseEntity {
     @Column({ type: 'float', nullable: false })
     depth: number;
 
+    @Column({ type: 'boolean', nullable: false })
+    new: boolean;
+
+    @JoinColumn({ name: 'fk_user_id' })
+    @ManyToOne(type => User, user => user.products,
+        { nullable: false })
+    user: User;
+
+    @OneToOne(type => Stock, stock => stock.product,
+        { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    stock?: Stock;
+
     @OneToMany(type => Review, review => review.product, 
         { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     reviews?: Review[];
 
-    @OneToMany(type => Stock, stock => stock.product,
-        { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    stockpile?: Stock[];
+    @OneToMany(type => ShoppingHistory, shoppingHistory => shoppingHistory.product,
+        { onDelete: 'SET NULL', onUpdate: 'CASCADE' })
+    shoppingHistories?: ShoppingHistory[];
+
+    @OneToMany(type => Cart, cart => cart.product,
+        { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    carts?: Cart[];
 
     @OneToMany(type => ProductCategory, productCategory => productCategory.product,
-        { nullable: false ,cascade: true })
-    productCategories: ProductCategory[];
+        { cascade: true })
+    productCategories?: ProductCategory[];
+
+    @OneToMany(type => ProductImage, productImage => productImage.product,
+        { cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    productImages?: ProductImage[];
 }

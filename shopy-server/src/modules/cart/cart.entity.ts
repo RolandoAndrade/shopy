@@ -1,7 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from "typeorm";
 import { User } from "../user/user.entity";
-import { Stock } from "../stock/stock.entity";
 import { Payment } from "../payment/payment.entity";
+import { Product } from "../product/product.entity";
 
 @Entity({ name: 'carts' })
 export class Cart extends BaseEntity {
@@ -17,10 +17,10 @@ export class Cart extends BaseEntity {
         { nullable: false })
     user: User;
 
-    @JoinColumn({ name: 'fk_stock_id' })
-    @ManyToOne(type => Stock, stock => stock.carts,
+    @JoinColumn({ name: 'fk_product_id' })
+    @ManyToOne(type => Product, product => product.carts,
         { nullable: false })
-    stock: Stock;
+    product: Product;
 
     @JoinColumn({ name: 'fk_payment_id' })
     @ManyToOne(type => Payment, payment => payment.carts)

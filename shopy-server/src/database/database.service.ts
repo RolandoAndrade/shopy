@@ -13,8 +13,10 @@ export const databaseProviders = [
                 ssl: false,
                 type: 'postgres' as 'postgres',
                 host: configService.get(ConfigKeys.HOST),
+                database: configService.get(ConfigKeys.DATABASE),
                 username: configService.get(ConfigKeys.USERNAME),
                 password: configService.get(ConfigKeys.PASSWORD),
+                port: parseInt(configService.get(ConfigKeys.PORT_DATABASE)),
                 entities: [__dirname + '/../**/*.entity{.ts,.js}'],
                 migrations: [__dirname + '/migrations/*{.ts,.js}'],
             } as ConnectionOptions;

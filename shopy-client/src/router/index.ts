@@ -23,10 +23,10 @@ const routes: Array<RouteConfig> = [
             import('../views/ProductView.vue'),
        
       },{
-        path: '/prueba:id',
-        name: 'Prueba',
+        path: '/add/product',
+        name: 'AddProduct',
         component: () =>
-            import('../views/Prueba.vue'),
+            import('../views/AddProduct.vue'),
       }
 
 ];

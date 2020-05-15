@@ -5,7 +5,9 @@
 .end{
     align-self: flex-end;
 }
-
+.justify-end{
+    justify-self: end;
+}
 .inline{
     display: flex;
 }
@@ -27,12 +29,24 @@
     align-self: stretch;
 }
 
-
 .cover{
     width: 100%;
+    
+}
+
+.heightcover{
+    height: 100vh;
+}
+
+.half{
+    width: 50%;
 }
 
 
 .to-column{
     @include toColumn();
+}
+
+.to-column-tablet{
+    @include respond(tab-port){flex-direction: column; }
 }

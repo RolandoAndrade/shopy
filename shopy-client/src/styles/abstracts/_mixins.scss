@@ -8,6 +8,15 @@
     flex-direction: column;
 }
 
+@mixin toColumn(){
+    @media only screen and (max-width:600px){
+        flex-direction: column; 
+        .product-images, .product-detail{
+            width: 100%;
+        }
+        width: 100%;
+    }
+}
 
 @mixin respond($breakpoint){
  
@@ -39,11 +48,3 @@
     }
 }
 
-@mixin toColumn(){
-    @media only screen and (max-width:600px){
-        flex-direction: column; 
-        .product-images, .product-detail{
-            width: 100%;
-        }
-    }
-}

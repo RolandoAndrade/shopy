@@ -17,7 +17,7 @@ export default new Vuetify({
                 white: '#fff',
                 orange: '#fa8c73',
                 black:  "#333",
-                accent: '#82B1FF',
+                purplelight: '#faf5ff',
                 error: '#FF5252',
                 info: '#2196F3',
                 success: '#4CAF50',

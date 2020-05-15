@@ -34,13 +34,15 @@ export default class Popup extends Vue {
         if (this.response){
            this.icon='icon-checkmark2';
            this.color='success-i';
-           this.typeMessage='Que bien!'
+           this.typeMessage='Good!'
         }else {
            this.icon='icon-x-circle';
            this.color='error-i';
-           this.typeMessage='Oh no, ha ocurrido un error...'
+           this.typeMessage='Oh no, there was an error...'
         }
     }
+
+
     
 }
 </script>

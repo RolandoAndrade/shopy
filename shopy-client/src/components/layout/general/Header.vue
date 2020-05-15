@@ -3,8 +3,8 @@
         <div class="cover space-between ">
           <div class="inline">
         
-            <img class="logo" src="@/assets/logo.png" @click="()=>this.$router.push('/')"/>
-            <Title :size="'title-secondary'" :color="'title-white'">Shopy</Title>
+            <img class="logo" src="@/assets/shopy1w.png" @click="()=>this.$router.push('/')"/>
+           <!-- <Title :size="'title-secondary'" :color="'title-white'">Shopy</Title> -->
           </div>
                 <SearchBar/>
                 
@@ -41,15 +41,16 @@
                         <v-divider v-if="login"></v-divider>
                             
                         <v-list dense nav>
-                            <v-list-item v-for="item in navLinks" :key="item.title"  link :to="item.link">
-                                <v-list-item-icon>
-                                    <v-icon class="icon-small">{{ item.icon }}</v-icon>
-                                </v-list-item-icon>
-                    
-                                <v-list-item-content>
-                                    <v-list-item-title class="py-2">{{ item.title }}</v-list-item-title>
-                                </v-list-item-content>
-
+                            <v-list-item v-for="item in navLinks" :key="item.title"  link :to="item.link" >
+                                
+                                    <v-list-item-icon>
+                                        <v-icon >{{ item.icon }}</v-icon>
+                                    </v-list-item-icon>
+                        
+                                    <v-list-item-content>
+                                        <v-list-item-title class="py-2">{{ item.title }}</v-list-item-title>
+                                    </v-list-item-content>
+                                
                             </v-list-item>
                             
                         </v-list>
@@ -78,11 +79,12 @@ export default class Header extends Vue{
     
     private login : boolean = true;
     private navLinks : {title: string, icon: string, link?: string}[] = [
-        {title:'categories',icon:'mdi-apps', link:'/products'},
-        {title:'my products',icon:'mdi-bulletin-board'},
-        {title:'my shopping',icon:'mdi-cash'},
-        {title:'log in',icon:'mdi-login'},
-        {title:'log out',icon:'mdi-logout'}
+        {title:'Categories',icon:'mdi-apps', link:'/products'},
+        {title:'My products',icon:'mdi-bulletin-board'},
+        {title:'My shopping',icon:'mdi-shopping-outline'},
+        {title:'Sell',icon:'mdi-cash', link:'/add/product'},
+        {title:'Log in',icon:'mdi-login'},
+        {title:'Log out',icon:'mdi-logout'}
     ]
 }
 </script>

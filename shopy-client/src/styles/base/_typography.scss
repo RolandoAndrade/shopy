@@ -1,18 +1,18 @@
 /*typography*/
 .title-center{
     text-align: center;
-    font-size: 1.5rem!important;
+    font-size: 10px !important;
    // margin:10px;
 }
 .title-terciary{
-    font-size: 1.5rem!important;
+    font-size: 16px !important;
     color:black
 }
 .title-secondary{
-    font-size: 3rem!important;
+    font-size: 24px !important;
 }
 .title-primary{
-    font-size: 5rem!important;
+    font-size: 50px !important;
     letter-spacing: .5rem;
 }
 .title-white{
@@ -29,17 +29,18 @@
 //vuetify
 
 .v-btn{
-    font-size: 2.5rem !important;
+    font-size: 25px !important;
 }
 
 .v-icon{
      font-size: 3rem !important;
 }
 
-.v-list-item{
-        font-size: 4rem !important;
-       // margin: 2rem 5rem;
-
+.v-list-item__title{
+        font-size: 12.5px !important;
+}
+.v-list-item__subtitle{
+        font-size: 8.5px !important;
 }
 .v-list-item__action{
         margin-left: 2px;
@@ -50,3 +51,4 @@
 .item-small{
     font-size: 2.5rem !important;
 }
+

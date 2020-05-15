@@ -21,11 +21,11 @@
     }
 
     &__title{
-        font-size: 3.5rem !important;
+        font-size: 35px !important;
     }
 
     &__author{
-        font-size: 1.25rem !important;
+        font-size: 12.5px !important;
         color:$color-primary-dark;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         margin-bottom:10px;
@@ -33,7 +33,7 @@
 
     &__price{
         justify-self: flex-end;
-        font-size: 2.5rem !important;
+        font-size: 25px !important;
     }
 
     &__rating{
@@ -42,11 +42,11 @@
     }
 
     &__description{
-        font-size: 1.5rem !important;
+        font-size: 15px !important;
         margin-top:10px;
     }
     &__condition{
-      font-size: 1.25rem !important;
+      font-size: 12.5px !important;
     }
 }
 
@@ -69,7 +69,6 @@
     .image-slider {
       width: 100%;
       margin: 1rem;
-  
       &__img {
           width: 40px;
           height: 40px;

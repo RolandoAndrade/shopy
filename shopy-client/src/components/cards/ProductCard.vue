@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="flex wrap padding-medium container-space">
-           
-                <div class="card-product" v-for="n in visibleProducts" :key="n.id">
+        <div class="flex wrap padding-medium container-space ">
+          
+            <div class="card-product" v-for="n in visibleProducts" :key="n.id">
                 <router-link :to="{name: 'ProductView', path: 'products',params:{id: n.id}}" class="none">   
                         <div class="img-container">
                             <img class="card-image" src="../../assets/prueba.jpg" />
@@ -33,7 +33,7 @@
                 circle
                 color="purple"
                 @input="changePage()"
-                class="xyz"
+                style="font-size:50px !important;"
             ></v-pagination>
         </div>
     </div>
@@ -169,6 +169,7 @@ export default class ProductCard extends Vue {
     }
 
     beforeMount() {
+        window.scrollTo(0,0);
         this.updateVisibleProducts();
     }
 

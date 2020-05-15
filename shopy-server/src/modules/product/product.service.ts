@@ -4,7 +4,7 @@ import { Product } from './product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager, SelectQueryBuilder } from 'typeorm';
 import { logger } from 'src/logger/loggerConst';
-import { ProductParameters } from './product-paramters';
+import { ProductParameters, PaginatedProducts } from './product-interfaces';
 
 @Injectable()
 export class ProductService {
@@ -41,9 +41,9 @@ export class ProductService {
     /**
      * getProducts
      * @param parameters: ProductParameters
-     * @returns Promise<Product[]>
+     * @returns Promise<PaginatedProducts>
     */
-    async getProducts(parameters: ProductParameters): Promise<Product[]> {
+    async getProducts(parameters: ProductParameters): Promise<PaginatedProducts> {
         this.logger.log(`getProducts:  [parameters:${JSON.stringify(parameters)}]`,
             'ProductService');
 
@@ -65,10 +65,13 @@ export class ProductService {
         !(parameters.categoryId) || query.andWhere('category.id = :categoryId', { categoryId: parameters.categoryId })
         !(parameters.categoryTypeId) || query.andWhere('categoryType.id = :categoryTypeId', { categoryTypeId: parameters.categoryTypeId })
         
-        return await query
-                    .skip(parameters.start)
-                    .take(parameters.limit)
-                    .getMany()
+        return {
+            products: await query
+                .skip(parameters.start)
+                .take(parameters.limit)
+                .getMany(),
+            productsNumber: await this.productRepository.count()
+        }
     }
 
     /**

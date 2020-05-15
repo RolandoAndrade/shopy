@@ -3,9 +3,9 @@ import { ILogger } from 'src/logger/ILogger';
 import { logger } from 'src/logger/loggerConst';
 import { ProductService } from './product.service';
 import { Product } from './product.entity';
-import { ProductParameters } from './product-paramters';
+import { ProductParameters, PaginatedProducts } from './product-interfaces';
 
-@Controller('product')
+@Controller('products')
 export class ProductController {
     private logger: ILogger;
 
@@ -22,7 +22,7 @@ export class ProductController {
     }
 
     @Get()
-    getProducts(@Query() parameters: ProductParameters): Promise<Product[]> {
+    getProducts(@Query() parameters: ProductParameters): Promise<PaginatedProducts> {
         this.logger.log('getProducts: Obteniendo los productos segun un filtrado',
             'ProductController');
 

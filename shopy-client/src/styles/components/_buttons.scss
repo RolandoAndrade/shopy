@@ -16,18 +16,20 @@
     }
     
     &__primary{
-
+      
       border-radius: 10rem;
+
+      &__purple{
+        background-image: linear-gradient(to right bottom, $color-primary-dark,$color-primary-light);
+      }
       &:hover{
         cursor:pointer;
         background-image: linear-gradient(to right bottom, #fb6643,#fbc25f);
       }
-     
     }
 
     &__secondary{
       border-radius: 2px;
-
     }
     
     &__reverse{

@@ -4,13 +4,17 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
-//import './assets/styles.css';
+import firebase from "firebase/app";
 
 Vue.config.productionTip = false;
+
 
 new Vue({
     router,
     store,
     vuetify,
+    created(){
+       // firebase.initializeApp(firebaseConfig);
+    },
     render: h => h(App)
 }).$mount('#app');

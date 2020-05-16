@@ -31,7 +31,6 @@ export default class Home extends Vue{
                                 {title:'Secure payments',icon:'home2.png'},
                                 {title:'5 languages available',icon:'home3.png'},
                                 {title:'Sell for free',icon:'home4.png'}];
-
 }
 </script>
 

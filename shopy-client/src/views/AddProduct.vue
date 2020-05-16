@@ -1,6 +1,11 @@
 <template>
 <div >
 
+ <div style="height:350px" v-if="e6 === 0">
+     <div class="pulsate flex"  v-on:click="e6++">
+         Get start!
+     </div>
+ </div>
  <v-stepper v-model="e6" vertical >
 
     <v-stepper-step :complete="e6 > 1" step="1" color="purple">
@@ -56,7 +61,7 @@ export default class AddProduct extends Vue{
 
     private images : Array<File>=[];
     private categories : Array<object> =[];
-    private e6 : number = 1;
+    private e6 : number = 0;
     private product! :Product;
 
     private nextStep(){

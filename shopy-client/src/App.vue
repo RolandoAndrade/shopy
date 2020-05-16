@@ -1,6 +1,7 @@
 <template>
     <v-app> 
         <Layout>
+           
             <router-view/>
         </Layout>
     </v-app>
@@ -16,6 +17,7 @@ export default Vue.extend({
     components: {
         Layout
     },
+
 
     data: () => ({
         //

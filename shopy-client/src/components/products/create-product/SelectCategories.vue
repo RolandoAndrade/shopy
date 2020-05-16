@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height:500px;">
         <div color="white" class="card-create mb-8  mt-8 inline to-column">
           <div class="inline half to-column">
            <div class="column cover">
@@ -37,7 +37,7 @@
           </div>
       </div>
       <div class="flex">
-            <ButtonSecondary  @click.native="setDialog" >Continue</ButtonSecondary>
+            <ButtonSecondary  @click.native="setDialog">Continue</ButtonSecondary>
             <ButtonSecondary :reverse="true"  @click.native="$emit('goBack')">Go back</ButtonSecondary>
       </div>
       <Popup :response="response" :dialog="dialog" :message="messageDialog"/>

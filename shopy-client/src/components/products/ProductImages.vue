@@ -18,11 +18,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import {Product} from '../../interfaces/product.interface';
+import {ProductInterface} from "@/interfaces/product.interface";
 
 @Component({})
 export default class ProductImages extends Vue {
-    @Prop() product! : Product;
+    @Prop() product! : ProductInterface;
 
         private changePrimaryImg(source : string){
         this.product.image= source;

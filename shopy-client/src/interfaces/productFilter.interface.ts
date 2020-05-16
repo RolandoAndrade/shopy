@@ -1,4 +1,4 @@
-export interface ProductFilteri {
+export interface ProductFilterInterface {
     id: number;
     name: string;
     parent: boolean;

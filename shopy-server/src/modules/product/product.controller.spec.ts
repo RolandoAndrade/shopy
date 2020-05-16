@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
+import {ProductParameters} from "./product-paramters";
 
 describe('Product Controller', () => {
   let controller: ProductController;
@@ -13,6 +14,6 @@ describe('Product Controller', () => {
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(controller.getProducts(<ProductParameters>{})).toBeDefined();
   });
 });

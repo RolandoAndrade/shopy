@@ -69,6 +69,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Icon from '@/components/typography/Icon.vue';
+import {ProductFilterInterface} from "@/interfaces/productFilter.interface";
 
 @Component({
     components:{
@@ -77,7 +78,7 @@ import Icon from '@/components/typography/Icon.vue';
 })
 export default class ProductFilter extends Vue{
 
-    @Prop() items! : Array<object>; 
+    @Prop() items! : Array<ProductFilterInterface>;
 
 }
 </script>

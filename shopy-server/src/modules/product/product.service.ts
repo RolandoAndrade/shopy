@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager, SelectQueryBuilder } from 'typeorm';
 import { logger } from 'src/logger/loggerConst';
 import { ProductParameters, PaginatedProducts } from './product-interfaces';
+import {DEFAULT_PRODUCT_START_INDEX, MAX_PRODUCTS_BY_PAGE} from "../../constants/products.constants";
 
 @Injectable()
 export class ProductService {
@@ -47,8 +48,8 @@ export class ProductService {
         this.logger.log(`getProducts:  [parameters:${JSON.stringify(parameters)}]`,
             'ProductService');
 
-        parameters.start = parameters.start || 1;
-        parameters.limit = parameters.limit || 10;
+        parameters.start = parameters.start || DEFAULT_PRODUCT_START_INDEX;
+        parameters.limit = parameters.limit || MAX_PRODUCTS_BY_PAGE;
 
         parameters.start = parameters.start * parameters.limit - parameters.limit;
 
@@ -70,7 +71,7 @@ export class ProductService {
                 .skip(parameters.start)
                 .take(parameters.limit)
                 .getMany(),
-            productsNumber: await this.productRepository.count()
+            productsNumber: await query.getCount()
         }
     }
 

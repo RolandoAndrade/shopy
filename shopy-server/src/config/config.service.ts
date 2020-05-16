@@ -1,5 +1,6 @@
 import  * as fs from 'fs'
 import {parse} from 'dotenv'
+import {logger} from "../logger/loggerConst";
 
 export class ConfigService
 {
@@ -13,12 +14,12 @@ export class ConfigService
             const exist = fs.existsSync(envFilePath);
             if(exist)
             {
-                console.log('Cargando las variables de entorno desde archivo');
+                logger.log('Cargando las variables de entorno desde archivo');
                 this.envConfig = parse(fs.readFileSync(envFilePath))
             }
             else
             {
-                console.log('Error al cargar el .env');
+                logger.error('Error al cargar el .env');
                 process.exit(0);
             }
         }
@@ -28,7 +29,7 @@ export class ConfigService
             const exist = fs.existsSync(envFilePath);
             if(exist)
             {
-                console.log('Cargando las variables de entorno desde archivo');
+                logger.log('Cargando las variables de entorno desde archivo');
                 this.envConfig = parse(fs.readFileSync(envFilePath))
             }
             else
@@ -43,7 +44,7 @@ export class ConfigService
                     JWT_SECRET: process.env.JWT_SECRET,
                     SEND_GRID_API_KEY: process.env.SG_API_KEY
                 };
-                console.log('Usando variables en el entorno');
+                logger.log('Usando variables en el entorno');
             }
 
         }

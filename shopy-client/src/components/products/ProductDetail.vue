@@ -19,10 +19,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import {Product} from '../../interfaces/product.interface';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import Icon from '@/components/typography/Icon.vue'
 import Popup from '@/components/generic/Popup.vue';
+import {ProductInterface} from "@/interfaces/product.interface";
 
 @Component({
     components:{
@@ -33,7 +33,7 @@ import Popup from '@/components/generic/Popup.vue';
 })
 export default class ProductDetail extends Vue {
 
-    @Prop() product! : Product;
+    @Prop() product! : ProductInterface;
     private dialog: boolean =false;
     private response: boolean = true;
     private messageDialog?: string;

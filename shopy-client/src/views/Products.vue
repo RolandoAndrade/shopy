@@ -1,45 +1,45 @@
 <template>
 <div>
-    <v-row no-gutters v-if="render">
+    <v-row no-gutters v-if="isShow">
             <v-col :cols="3" >
                 <SideNavDrawer>
                         <ProductFilter :items="items"/>
                 </SideNavDrawer>      
             </v-col>
             <v-col :cols="9" >
-                <ProductCard/>
+                <ProductsCatalog/>
             </v-col>                              
     </v-row>
     <v-row v-else >
         <div class="width-cover">
             <ProductFilter :items="items"/>
         </div>
-        <ProductCard/>     
+        <ProductsCatalog/>
     </v-row>
 </div>
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 
-import { Component, Prop, Vue,Watch } from 'vue-property-decorator';
-import ProductCard from '@/components/cards/ProductCard.vue'
+import ProductsCatalog from '@/components/cards/ProductsCatalog.vue'
 import SideNavDrawer from '@/components/layout/menus/SideNavDrawer.vue';
 import ProductFilter from '@/components/products/ProductFilter.vue';
-import {ProductFilteri} from '../interfaces/productFilter.interface'
+import {ProductFilterInterface} from '@/interfaces/productFilter.interface'
 @Component({
     components:{
-        ProductCard,
+        ProductsCatalog,
         SideNavDrawer,
         ProductFilter
     }
 })
 export default class Products extends Vue{
-  
-    private render! : boolean;
+
     private windowSize: number = 0;
   
-     private items : ProductFilteri[] = [
-    
+     private items : ProductFilterInterface[] = [
+
         {id:1,name: 'Categories', parent: true,open: false,openIcon: "mdi-chevron-down",
                             children: [
                                 { icon: "mdi-paw", id:2,name: "Animales y mascotas" },
@@ -55,40 +55,10 @@ export default class Products extends Vue{
                             rating: [5,4,3,2,1]}
       ];
 
-    private verifySreenSize(screenWidth : any): boolean{
-             
-       if (screenWidth <= 600) return false;
-       else return true;
-    }
 
-    beforeMount(){
-       console.log('actualizada');
-      this.render = this.verifySreenSize(screen.width);
-      
-    }
-
-      @Watch('windowSize') 
-            windowHeight() {
-                if (this.verifySreenSize(this.windowSize) !== this.render){
-                    this.$router.go(0);
-                }
-            }
-     
-
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener('resize', this.onResize);
-    })
-  }
-
-  beforeDestroy() { 
-    window.removeEventListener('resize', this.onResize); 
-  }
-
-  onResize() {
-    this.windowSize = screen.width;
-    console.log(this.windowSize);
-  }
+     get isShow(){
+         return !this.$vuetify.breakpoint.smAndDown;
+     }
 
 
 } 

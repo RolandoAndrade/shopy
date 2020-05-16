@@ -8,8 +8,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Product } from '../interfaces/product.interface';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from 'vue-property-decorator';
+import { ProductInterface } from '@/interfaces/product.interface';
 import ProductDetail from '../components/products/ProductDetail.vue';
 import ProductImages from '../components/products/ProductImages.vue';
 
@@ -20,7 +22,7 @@ import ProductImages from '../components/products/ProductImages.vue';
     }
 })
 export default class ProductView extends Vue {
-    public product: Product = {
+    public product: ProductInterface = {
         id: 0.1,
         title: 'Mac Book Pro Air',
         author:'Tete',

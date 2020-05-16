@@ -4,8 +4,7 @@
                     <v-img
                         class="product__image-container__img"
                         contain
-                        :src="require(`@/assets/`+product.image)"
-                       
+                        :src="require(`@/assets/`+product.image)"  
                     />
                 </div>
                 <v-slide-group class="image-slider" center-active show-arrows  color="purple" >

@@ -7,5 +7,6 @@ export interface ProductInterface{
     description: string,
     image: string ,
     images?: Array<{id:number,name:string}>,
-    rating?: number
+    rating?: number,
+    stock: number
 }

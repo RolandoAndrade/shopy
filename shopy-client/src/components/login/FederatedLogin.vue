@@ -12,7 +12,6 @@
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import {Profile} from '../../interfaces/profile.interface';
 import firebase, { User } from 'firebase/app';
 import "firebase/auth";
 
@@ -20,7 +19,6 @@ import "firebase/auth";
 })
 export default class FederatedLogin extends Vue{
 
-   // @Prop() provider? : ;
     private provider = new firebase.auth.GoogleAuthProvider();
     @Prop() type! :string;
     private user!: User;

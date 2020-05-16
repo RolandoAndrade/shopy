@@ -69,7 +69,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Title from '@/components/typography/Title.vue';
 import Popup from '@/components/generic/Popup.vue';
-import {Product} from '../../../interfaces/product.interface';
+import {ProductInterface} from '../../../interfaces/product.interface';
 
 @Component({
     components:{
@@ -92,7 +92,7 @@ export default class SelectInfo extends Vue{
             private response? : boolean ;
             private messageDialog?: string;
 
-        private productInfo : Product ={
+        private productInfo : ProductInterface ={
             id: 0,
             title: '', 
             price: 0,
@@ -101,7 +101,8 @@ export default class SelectInfo extends Vue{
             description: '',
             image: '' ,
             images: [],
-            rating: 0
+            rating: 0,
+            stock:5
         }
 
         private nextStep(){

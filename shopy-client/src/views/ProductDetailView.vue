@@ -21,7 +21,7 @@ import ProductImages from '../components/products/ProductImages.vue';
         ProductImages
     }
 })
-export default class ProductView extends Vue {
+export default class ProductDetailView extends Vue {
     public product: ProductInterface = {
         id: 0.1,
         title: 'Mac Book Pro Air',
@@ -32,7 +32,8 @@ export default class ProductView extends Vue {
             'Lorem ipsum dolor. this is the description of the product',
         image: 'prueba.jpg',
         images: [{id:1,name:'mac1.jpg'},{id:2,name:'mac2.jpg'},{id:3,name:'prueba.jpg'},{id:4,name:'mac3.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'}],
-        rating:3
+        rating:3,
+        stock:5
     };
 
 

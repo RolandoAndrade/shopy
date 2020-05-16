@@ -12,15 +12,15 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/products',
-        name: 'Products',
+        name: 'ProductsView',
         component: () =>
-            import('../views/Products.vue')
+            import('../views/ProductsView.vue')
     },
     {
         path: '/products/:id',
         name: 'ProductView',
         component: () =>
-            import('../views/ProductView.vue'),
+            import('../views/ProductDetailView.vue'),
        
       },{
         path: '/add/product',
@@ -33,14 +33,27 @@ const routes: Array<RouteConfig> = [
         name: 'Login',
         component: () =>
             import('../views/Login.vue'),
-      }
+      },{
+        path: '/cart',
+        name: 'Cart',
+        component: () =>
+            import('../views/Cart.vue'),
+      },
 
 ];
+
+
 
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
+    
 });
+
+router.beforeEach((to,from, next)=>{
+    window.scrollTo(0,0);
+    next();
+})
 
 export default router;

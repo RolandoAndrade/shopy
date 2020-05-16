@@ -2,7 +2,9 @@
 .button{
   
     width:140px;
-    height: 35px;
+    height: max-content;
+    padding:10px;
+    margin:20px auto;
     background-image: linear-gradient(to right bottom, #fbc25f,#fbb273);
     
     outline:none;

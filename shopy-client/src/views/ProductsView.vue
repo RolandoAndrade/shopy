@@ -34,8 +34,9 @@ import {ProductFilterInterface} from '@/interfaces/productFilter.interface'
         ProductFilter
     }
 })
-export default class Products extends Vue{
-
+export default class ProductsView extends Vue{
+  
+    private render! : boolean;
     private windowSize: number = 0;
   
      private items : ProductFilterInterface[] = [

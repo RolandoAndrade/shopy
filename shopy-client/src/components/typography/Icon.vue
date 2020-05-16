@@ -1,5 +1,5 @@
 <template>
-    <svg :class="getClass">
+    <svg :class="getClass" >
         <use :xlink:href="require('@/assets/symbol-defs.svg')+'#'+icon"></use>  
     </svg>
 </template>

@@ -45,7 +45,7 @@ import SelectInfo from '@/components/products/create-product/SelectInfo.vue';
 import AddImages from '@/components/products/create-product/AddImages.vue';
 import Title from '@/components/typography/Title.vue';
 import Icon from '@/components/typography/Icon.vue';
-import {Product} from '../interfaces/product.interface';
+import {Product} from "@/requests/products/Product";
 
 @Component({
     components:{

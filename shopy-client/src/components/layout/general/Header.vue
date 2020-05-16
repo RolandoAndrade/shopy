@@ -31,7 +31,7 @@
                                 </v-list-item-content>
                     
                                 <v-list-item-action>
-                                    <v-btn color="orange" icon >
+                                    <v-btn color="orange" icon  v-on:click="()=>this.$router.push('/cart')">
                                         <v-icon large> mdi-cart-outline</v-icon>
                                     </v-btn>
                                 </v-list-item-action>

@@ -17,7 +17,7 @@
                                     <input type="password" class="form__input" placeholder="Password" id="password" required>
                                     <label for="password" class="form__label">Password</label>
                                 </div>
-                                <ButtonPrimary :color="'purple'">Log in</ButtonPrimary>
+                                <ButtonPrimary :color="'purple'" class="flex">Log in</ButtonPrimary>
                           </form>
                       </div> 
                 </div>

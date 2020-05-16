@@ -36,6 +36,11 @@
         font-size: 25px !important;
     }
 
+    &__stock{
+       font-size: 15px !important;
+       align-self: flex-end;
+    }
+
     &__rating{
         align-self:flex-end;
         justify-self: end;

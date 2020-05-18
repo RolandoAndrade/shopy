@@ -1,1 +1,1 @@
-export const NUMBER_BY_PAGE = 10;
+export const MAX_PRODUCTS_BY_PAGE = 10;

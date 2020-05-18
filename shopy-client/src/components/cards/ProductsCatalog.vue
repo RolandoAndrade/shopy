@@ -9,9 +9,10 @@
         </div>
         <div class="text-center margin-medium">
             <v-pagination
+                    v-if="howManyPageAre>0"
                 total-visible="10"
                 v-model="currentPage"
-                :length="20"
+                :length="howManyPageAre"
                 circle
                 color="purple"
                 @input="changePage()"
@@ -31,7 +32,8 @@ import Icon from '../typography/Icon.vue';
 import {Product} from "@/requests/products/Product";
 import ProductCard from "@/components/cards/ProductCard.vue";
 import {productsView} from "@/store/namespaces";
-import {LIST_OF_PRODUCTS} from "@/store/products/getters/products.view.getters";
+import {HOW_MANY_PAGES_ARE, LIST_OF_PRODUCTS} from "@/store/products/getters/products.view.getters";
+import {PRODUCTS_VIEW_FETCH_ALL_PRODUCTS} from "@/store/products/actions/products.view.actions";
 
 
 @Component({
@@ -50,7 +52,14 @@ export default class ProductCatalog extends Vue {
 
     }
 
+    async mounted()
+    {
+        await this.fetchProducts()
+    }
+
     @productsView.Getter(LIST_OF_PRODUCTS) listOfProducts!: Product[];
+    @productsView.Getter(HOW_MANY_PAGES_ARE) howManyPageAre!: number;
+    @productsView.Action(PRODUCTS_VIEW_FETCH_ALL_PRODUCTS) fetchProducts!: Function;
 }
 </script>
 

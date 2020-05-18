@@ -94,7 +94,7 @@ export default class SelectInfo extends Vue{
 
         private productInfo : ProductInterface ={
             id: 0,
-            title: '', 
+            title: '',
             price: 0,
             author: '',
             condition: '',

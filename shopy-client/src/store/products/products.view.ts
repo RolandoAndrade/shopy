@@ -1,6 +1,6 @@
 import {Module} from "vuex";
 import {PRODUCTS_VIEW_EMPTY_STATE} from "@/store/products/states/products.view.states";
-import {LIST_OF_PRODUCTS} from "@/store/products/getters/products.view.getters";
+import {HOW_MANY_PAGES_ARE, LIST_OF_PRODUCTS} from "@/store/products/getters/products.view.getters";
 import {ProductsViewStateInterface} from "@/store/products/interfaces/products.view.state.interface";
 import {Product} from "@/requests/products/Product";
 import {
@@ -15,7 +15,7 @@ import {
 import {productsRepository} from "@/requests/products/products.repository";
 import {ProductsViewInterface} from "@/requests/interfaces/products.view.interface";
 import {Filter} from "@/utils/filter";
-import {NUMBER_BY_PAGE} from "@/constants/pagination.constants";
+import {MAX_PRODUCTS_BY_PAGE} from "@/constants/pagination.constants";
 import {ProductFilters} from "@/utils/product.filters";
 
 const productsView: Module<ProductsViewStateInterface, any> = {
@@ -26,6 +26,10 @@ const productsView: Module<ProductsViewStateInterface, any> = {
         [LIST_OF_PRODUCTS](state): Product[]
         {
             return state.products;
+        },
+        [HOW_MANY_PAGES_ARE](state): number
+        {
+            return Math.floor(state.total/MAX_PRODUCTS_BY_PAGE);
         }
     },
 
@@ -72,7 +76,7 @@ const productsView: Module<ProductsViewStateInterface, any> = {
         {
             try {
                 const data: ProductFilters = {
-                    start: state.page*NUMBER_BY_PAGE,
+                    start: state.page*MAX_PRODUCTS_BY_PAGE,
                     name: state.search&&state.search.length?state.search:undefined
                 };
                 const filter: Filter = new Filter(data);

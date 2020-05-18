@@ -9,7 +9,6 @@ export abstract class AxiosRepository implements RepositoryInterface{
     private URL: string;
 
     protected constructor(resource: string) {
-
         this.URL = EnvironmentConstants.HOST + resource;
     }
 

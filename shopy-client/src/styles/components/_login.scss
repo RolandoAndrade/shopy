@@ -1,19 +1,22 @@
 .section-book{
-    padding: 50px 0;
-    height: 100vh;
+    margin: 50px auto;
+    height: calc(min-content + 50px);
+    width: 100%;
 }
 
 .book{
     margin: 0 auto;
     background-image: linear-gradient(105deg,
-                                        rgba(white,.9) 50%,
-                                        transparent 50%) ,
+                                        rgba(white,.9) 55%,
+                                        transparent 45%) ,
                                         url(./assets/login-img.jpg); 
     background-size: cover; 
     border-radius: 3px; 
     box-shadow: 0 1.5rem 4rem rgba(black , .2);
     height: min-content;
     width:60%;
+
+    
 
     @include respond(tab-port){
         background-image: linear-gradient(to right,
@@ -24,6 +27,28 @@
 
     &__form{
         width: 50%;
+        padding: 2.5rem 4rem;
+
+        @include respond(tab-port){
+            width: 100%;
+        }
+    }
+}
+
+.book__signup{
+    margin: 0 auto;
+    background-image: linear-gradient(105deg,
+                                        rgba(white,.9) 50%,
+                                        rgba(white,.9) 50%) ,
+                                        url(./assets/login-img.jpg); 
+    background-size: cover; 
+    border-radius: 3px; 
+    box-shadow: 0 1.5rem 4rem rgba(black , .2);
+    height: min-content;
+    width:60%;
+
+    &__form{
+        
         padding: 2.5rem 4rem;
 
         @include respond(tab-port){

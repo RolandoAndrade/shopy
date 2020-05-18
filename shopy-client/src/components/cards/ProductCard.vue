@@ -45,6 +45,7 @@
     product!: Product;
     @Prop() into! : boolean;
     private quantity : number= 1;
+    
     get image():string
     {
         try {

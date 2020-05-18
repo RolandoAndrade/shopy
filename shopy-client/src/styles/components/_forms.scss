@@ -1,7 +1,11 @@
 .form{
 
     &__group:not(:last-child){
-        margin-bottom: 2rem;
+        margin-bottom: 6px;
+        
+    }
+    &__group-half{
+        width: 50%;
     }
 
     &__input{ 
@@ -62,4 +66,17 @@
 
 textarea{
     font-size: 12.5px !important;
+}
+
+.form__big-group{
+    
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    margin:20px;
+
+    @include respond(tab-port){
+        width:80%;
+    }
+
 }

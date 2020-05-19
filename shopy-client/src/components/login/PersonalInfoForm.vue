@@ -123,14 +123,14 @@ export default class PersonalInfoForm extends Vue{
             if (target.files && target.files[0]) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
-                    this.imageData = e.target.result as string;
+                    this.imageData = e.target!.result as string;
                 }
                 reader.readAsDataURL(target.files[0]);
             }
         }
 
         private getImage(): string{
-            if (this.imageData.length>0) return this.imageData
+            if (this.imageData) return this.imageData
             else return require('../../assets/camera.png')
         }
 

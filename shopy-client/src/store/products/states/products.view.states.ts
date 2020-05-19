@@ -4,5 +4,6 @@ export const PRODUCTS_VIEW_EMPTY_STATE: ProductsViewStateInterface = {
     products: [],
     page: 1,
     total: 0,
-    search: ""
+    search: "",
+    categories: []
 };

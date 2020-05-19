@@ -1,24 +1,28 @@
 <template>
-    <div class="product-detail flex column">
-                <div class="product-detail__title">{{product.title}}</div>
-                <div class="product-detail__author">by {{product.author}}</div>
-                <div class="product-detail__price">$ {{product.price}}</div>
-                <div class="product-detail__condition">{{product.condition}}</div>
-                <div class="product-detail__stock mb-4">{{product.stock}} left in stock</div>
-                <div class="product-detail__rating">
-                    <Icon v-for="n in product.rating" :key="n+1" :icon="'icon-star-full'" :size="'icon-medium'" :color="'orange-i'"/>
-                    <Icon v-for="n in (5-product.rating)" :key="n+5" :icon="'icon-star-empty'" :size="'icon-medium'" :color="'orange-i'"/>
-                </div>
-                <div class="product-detail__description">{{product.description}}</div>
-                <ButtonPrimary v-on:click.native="setDialog()">
-                    Add to cart
-                </ButtonPrimary>
-                <Popup :dialog="dialog" :response="response" :message="messageDialog"/>              
-    </div>
+    <v-container class="product-detail pa-0 my-4">
+        <v-col>
+            <div class="product-detail__title">{{product.title}}</div>
+            <div class="product-detail__author">by {{product.author}}</div>
+            <div class="product-detail__price">$ {{product.price}}</div>
+            <div class="product-detail__condition">{{product.condition}}</div>
+            <div class="product-detail__stock mb-4">{{product.stock}} left in stock</div>
+            <div class="product-detail__rating">
+                <Icon v-for="n in product.rating" :key="n+1" :icon="'icon-star-full'" :size="'icon-medium'" :color="'orange-i'"/>
+                <Icon v-for="n in (5-product.rating)" :key="n+5" :icon="'icon-star-empty'" :size="'icon-medium'" :color="'orange-i'"/>
+            </div>
+            <div class="product-detail__description">{{product.description}}</div>
+            <ButtonPrimary v-on:click.native="setDialog()">
+                Add to cart
+            </ButtonPrimary>
+            <Popup :dialog="dialog" :response="response" :message="messageDialog"/>
+        </v-col>
+    </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop} from 'vue-property-decorator';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import Icon from '@/components/typography/Icon.vue'
 import Popup from '@/components/generic/Popup.vue';

@@ -1,11 +1,10 @@
 <template>
     <div>
         <div class="flex wrap padding-medium container-space">
-           
-            <ProductCard v-for="(n,k) in this.listOfProducts" :key="k" :product="n">
-            </ProductCard>
-
-            
+            <v-fade-transition group class="flex wrap padding-medium container-space">
+                <ProductCard v-for="(n,k) in this.listOfProducts" :key="k" :product="n">
+                </ProductCard>
+            </v-fade-transition>
         </div>
         <div class="text-center margin-medium">
             <v-pagination

@@ -1,6 +1,6 @@
 <template>
     <div class="flex" >
-        <div class="product-detail-container to-column  space-between">
+        <div class="product-detail-container to-column  space-between my-12">
             <ProductImages :product="product"/>
             <ProductDetail :product="product" />
         </div>

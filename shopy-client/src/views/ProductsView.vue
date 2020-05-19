@@ -22,11 +22,14 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-
 import ProductsCatalog from '@/components/cards/ProductsCatalog.vue'
 import SideNavDrawer from '@/components/layout/menus/SideNavDrawer.vue';
 import ProductFilter from '@/components/products/ProductFilter.vue';
 import {ProductFilterInterface} from '@/interfaces/productFilter.interface'
+import {GET_CATEGORIES} from "@/store/products/getters/products.view.getters";
+import {SectionInterface} from "@/interfaces/section.interface";
+import {productsView} from "@/store/namespaces";
+import {PRODUCTS_VIEW_FETCH_CATEGORIES} from "@/store/products/actions/products.view.actions";
 @Component({
     components:{
         ProductsCatalog,
@@ -39,27 +42,46 @@ export default class ProductsView extends Vue{
     private render! : boolean;
     private windowSize: number = 0;
   
-     private items : ProductFilterInterface[] = [
-
-        {id:1,name: 'Categories', parent: true,open: false,openIcon: "mdi-chevron-down",
-                            children: [
-                                { icon: "mdi-paw", id:2,name: "Animales y mascotas" },
-                                { icon: "mdi-car-side", id:3,name: "Vehiculos" },
-                                { icon: "mdi-home-group", id:4,name: "Inmuebles" }
-                            ]},
-        {id:5,name: 'Condition', parent: true,open: false,openIcon: "mdi-chevron-down",
-                            children: [
-                                {id:6,name: "Nuevo" },
-                                { id:7,name: "Usado" }
-                            ]},
-        {id:8,name: 'Rating', parent: true,open: false,openIcon: "mdi-chevron-down",
-                            rating: [5,4,3,2,1]}
-      ];
+     get items() : ProductFilterInterface[]{
+         return [
+             {
+                 title: 'Categories',
+                 sections: this.getCategories
+             },
+             {
+                 title: 'Condition',
+                 types: [
+                     {
+                         name: "Nuevo",
+                         used: false,
+                         icon: "mdi-star"
+                     },
+                     {
+                         name: "Usado",
+                         used:  true,
+                         icon: "mdi-flash"
+                     },
+                 ]
+             },
+             {
+                 title: 'Rating',
+                 rating: [5,4,3,2,1]
+             },
+         ];
+     }
 
 
      get isShow(){
          return !this.$vuetify.breakpoint.smAndDown;
      }
+
+     async mounted()
+     {
+         await this.fetchCategories();
+     }
+
+     @productsView.Getter(GET_CATEGORIES) getCategories!: SectionInterface[];
+     @productsView.Action(PRODUCTS_VIEW_FETCH_CATEGORIES) fetchCategories!: Function;
 
 
 } 

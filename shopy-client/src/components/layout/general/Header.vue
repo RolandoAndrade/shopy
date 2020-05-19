@@ -4,7 +4,6 @@
           <div class="inline">
         
             <img class="logo" src="@/assets/shopy1w.png" @click="()=>this.$router.push('/')"/>
-           <!-- <Title :size="'title-secondary'" :color="'title-white'">Shopy</Title> -->
           </div>
                 <SearchBar/>
                 

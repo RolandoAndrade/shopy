@@ -87,6 +87,7 @@ export class ProductService {
         return await this.productRepository
                         .createQueryBuilder('product')
                         .innerJoinAndSelect('product.productImages', 'images')
+                        .innerJoinAndSelect('product.user', 'user')
                         .innerJoinAndSelect('product.stock', 'stock')
                         .leftJoinAndSelect('product.reviews', 'reviews')
                         .where('product.id = :id', { id: productId })

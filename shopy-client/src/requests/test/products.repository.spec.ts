@@ -15,4 +15,10 @@ describe('Product repository test', () => {
         expect(products).toBeDefined();
         expect(products.products).toBeInstanceOf(Array);
     });
+
+    it('Get product one', async () => {
+        const product = await repository.get(1);
+        console.log(product);
+        expect(product).toBeDefined();
+    });
 });

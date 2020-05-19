@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import storeExample from "@/store/store-example/store-example";
 import productsView from "@/store/products/products.view";
+import productDetail from "@/store/products/product.detail";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     modules: {
         //incluir módulos creados
         storeExample,
-        productsView
+        productsView,
+        productDetail
     }
 });

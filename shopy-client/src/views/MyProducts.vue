@@ -3,7 +3,7 @@
         <div class="product-detail-container column to-cover-tablet">
             <div class="column  mt-4 mb-8 " style="margin:0 auto;">
                 <Title size="title-secondary ">My Products</Title>
-                <div class="title-center">{{myProducts.length}} products</div>
+                <div class="title-center"> products</div>
             </div>
             <div class="divider" style="height:1px; width:70%"></div>
              <div class="flex wrap cover" style="width:100%;">
@@ -28,9 +28,9 @@
                     @input="changePage()"
                     class="xyz"
                 ></v-pagination>
-             </div>
+             </div> 
         </div>
-        <PopupDecition ref="decitionModal" :icon="true"  @receiveResponse="receiveResponse" text='Are you sure you want to delete this publication?'/> 
+       <PopupDecition ref="decitionModal" :icon="true"  @receiveResponse="receiveResponse" text='Are you sure you want to delete this publication?'/> 
         
          <v-dialog v-model="modalEdit" scrollable max-width="600px" >
                     <v-card v-if="currentProduct">
@@ -75,7 +75,7 @@
                             </div>
                         </v-card-actions>
                     </v-card>
-                </v-dialog> 
+                </v-dialog>  
     </div>
 </template>
 
@@ -287,7 +287,7 @@ export default class MyProducts extends Vue {
                 if (this.$v.$invalid) {
                     return;
                 }else  {
-                    this.modalEdit = false;
+                    this.modalEdit = true;
                 }
     }
 

@@ -18,7 +18,7 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/products/:id',
-        name: 'ProductView',
+        name: 'ProductDetailView',
         component: () =>
             import('../views/ProductDetailView.vue'),
        
@@ -46,18 +46,16 @@ const routes: Array<RouteConfig> = [
             import('../views/Cart.vue'),
       },
       {
-
-        path: '/edit/product',
+        path: '/edit/products',
         name: 'MyProducts',
         component: () =>
             import('../views/MyProducts.vue'),
       },
-      ,{
+      {
         path: '/orders',
         name: 'Orders',
         component: () =>
             import('../views/Orders.vue'),
-
       },{
           path:'*',
           name:'NotFound',

@@ -1,8 +1,7 @@
 <template>
 
     <div class="flex" >
-
-        <div class="product-detail-container to-column space-between" style="margin:40px auto;width:100%">
+        <div class="product-detail-container to-column space-between" style="margin:40px auto;width:90%">
             <ProductImages :product="product" class="mx-12"/>
             <ProductDetail :product="product" />
         </div>
@@ -28,24 +27,7 @@ import {Product} from "@/requests/products/Product";
     }
 })
 export default class ProductDetailView extends Vue {
-    public product: ProductInterface = {
-        id: 0.1,
-        title: 'Mac Book Pro Air',
-        author:'Tete',
-        price: 999,
-        condition: 'Used',
-        width:123,
-        height:123,
-        description:
-            'Lorem ipsum dolor. this is the description of the product',
-        image: 'prueba.jpg',
-        images: [{id:1,name:'mac1.jpg'},{id:2,name:'mac2.jpg'},{id:3,name:'prueba.jpg'},{id:4,name:'mac3.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'},{id:5,name:'mac4.jpg'}],
-        rating:3,
-        stock:5
-    };
    
-
-
     async mounted()
     {
         const id = this.$route.params.id;

@@ -45,13 +45,7 @@
                             <input type="" class="form__input" placeholder="City" id="city" required>
                             <label for="city" class="form__label">City</label>
                         </div>
-                        <div class="form__group-half">
-                            <input type="" class="form__input" placeholder="State" id="state" required>
-                            <label for="state" class="form__label">State</label>
-                            <input type="" v-model="addressCity" class="form__input" placeholder="City" id="city" required>
-                            <label for="city" class="form__label">City</label>
-                            <div v-for="(i,ind) in addressCityErrors"  :key="ind" class="text-error mt-2">{{i}}</div>
-                        </div>
+
                         <div class="form__group-half">
                             <input type="" v-model="addressState" class="form__input" placeholder="State" id="state" required>
                             <label for="state" class="form__label">State</label>
@@ -119,9 +113,6 @@ export default class PersonalInfoForm extends Vue{
     }
 
     private imageModal: boolean = false;
-    private menu: boolean =false;
-    private dateModal: boolean =false;
-    private date = new Date().toISOString().substr(0, 10);
     private firstName : string='';
     private lastName : string='';
     private addressPrimaryLine: string ='';
@@ -152,9 +143,6 @@ export default class PersonalInfoForm extends Vue{
         }
 
         private receiveResponse(response: string){
-                
-        }
-
             this.$v.$touch();
                 if (this.$v.$invalid) {
                     return;

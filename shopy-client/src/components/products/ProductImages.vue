@@ -9,13 +9,10 @@
                 </div>
                 <v-slide-group class="image-slider" center-active show-arrows  color="purple" >
                     <v-slide-item v-for="(n,k) in product.productImages" :key="k" class="image-slider__img"  >
-
                         <v-img contain :src="n.image" class="ma-2"  @click="()=>changePrimaryImg(k)" />
-=======
-                       
                     </v-slide-item>
                 </v-slide-group>
-            </div>
+</div>
 </template>
 
 <script lang="ts">

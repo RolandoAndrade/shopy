@@ -11,12 +11,12 @@
         <div v-if="items">
             <div class="mt-10 mb-10">
                 <v-slide-group class="image-slider" center-active show-arrows color="purple" >    
-                        <ProductCard v-for="n in items" :key="n.id" :product="n" :condition="'cart'"  @click.native="selectCard(n.id)"  :class="selectedCard(n.id)"/>
+                        <ProductCard ref="selectedItems" v-for="n in items" :key="n.id" :product="n"  @selectedCards='selectedCards'/>
                 </v-slide-group>
             </div>
             <div class="flex to-column mb-10" style="width:min-content;margin:0 auto;">
                 <ButtonPrimary class="flex mr-8" >Buy all the products!</ButtonPrimary>
-                <ButtonPrimary v-if="selected.length >0" class="flex"> Buy {{selected.length}} items</ButtonPrimary>
+                <ButtonPrimary  class="flex" v-if="selected.length >0"> Buy {{selected.length}} items</ButtonPrimary>
             </div>
         </div>
         <div v-else class="mt-10 mb-10">
@@ -33,6 +33,7 @@ import ProductCard from '@/components/cards/ProductCard.vue';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import {Product} from "@/requests/products/Product";
 import {ProductInterface} from "../interfaces/product.interface";
+
 @Component({
     components:{
         Icon,
@@ -44,11 +45,7 @@ import {ProductInterface} from "../interfaces/product.interface";
 export default class Cart extends Vue{
 
     private selected: Array<number>=[];
-   // private selectedCard!: boolean;
     private totalPrice: number=1202;
-   // public items: Product[] = []  
-    private quantity : number= 1;
-
     private items: ProductInterface[] =[
           {
             id:1,
@@ -102,7 +99,7 @@ export default class Cart extends Vue{
 
           },
           {
-            id:4,
+            id:5,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -114,7 +111,7 @@ export default class Cart extends Vue{
             author:'Tete'
 
           },{
-            id:4,
+            id:6,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -126,7 +123,7 @@ export default class Cart extends Vue{
             author:'Tete'
 
           },{
-            id:4,
+            id:7,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -138,7 +135,7 @@ export default class Cart extends Vue{
             author:'Tete'
 
           },{
-            id:4,
+            id:8,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -150,7 +147,7 @@ export default class Cart extends Vue{
             author:'Tete'
 
           },{
-            id:4,
+            id:9,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -162,7 +159,7 @@ export default class Cart extends Vue{
             author:'Tete'
 
           },{
-            id:4,
+            id:10,
             title: 'Sacapuntas',
             price:234,
             condition:'New',
@@ -174,6 +171,15 @@ export default class Cart extends Vue{
             author:'Tete'
 
           }]
+      $refs!:{
+           selectedItems: any
+       }
+    
+    private selectedCards(id:number){
+        console.log('AQUI');
+        console.log(id);
+        this.selectCard(id);
+    }
 
     private selectCard(productId : number){
        const selected = this.selected.find(f => f === productId);
@@ -184,14 +190,7 @@ export default class Cart extends Vue{
        }
     }
 
-    private selectedCard(productId : number): string{
-       const id = this.selected.find(f => f === productId);
-       if (id){
-           console.log('seleccionado')
-           return 'selected-card '
-       }
-       else return ''
-    }
+
 
 }
 </script>

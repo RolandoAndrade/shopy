@@ -80,7 +80,7 @@ export default class Header extends Vue{
     private navLinks : {title: string, icon: string, link?: string}[] = [
         {title:'Categories',icon:'mdi-apps', link:'/products'},
         {title:'My products',icon:'mdi-bulletin-board'},
-        {title:'My shopping',icon:'mdi-shopping-outline'},
+        {title:'My orders',icon:'mdi-shopping-outline', link:'/orders'},
         {title:'Sell',icon:'mdi-cash', link:'/add/product'},
         {title:'Log in',icon:'mdi-login'},
         {title:'Log out',icon:'mdi-logout'}

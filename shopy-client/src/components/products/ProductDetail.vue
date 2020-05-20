@@ -1,22 +1,19 @@
 <template>
-    <v-container class="product-detail pa-0 my-4">
+
+    <v-container class="product-detail pa-6 my-4">
         <v-col>
             <div class="product-detail__title">{{product.name}}</div>
-            <div class="product-detail__author">by {{product.user.username}}</div>
-            <div class="product-detail__price">$ {{product.price}}</div>
+            <div class="product-detail__author mb-4">by {{product.user.username}}</div>
+            <div class="product-detail__price mt-2">$ {{product.price}}</div>
             <div class="product-detail__condition">{{product.new?"New":"Used"}}</div>
             <div class="product-detail__stock mb-4">{{product.stock.quantity}} left in stock</div>
-            <div class="product-detail__rating">
-                <Icon v-for="n in Math.round(product.score)" :key="n" :icon="'icon-star-full'" :size="'icon-medium'" :color="'orange-i'"/>
-                <Icon v-for="n in (5-Math.round(product.score))" :key="n" :icon="'icon-star-empty'" :size="'icon-medium'" :color="'orange-i'"/>
-            </div>
+                <v-row class="product-detail__rating justify-end">
+                    <Icon v-for="n in Math.round(product.score)" :key="n" :icon="'icon-star-full'" :size="'icon-medium'" :color="'orange-i'"/>
+                    <Icon v-for="n in (5-Math.round(product.score))" :key="n" :icon="'icon-star-empty'" :size="'icon-medium'" :color="'orange-i'"/>
+                </v-row>
             <div class="product-detail__description">{{product.description}}</div>
-            <ButtonPrimary v-on:click.native="setDialog()">
-                Add to cart
-            </ButtonPrimary>
-            <Popup :dialog="dialog" :response="response" :message="messageDialog"/>
-        </v-col>
-    </v-container>
+            <ButtonPrimary v-on:click.native="setDialog()" class="mt-8">
+
 </template>
 
 <script lang="ts">

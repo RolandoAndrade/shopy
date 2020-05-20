@@ -1,8 +1,8 @@
 <template>
     <div class="flex" >
-        <div class="product-detail-container to-column  space-between my-12">
+
+        <div class="product-detail-container to-column space-between" style="margin:40px auto;width:100%">
             <ProductImages :product="product" class="mx-12"/>
-            <ProductImages :product="product"/>
             <ProductDetail :product="product" />
         </div>
     </div>

@@ -1,8 +1,9 @@
 <template>
     <div>
+
         <div class="flex wrap padding-medium container-space">
             <v-fade-transition group class="flex wrap padding-medium container-space">
-                <ProductCard v-for="(n,k) in this.listOfProducts" :key="k" :product="n">
+                <ProductCard v-for="(n,k) in this.listOfProducts" :key="k" :product="n" :condition="'catalog'">
                 </ProductCard>
             </v-fade-transition>
         </div>

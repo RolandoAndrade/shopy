@@ -46,10 +46,22 @@ const routes: Array<RouteConfig> = [
             import('../views/Cart.vue'),
       },
       {
+
+        path: '/edit/product',
+        name: 'MyProducts',
+        component: () =>
+            import('../views/MyProducts.vue'),
+      },
+      ,{
         path: '/orders',
         name: 'Orders',
         component: () =>
             import('../views/Orders.vue'),
+
+      },{
+          path:'*',
+          name:'NotFound',
+          redirect:'/'
       }
 
 ];

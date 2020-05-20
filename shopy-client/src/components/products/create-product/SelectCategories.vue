@@ -9,7 +9,7 @@
                 filled
                 label="Categories"
                 dense
-                class="pa-6"
+                class="pa-3"
                 v-on:input="selectItem"
                 ></v-select>
                  <v-container fluid v-if="active">
@@ -36,11 +36,11 @@
             </div>
           </div>
       </div>
-      <div class="flex">
+      <div class="space-around wrap">
             <ButtonSecondary  @click.native="setDialog">Continue</ButtonSecondary>
             <ButtonSecondary :reverse="true"  @click.native="$emit('goBack')">Go back</ButtonSecondary>
       </div>
-      <Popup :response="response" :dialog="dialog" :message="messageDialog"/>
+      <Popup ref="errorModal" message="You must select at lest one category" :response="false"/>
     </div>
 </template>
 
@@ -61,10 +61,12 @@ export default class SelectCategories extends Vue{
     private active: boolean =false;
     private subitems: Array<object> =[];
     private value: Array<object> =[]; // Se guardan las categorias seleccionadas
-
-    private dialog: boolean =false;
-    private response? : boolean ;
-    private messageDialog?: string;
+    $refs!: {
+        errorModal: any
+    }
+   // private dialog: boolean =false;
+   // private response? : boolean ;
+  //  private messageDialog?: string;
 
 
     private subCategories:Array<{category:string,active:boolean,childrens:Array<{id:number,name:string,active:boolean}>}> =[
@@ -94,7 +96,6 @@ export default class SelectCategories extends Vue{
       }
 
     private selectItem(a: string){
-        this.dialog=false;
         this.active=true;
         this.activeCategory=a;
         for (let i=0;i<this.subCategories.length;i++){
@@ -110,17 +111,14 @@ export default class SelectCategories extends Vue{
     }
 
      private setDialog(){
-       
+         
         if (this.value.length>0 || this.activeCategory){
            this.$emit('nextStep', this.value, this.activeCategory);
         }
-        else {    
-            this.dialog = true;
-            this.response = false;
-            this.messageDialog='You should pick a category!'
+        else {
+            this.$refs.errorModal.openModal();
         }
-        
-    }
+}
 
 }
 </script>

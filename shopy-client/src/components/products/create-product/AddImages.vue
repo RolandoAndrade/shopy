@@ -1,6 +1,6 @@
 <template>
     <div>
-          <div color="white" class="card-create mb-12 mt-6" >
+        <div color="white" class="card-create mb-12 mt-6" >
             <div class="ma-5 flex wrap">
                 <div  v-for="n in cardimages" :key="n" class="card card-select-image ma-6" @click="selected">
                     <div v-if="!images[n-1]" style="width:100%;">
@@ -17,10 +17,12 @@
                 </v-btn>
             </div>
         </div>
-        <div class="flex">
+        <div class="space-around wrap">
                 <ButtonSecondary @click.native="nextStep()">Finish it!</ButtonSecondary>
                 <ButtonSecondary :reverse="true"  @click.native="$emit('goBack')">Go back</ButtonSecondary>
         </div>
+        <Popup ref="errorModal" message="You must select at least one image" :response="false"/>
+
     </div>
 </template>
 
@@ -28,17 +30,22 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Icon from '@/components/typography/Icon.vue';
+import Popup from '@/components/generic/Popup.vue';
 
 @Component({
     components:{
         ButtonSecondary,
-        Icon
+        Icon,
+        Popup
     }
 })
 export default class AddImages extends Vue{
 
     private images : Array<File>=[];
     private cardimages : number = 1;
+    $refs!:{
+        errorModal: any
+    }
 
     private selected(e: Event){
         const target= e.target as HTMLInputElement;
@@ -50,7 +57,11 @@ export default class AddImages extends Vue{
     }
 
     private nextStep(){
-        this.$emit('nextStep',this.images)
+        if (this.images.length>0)
+        this.$emit('nextStep',this.images);
+        else {
+            this.$refs.errorModal.openModal();
+        }
     }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+
     <div  class="form">
              <Title :size="'title-secondary'"  class="pt-6" style="tex-align:start;">Sign up into Shopy</Title>
               <div class="image-preview mt-4" onclick="document.getElementById('file').click();">
@@ -36,10 +37,17 @@
                     </div>
                     <div class="form__group" >
                         <input type="" class="form__input" placeholder="Secondary line" id="secondary-line" required>
+
                         <label for="secondary-line" class="form__label">Secondary line</label>
                     </div>
                     <div class="form__group flex" >
                         <div class="form__group-half mr-2">
+                            <input type="" class="form__input" placeholder="City" id="city" required>
+                            <label for="city" class="form__label">City</label>
+                        </div>
+                        <div class="form__group-half">
+                            <input type="" class="form__input" placeholder="State" id="state" required>
+                            <label for="state" class="form__label">State</label>
                             <input type="" v-model="addressCity" class="form__input" placeholder="City" id="city" required>
                             <label for="city" class="form__label">City</label>
                             <div v-for="(i,ind) in addressCityErrors"  :key="ind" class="text-error mt-2">{{i}}</div>
@@ -65,18 +73,11 @@
                                  </v-date-picker>
                     </v-dialog>
                     
-                    <v-dialog v-model="imageModal" persistent max-width="290">
-                        <v-card>
-                            <v-card-title class="headline">Do you want to continue without a profile picture?</v-card-title>
-                            <v-divider></v-divider>
-                            <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="purple" text @click="imageModal = false">No</v-btn>
-                            <v-btn color="purple" text @click="imageModal = false">Yes</v-btn>
-                            </v-card-actions>
-                        </v-card>
+                   <PopupDecition ref="decitionModal"  @receiveResponse="receiveResponse" text='Do you want to continue without a profile picture?'/> 
+
                     </v-dialog>
     </div>
+
 </template>
 
 <script lang="ts">
@@ -85,15 +86,16 @@ import Component from "vue-class-component";
 import { Prop } from 'vue-property-decorator';
 import Title from '@/components/typography/Title.vue';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
+import PopupDecition from '@/components/generic/PopupDecition.vue';
 import { validationMixin } from 'vuelidate';
 import { ValidationProperties } from 'vue/types/vue';
-import { required} from 'vuelidate/lib/validators'
-
+import { required} from 'vuelidate/lib/validators';
 
 @Component({
     components:{
         Title,
-        ButtonPrimary
+        ButtonPrimary,
+        PopupDecition
     },
     mixins: [validationMixin],
     validations: {
@@ -102,12 +104,20 @@ import { required} from 'vuelidate/lib/validators'
         addressPrimaryLine:{required},
         addressCity:{required},
         addressState:{required}
+
     }
 })
 export default class PersonalInfoForm extends Vue{
 
     private imageData :  string | null ='';
     private image! : File;
+    private menu: boolean =false;
+    private dateModal: boolean =false;
+    private date = new Date().toISOString().substr(0, 10);
+    $refs!: {
+        decitionModal: any
+    }
+
     private imageModal: boolean = false;
     private menu: boolean =false;
     private dateModal: boolean =false;
@@ -130,11 +140,21 @@ export default class PersonalInfoForm extends Vue{
         }
 
         private getImage(): string{
-            if (this.imageData) return this.imageData
+            if (this.imageData!.length>0) return this.imageData!
             else return require('../../assets/camera.png')
         }
 
         private signUp(){
+
+            if (!this.image){
+                this.$refs.decitionModal.openModal();
+            }
+        }
+
+        private receiveResponse(response: string){
+                
+        }
+
             this.$v.$touch();
                 if (this.$v.$invalid) {
                     return;
@@ -178,6 +198,7 @@ export default class PersonalInfoForm extends Vue{
             return errors;
         }
         
+
 
 }
 </script>

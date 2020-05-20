@@ -5,6 +5,9 @@
 .end{
     align-self: flex-end;
 }
+.start{
+    align-self: flex-start;
+ }
 .justify-end{
     justify-self: end;
 }
@@ -27,7 +30,11 @@
     justify-content: space-between;
     align-items: center;
 }
-
+.space-around{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .stretch{
     align-self: stretch;
 }
@@ -52,4 +59,8 @@
 
 .to-column-tablet{
     @include respond(tab-port){flex-direction: column; }
+}
+
+.to-cover-tablet{
+    @include respond(tab-port){width:100%; }
 }

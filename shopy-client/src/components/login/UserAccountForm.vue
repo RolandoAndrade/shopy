@@ -1,4 +1,5 @@
 <template>
+
      <form action="#" class="form " >
              <Title :size="'title-secondary'"  class="pt-6" style="tex-align:start;">Sign up into Shopy</Title>
              <FederatedLogin :provider="provider" type="login" class="mt-4">
@@ -26,6 +27,7 @@
                         </div>
             <ButtonPrimary :color="'purple'" class="flex mb-6"  @click.native="changePage">Next Step</ButtonPrimary>
             <div class="title-center mr-2">Already have an account? <a class="title-center" @click="()=>$router.push('/login')">Sign in</a></div>                  
+
     </form>
 </template>
 
@@ -37,11 +39,13 @@ import Title from '@/components/typography/Title.vue';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import FederatedLogin from '@/components/login/FederatedLogin.vue';
 import Icon from '@/components/typography/Icon.vue';
+
 import { required, minLength,email,sameAs} from 'vuelidate/lib/validators'
 import firebase from 'firebase/app';
 import "firebase/auth";
 import { validationMixin } from 'vuelidate';
 import { ValidationProperties } from 'vue/types/vue';
+
 
 @Component({
     components:{
@@ -97,6 +101,7 @@ export default class UserAccountForm extends Vue{
     }
     
    
+
 }
 
 </script>

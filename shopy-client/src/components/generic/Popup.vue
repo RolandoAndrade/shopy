@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="300px" v-model="dialog">
+  <v-dialog max-width="300px" v-model="modal">
       <v-card class="flex column">
           <Title :size="'title-terciary'" class="mt-4">{{typeMessage}}</Title>
           <Icon :icon="icon" :size="'icon-big'" class="mt-6 mb-8" :color="color"/>
@@ -21,14 +21,13 @@ import Title from '@/components/typography/Title.vue';
 })
 export default class Popup extends Vue {
 
-    @Prop() dialog! :boolean;
     @Prop() message! : string;
     @Prop() response! :boolean;
 
     private icon? : string;
     private color? : string;
     private typeMessage? :string;
-
+    private modal :boolean =false;
 
     created() {
         if (this.response){
@@ -42,7 +41,9 @@ export default class Popup extends Vue {
         }
     }
 
-
+     private openModal(){
+        this.modal = true;
+    }
     
 }
 </script>

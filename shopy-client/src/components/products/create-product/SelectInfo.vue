@@ -3,7 +3,6 @@
         <div color="white" class="card-create mt-6 ">
           <div class="flex to-column-tablet margin-medium">
             <div class="column mr-10 pa-5 cover" >
-            
                 <div class="form__group ">
                     <input v-model="productInfo.title" type="" class="form__input" placeholder="Name your product" id="name" required>
                     <label for="name" class="form__label">Name of your product</label>
@@ -19,7 +18,8 @@
                 <v-radio-group v-model="productInfo.condition" row>
                     <v-radio label="Used" value="Used" color="orange"></v-radio>
                     <v-radio label="New" value="New" color="orange"></v-radio>
-                </v-radio-group>     
+                </v-radio-group> 
+                <div v-for="(i,ind) in infoErrors"  :key="ind" class="text-error mt-2">{{i}}</div>
             </div>
                 <div class="column  mb-4">
                     <Title :size="'title-secondary'" class="mr-5 mb-5">Price:</Title>
@@ -34,33 +34,35 @@
                                     dense
                                     
                                     class="" color="orange" item-color="orange" hide-details single-line="true"
-                                    ></v-combobox>     
+                                    ></v-combobox>   
+                                  <div class="text-error mt-2">{{currencieError}}</div> 
                             </div>
+
                     </div>
-                
                     <div class="inline mb-4">
                         <div class="form__group mr-4">
-                            <input type="number" class="form__number" placeholder="Width" id="width" required>
-                            <label for="width" class="form__label">Width</label>
+                            <input type="number" v-model="productInfo.width" class="form__number" placeholder="Width" id="width" required>
+                            <label for="width" class="form__label">Width (cm)</label>
                         </div>
                         
                         <div class="form__group">
-                            <input type="number" class="form__number" placeholder="Height" id="height" required>
-                            <label for="height" class="form__label">Height</label>
+                            <input type="number" v-model="productInfo.height" class="form__number" placeholder="Height" id="height" required>
+                            <label for="height" class="form__label">Height (cm)</label>
                         </div>
                     </div>
                     <div class="form__group">
-                            <input type="number" class="form__number"  id="quantity" placeholder="Quantity" required>
+                            <input type="number" v-model="productInfo.stock" class="form__number"  id="quantity" placeholder="Quantity" required>
                             <label for="quantity" class="form__label">Quantity</label>
                     </div>
+                    <div class="text-error mt-2">{{numberErrors}}</div> 
                 </div>
             </div>
         </div>
-        <div class="flex">
+        <div class="space-around wrap">
             <ButtonSecondary  @click.native="nextStep()">Continue</ButtonSecondary>
             <ButtonSecondary :reverse="true"  @click.native="$emit('goBack')">Go back</ButtonSecondary>
         </div>
-    <Popup :dialog="dialog" :response="response" :message="messageDialog" v-on:closeDialog="closeDialog"/>
+  <!--  <Popup :dialog="dialog" :response="response" :message="messageDialog" v-on:closeDialog="closeDialog"/> -->
     </div>
 </template>
 
@@ -70,12 +72,26 @@ import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Title from '@/components/typography/Title.vue';
 import Popup from '@/components/generic/Popup.vue';
 import {ProductInterface} from '../../../interfaces/product.interface';
+import { validationMixin } from 'vuelidate';
+import { ValidationProperties } from 'vue/types/vue';
+import { minValue,required,maxLength} from 'vuelidate/lib/validators';
 
 @Component({
     components:{
         ButtonSecondary,
         Title,
         Popup
+    }, 
+    mixins: [validationMixin],
+    validations: {
+       productInfo:{
+            price: {minValue: minValue(1)},
+            width: {minValue: minValue(1)},
+            height: {minValue: minValue(1)},
+            stock: {minValue: minValue(1)},
+            title:{required, maxLength: maxLength(25) },
+            description:{required}
+        }, 
     }
 })
 export default class SelectInfo extends Vue{
@@ -86,7 +102,8 @@ export default class SelectInfo extends Vue{
         private items: Array<string>=['$','Bs.F'];
         private select: string = this.items[0];
         private usedorNot : boolean = true;
-
+        private currencieErrors: string ='';
+        
 
             private dialog: boolean =false;
             private response? : boolean ;
@@ -95,10 +112,12 @@ export default class SelectInfo extends Vue{
         private productInfo : ProductInterface ={
             id: 0,
             title: '',
-            price: 0,
+            price: 1,
             author: '',
-            condition: '',
+            condition: 'New',
             description: '',
+            width: 1,
+            height:1,
             image: '' ,
             images: [],
             rating: 0,
@@ -106,15 +125,47 @@ export default class SelectInfo extends Vue{
         }
 
         private nextStep(){
-            if (this.productInfo.title.length && this.productInfo.price >0 
-                && this.productInfo.condition.length  && this.productInfo.description.length ){
+            this.$v.$touch();
+                if (this.$v.$invalid) {
+                    return;
+                }else  if (this.currencieError === ''){     
                    this.$emit('nextStep',this.productInfo);
-                }
+                }else return;
+        }
+
+        get numberErrors(){
+            let error : string ='';
+            if (!this.$v.productInfo.price!.$invalid && !this.$v.productInfo.width!.$invalid
+                && !this.$v.productInfo.height!.$invalid && !this.$v.productInfo.stock!.$invalid)
+                 return error;   
+            else  error ='There is an invalid field';
+            return error;
+        }
+
+        get infoErrors(){
+             const errors : Array<string> =[];
+            if (!this.$v.productInfo.price!.$invalid && !this.$v.productInfo.width!.$invalid
+                && !this.$v.productInfo.height!.$invalid && !this.$v.productInfo.stock!.$invalid
+                 && !this.$v.productInfo.title!.$invalid && !this.$v.productInfo.description!.$invalid)
+                        return errors;   
+            if (!this.$v.productInfo.title!.maxLength){ 
+                        errors.push('The title must not contain more than  25 characters.')                   
+                    }
             else {
-                    this.dialog=true;
-                    this.response=false;
-                    this.messageDialog='All fields must be filled!';
+                errors.push('All fields must be filled!')
             }
+            return errors;
+        }
+
+        get currencieError(){
+            let error : string=''
+            for (let i=0; i<this.items.length;i++){
+                if (this.select === this.items[i]){
+                    return error;
+                }
+            }
+            error = 'Invalid Currency'
+            return  error;
         }
 
         

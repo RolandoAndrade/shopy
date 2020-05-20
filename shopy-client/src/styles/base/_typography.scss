@@ -11,6 +11,9 @@
 .title-secondary{
     font-size: 24px !important;
 }
+.title-secondary-big{
+    font-size: 40px !important;
+}
 .title-primary{
     font-size: 50px !important;
     letter-spacing: .5rem;
@@ -51,4 +54,8 @@
 .item-small{
     font-size: 2.5rem !important;
 }
+.v-card__title, label,.v-label{
+    font-size:16px !important;
+}
+
 

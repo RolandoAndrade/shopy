@@ -1,5 +1,5 @@
-import {Product} from "@/requests/products/Product";
+import { Product } from '@/requests/products/Product';
 
 export interface ProductsDetailsStateInterface {
-    product: Product
+    product: Product;
 }

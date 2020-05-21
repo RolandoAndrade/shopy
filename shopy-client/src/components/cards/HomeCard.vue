@@ -1,10 +1,9 @@
-
 <template>
-            <div :class="getClass()">
-                   <!-- <Icon :icon="icon" :size="'icon-big'"/> -->
-                   <slot></slot>
-                    <Title :size="'title-terciary'">{{title}}</Title>
-            </div>
+    <div :class="getClass()">
+        <!-- <Icon :icon="icon" :size="'icon-big'"/> -->
+        <slot></slot>
+        <Title :size="'title-terciary'">{{ title }}</Title>
+    </div>
 </template>
 
 <script lang="ts">
@@ -13,25 +12,24 @@ import Title from '../typography/Title.vue';
 //import Icon from '../typography/Icon.vue';
 
 @Component({
-    components:{
-        Title,
-       // Icon
+    components: {
+        Title
+        // Icon
     }
 })
-export default class HomeCard extends Vue{
+export default class HomeCard extends Vue {
+    @Prop({ required: false, type: String, default: '' }) title?: string;
+    @Prop() icon?: string;
+    @Prop() type!: string;
 
-    @Prop({required:false, type: String, default: ""})  title?:string;
-    @Prop() icon? : string;
-    @Prop() type! : string;
-
-    private getClass() : string {
-        return 'card '+ this.type
+    private getClass(): string {
+        return 'card ' + this.type;
     }
 }
 </script>
 
 <style>
-.prueb{
+.prueb {
     height: 15rem;
 }
 </style>

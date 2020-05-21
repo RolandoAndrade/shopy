@@ -1,10 +1,5 @@
 describe('Prueba de Products view', () => {
+    beforeEach(async () => {});
 
-
-    beforeEach(async () => {
-    });
-
-    it('should be defined', () => {
-
-    });
+    it('should be defined', () => {});
 });

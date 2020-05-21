@@ -1,4 +1,4 @@
-import {namespace} from "vuex-class";
+import { namespace } from 'vuex-class';
 
-export const productsView = namespace("productsView");
-export const productDetail = namespace("productDetail");
+export const productsView = namespace('productsView');
+export const productDetail = namespace('productDetail');

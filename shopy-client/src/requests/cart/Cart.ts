@@ -1,3 +1,1 @@
-export class Cart {
-
-}
+export class Cart {}

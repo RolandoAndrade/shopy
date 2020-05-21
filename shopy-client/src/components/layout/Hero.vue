@@ -1,40 +1,41 @@
 <template>
-   <div class="banner flex">
-        <img src="../../assets/Hero-image.jpg"/>
+    <div class="banner flex">
+        <img src="../../assets/Hero-image.jpg" />
         <div class="flex column padding-medium ">
-            <Title :size="'title-primary'">{{this.$language.get("title")}}</Title>
-            <div class="divider"/>
-            <Title>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque enim quibusdam fugiat sapiente dignissimos necessitatibus, repellendus facilis numquam impedit, est in sed atque ut inventore alias velit ipsa cupiditate culpa?</Title>
-            <ButtonPrimary class="end"  @click.native="signIn">
+            <Title :size="'title-primary'">{{
+                this.$language.get('title')
+            }}</Title>
+            <div class="divider" />
+            <Title
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+                enim quibusdam fugiat sapiente dignissimos necessitatibus,
+                repellendus facilis numquam impedit, est in sed atque ut
+                inventore alias velit ipsa cupiditate culpa?</Title
+            >
+            <ButtonPrimary class="end" @click.native="signIn">
                 Sign In
             </ButtonPrimary>
         </div>
-  </div>
+    </div>
 </template>
 
-
 <script lang="ts">
-
 import Title from '../typography/Title.vue';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
-import Component from "vue-class-component";
-import Vue from "vue"
+import Component from 'vue-class-component';
+import Vue from 'vue';
 
 @Component({
-    components:{
+    components: {
         Title,
         ButtonPrimary
     }
 })
-export default class Hero extends Vue{
-
-    signIn()
-    {
-        this.$router.push('/login')
+export default class Hero extends Vue {
+    signIn() {
+        this.$router.push('/login');
     }
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

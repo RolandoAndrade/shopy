@@ -75,17 +75,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import { Prop } from 'vue-property-decorator';
-import Title from '@/components/typography/Title.vue';
-import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
-import PopupDecition from '@/components/generic/PopupDecition.vue';
-import { validationMixin } from 'vuelidate';
-import { ValidationProperties } from 'vue/types/vue';
-import { required} from 'vuelidate/lib/validators';
+    import Vue from "vue";
+    import Component from "vue-class-component";
+    import Title from '@/components/typography/Title.vue';
+    import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
+    import PopupDecition from '@/components/generic/PopupDecition.vue';
+    import {validationMixin} from 'vuelidate';
+    import {required} from 'vuelidate/lib/validators';
 
-@Component({
+    @Component({
     components:{
         Title,
         ButtonPrimary,
@@ -105,24 +103,24 @@ export default class PersonalInfoForm extends Vue{
 
     private imageData :  string | null ='';
     private image! : File;
-    private menu: boolean =false;
-    private dateModal: boolean =false;
+    private menu =false;
+    private dateModal =false;
     private date = new Date().toISOString().substr(0, 10);
     $refs!: {
         decitionModal: any
     }
 
-    private imageModal: boolean = false;
-    private firstName : string='';
-    private lastName : string='';
-    private addressPrimaryLine: string ='';
-    private addressCity: string='';
-    private addressState: string ='';
+    private imageModal = false;
+    private firstName ='';
+    private lastName ='';
+    private addressPrimaryLine ='';
+    private addressCity='';
+    private addressState ='';
 
         private previewImage(e: Event) {
             const target= e.target as HTMLInputElement;
             if (target.files && target.files[0]) {
-                var reader = new FileReader();
+                const reader = new FileReader();
                 reader.onload = (e) => {
                     this.imageData = e.target!.result as string;
                 }

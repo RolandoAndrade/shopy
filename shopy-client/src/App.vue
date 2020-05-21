@@ -1,8 +1,8 @@
 <template>
-    <v-app> 
+    <v-app>
         <Layout>
             <v-fade-transition>
-                <router-view/>
+                <router-view />
             </v-fade-transition>
         </Layout>
     </v-app>
@@ -19,15 +19,12 @@ export default Vue.extend({
         Layout
     },
 
-
     data: () => ({
         //
     })
 });
 </script>
 
-
 <style lang="scss">
-@import "@/styles/main.scss";
-
+@import '@/styles/main.scss';
 </style>

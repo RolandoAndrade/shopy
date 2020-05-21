@@ -1,53 +1,46 @@
 <template>
-
-    <div class="flex" >
-        <div class="product-detail-container to-column space-between" style="margin:40px auto;width:90%">
-            <ProductImages :product="product" class="mx-12"/>
+    <div class="flex">
+        <div
+            class="product-detail-container to-column space-between"
+            style="margin:40px auto;width:90%"
+        >
+            <ProductImages :product="product" class="mx-12" />
             <ProductDetail :product="product" />
         </div>
-       
     </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import ProductDetail from '../components/products/ProductDetail.vue';
 import ProductImages from '../components/products/ProductImages.vue';
-import {productDetail} from "@/store/namespaces";
-import {PRODUCTS_DETAIL_FETCH_PRODUCT} from "@/store/products/actions/products.detail.actions";
-import {GET_PRODUCT_DATA} from "@/store/products/getters/products.detail.getters";
-import {Product} from "@/requests/products/Product";
+import { productDetail } from '@/store/namespaces';
+import { PRODUCTS_DETAIL_FETCH_PRODUCT } from '@/store/products/actions/products.detail.actions';
+import { GET_PRODUCT_DATA } from '@/store/products/getters/products.detail.getters';
+import { Product } from '@/requests/products/Product';
 
 @Component({
-    components:{
+    components: {
         ProductDetail,
         ProductImages
-       
     }
 })
 export default class ProductDetailView extends Vue {
-   
-    async mounted()
-    {
+    async mounted() {
         const id = this.$route.params.id;
         await this.fetchProduct(id);
-    };
+    }
 
-
-    @productDetail.Action(PRODUCTS_DETAIL_FETCH_PRODUCT) fetchProduct!: Function;
+    @productDetail.Action(PRODUCTS_DETAIL_FETCH_PRODUCT)
+    fetchProduct!: Function;
     @productDetail.Getter(GET_PRODUCT_DATA) product!: Product;
-
 }
 </script>
 
 <style lang="scss">
-
-.v-slide-item--active{
-     filter: brightness(50%);
-     transform: scale(1.25);
+.v-slide-item--active {
+    filter: brightness(50%);
+    transform: scale(1.25);
 }
-
-
-
 </style>

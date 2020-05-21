@@ -1,4 +1,4 @@
-import {Filter} from "@/utils/filter";
+import { Filter } from '@/utils/filter';
 
 export interface RepositoryInterface {
     get(id: number): Promise<any>;

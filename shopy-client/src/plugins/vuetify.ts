@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 import es from 'vuetify/src/locale/es';
-import Vuetify from "vuetify";
+import Vuetify from 'vuetify';
 
 Vue.use(Vuetify);
 
@@ -18,7 +18,7 @@ export default new Vuetify({
                 purple2: '#e2c6e7',
                 white: '#fff',
                 orange: '#fa8c73',
-                black:  "#333",
+                black: '#333',
                 purplelight: '#faf5ff',
                 error: '#FF5252',
                 info: '#2196F3',

@@ -1,9 +1,8 @@
-import {AxiosRepository} from "@/requests/interfaces/axios.repository";
+import { AxiosRepository } from '@/requests/interfaces/axios.repository';
 
-const RESOURCE = "users";
+const RESOURCE = 'users';
 
-export class UsersRepository extends AxiosRepository{
-
+export class UsersRepository extends AxiosRepository {
     constructor() {
         super(RESOURCE);
     }

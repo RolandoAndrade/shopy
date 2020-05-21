@@ -1,10 +1,10 @@
-import {User} from "@/requests/users/User";
-import {Stock} from "@/requests/stock/Stock";
-import {Review} from "@/requests/reviews/Review";
-import {ShoppingHistory} from "@/requests/shopping-history/ShoppingHistory";
-import {Cart} from "@/requests/cart/Cart";
-import {ProductCategory} from "@/requests/product-category/ProductCategory";
-import {ProductImage} from "@/requests/product-image/ProductImage";
+import { User } from '@/requests/users/User';
+import { Stock } from '@/requests/stock/Stock';
+import { Review } from '@/requests/reviews/Review';
+import { ShoppingHistory } from '@/requests/shopping-history/ShoppingHistory';
+import { Cart } from '@/requests/cart/Cart';
+import { ProductCategory } from '@/requests/product-category/ProductCategory';
+import { ProductImage } from '@/requests/product-image/ProductImage';
 
 export class Product {
     public id?: number;

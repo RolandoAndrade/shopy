@@ -1,3 +1,1 @@
-export class ShoppingHistory {
-
-}
+export class ShoppingHistory {}

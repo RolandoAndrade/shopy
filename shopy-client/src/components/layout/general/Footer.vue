@@ -8,16 +8,31 @@
                 text
                 rounded
                 class="my-2"
-            >{{ link }}</v-btn>
+                >{{ link }}</v-btn
+            >
 
             <transition name="fade">
-                <v-col class="purple py-4 text-center white--text title-center" cols="12">
+                <v-col
+                    class="purple py-4 text-center white--text title-center"
+                    cols="12"
+                >
                     <v-menu top offset-y class="margin-medium">
                         <template v-slot:activator="{ on }">
                             <v-btn color="purple" dark v-on="on">
-                                <Icon :size="'icon-small'" :icon="'icon-sphere'" class="mr-2" />
-                                <div class="title-terciary" style="color:white;">{{activeLang}}</div>
-                                <v-icon class="smallest-icon" color="white">mdi-chevron-down</v-icon>
+                                <Icon
+                                    :size="'icon-small'"
+                                    :icon="'icon-sphere'"
+                                    class="mr-2"
+                                />
+                                <div
+                                    class="title-terciary"
+                                    style="color:white;"
+                                >
+                                    {{ activeLang }}
+                                </div>
+                                <v-icon class="smallest-icon" color="white"
+                                    >mdi-chevron-down</v-icon
+                                >
                             </v-btn>
                         </template>
 
@@ -28,7 +43,9 @@
                                 class="item-small"
                                 @click="selectLanguage(item)"
                             >
-                                <v-list-item-title>{{ item }}</v-list-item-title>
+                                <v-list-item-title>{{
+                                    item
+                                }}</v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -39,9 +56,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import Icon from '@/components/typography/Icon.vue';
-import {DEFAULT_LANGUAGE, ENGLISH, SPANISH, translator} from "@/constants/language.constants";
+import { ENGLISH, SPANISH, translator } from '@/constants/language.constants';
 
 @Component({
     components: { Icon }
@@ -56,25 +73,21 @@ export default class Footer extends Vue {
         'Contact Us'
     ];
 
-    private lang: string = "EN";
+    private lang = 'EN';
 
-    get languages(): string[]
-    {
+    get languages(): string[] {
         return [ENGLISH, SPANISH];
     }
 
-    get activeLang(): string
-    {
+    get activeLang(): string {
         return this.lang;
     }
 
-    selectLanguage(lang: string)
-    {
+    selectLanguage(lang: string) {
         translator.selectLanguage(lang);
         this.lang = lang;
     }
 }
 </script>
 
-<style>
-</style>
+<style></style>

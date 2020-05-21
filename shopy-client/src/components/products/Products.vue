@@ -1,7 +1,12 @@
 <template>
     <div>
         <div class="flex wrap padding-medium container-space ">
-            <ProductCard v-for="n in visibleProducts" :key="n.id" :product="n" :into="false"/>       
+            <ProductCard
+                v-for="n in visibleProducts"
+                :key="n.id"
+                :product="n"
+                :into="false"
+            />
         </div>
         <div class="text-center margin-medium">
             <v-pagination
@@ -18,10 +23,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import Icon from '../typography/Icon.vue';
-import ProductCard from '../cards/ProductCard.vue'
-import {Product} from "@/requests/products/Product";
+import ProductCard from '../cards/ProductCard.vue';
+import { Product } from '@/requests/products/Product';
 
 @Component({
     components: {
@@ -31,22 +36,21 @@ import {Product} from "@/requests/products/Product";
 })
 export default class Products extends Vue {
     private visibleProducts: Product[] = [];
-    private currentPage: number = 1;
-    private pageSize: number = 6;
-    private products: Product[] = [
-    ];
+    private currentPage = 1;
+    private pageSize = 6;
+    private products: Product[] = [];
 
     get getLength() {
         return Math.ceil(this.products.length / this.pageSize);
     }
 
     beforeMount() {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         this.updateVisibleProducts();
     }
 
     private changePage(): void {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         this.updateVisibleProducts();
     }
 
@@ -59,6 +63,4 @@ export default class Products extends Vue {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

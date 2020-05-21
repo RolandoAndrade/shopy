@@ -11,11 +11,11 @@
 
 <script lang="ts">
 
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import firebase, { User } from 'firebase/app';
-import "firebase/auth";
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import firebase, {User} from 'firebase/app';
+    import "firebase/auth";
 
-@Component({
+    @Component({
 })
 export default class FederatedLogin extends Vue{
 

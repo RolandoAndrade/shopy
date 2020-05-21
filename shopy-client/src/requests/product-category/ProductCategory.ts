@@ -1,3 +1,1 @@
-export class ProductCategory {
-
-}
+export class ProductCategory {}

@@ -1,47 +1,43 @@
 <template>
-<div>
-      
-    <Header/>  
+    <div>
+        <Header />
 
+        <div class="push-footer">
+            <v-fade-transition hide-on-leave>
+                <v-content>
+                    <slot></slot>
+                </v-content>
+            </v-fade-transition>
+        </div>
 
-    <div class="push-footer">
-        <v-fade-transition hide-on-leave>
-            <v-content >
-                <slot ></slot>
-            </v-content>
-        </v-fade-transition>
+        <Footer />
     </div>
-
-    <Footer/>
-
-</div>
 </template>
 
 <script lang="ts">
-
 import Footer from '@/components/layout/general/Footer.vue';
 import Header from '@/components/layout/general/Header.vue';
-import Vue from "vue";
-import Component from "vue-class-component";
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 @Component({
-    components:{
+    components: {
         Footer,
         Header
     }
 })
-export default class Layout extends Vue{
-
-      public navLinks: Object =[
+export default class Layout extends Vue {
+    public navLinks: Record<string, any> = [
         { title: 'Categories', icon: 'mdi-apps' },
         { title: 'My products', icon: 'mdi-clipboard-text-outline' },
         { title: 'My shopping', icon: 'mdi-cash-usd-outline' },
-        { title: 'Log Out', icon: 'mdi-logout' }];
+        { title: 'Log Out', icon: 'mdi-logout' }
+    ];
 }
 </script>
 
 <style>
-    .push-footer{
-        min-height: calc(100vh - 120px);
-    }
+.push-footer {
+    min-height: calc(100vh - 120px);
+}
 </style>

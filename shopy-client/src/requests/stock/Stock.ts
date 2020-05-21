@@ -1,3 +1,1 @@
-export class Stock {
-
-}
+export class Stock {}

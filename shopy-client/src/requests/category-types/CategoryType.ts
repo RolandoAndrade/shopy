@@ -1,4 +1,4 @@
-import {Category} from "@/requests/category/Category";
+import { Category } from '@/requests/category/Category';
 
 export class CategoryType {
     id?: number;

@@ -1,3 +1,1 @@
-export class Role {
-
-}
+export class Role {}

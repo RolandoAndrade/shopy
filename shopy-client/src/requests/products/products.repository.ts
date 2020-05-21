@@ -1,12 +1,11 @@
-import {AxiosRepository} from "@/requests/interfaces/axios.repository";
-import {Filter} from "@/utils/filter";
-import {Product} from "@/requests/products/Product";
-import {ProductsViewInterface} from "@/requests/interfaces/products.view.interface";
+import { AxiosRepository } from '@/requests/interfaces/axios.repository';
+import { Filter } from '@/utils/filter';
+import { Product } from '@/requests/products/Product';
+import { ProductsViewInterface } from '@/requests/interfaces/products.view.interface';
 
-const RESOURCE = "products";
+const RESOURCE = 'products';
 
-export class ProductsRepository extends AxiosRepository{
-
+export class ProductsRepository extends AxiosRepository {
     constructor() {
         super(RESOURCE);
     }
@@ -23,7 +22,9 @@ export class ProductsRepository extends AxiosRepository{
         return super.getAll();
     }
 
-    public async getAllFiltered(filters: Filter): Promise<ProductsViewInterface> {
+    public async getAllFiltered(
+        filters: Filter
+    ): Promise<ProductsViewInterface> {
         return super.getAllFiltered(filters);
     }
 

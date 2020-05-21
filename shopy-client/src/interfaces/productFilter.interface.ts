@@ -1,4 +1,4 @@
-import {SectionInterface} from "@/interfaces/section.interface";
+import { SectionInterface } from '@/interfaces/section.interface';
 
 export interface ProductFilterInterface {
     title: string;
@@ -7,6 +7,6 @@ export interface ProductFilterInterface {
     types?: {
         name: string;
         used: boolean;
-        icon: string
-    }[]
+        icon: string;
+    }[];
 }

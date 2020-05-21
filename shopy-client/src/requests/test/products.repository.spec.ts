@@ -1,8 +1,7 @@
-import {RepositoryInterface} from "@/requests/interfaces/repository.interface";
-import {ProductsRepository} from "@/requests/products/products.repository";
+import { RepositoryInterface } from '@/requests/interfaces/repository.interface';
+import { ProductsRepository } from '@/requests/products/products.repository';
 
 describe('Product repository test', () => {
-
     let repository: RepositoryInterface;
 
     beforeEach(async () => {

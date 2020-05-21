@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import storeExample from "@/store/store-example/store-example";
-import productsView from "@/store/products/products.view";
-import productDetail from "@/store/products/product.detail";
+import storeExample from '@/store/store-example/store-example';
+import productsView from '@/store/products/products.view';
+import productDetail from '@/store/products/product.detail';
 
 Vue.use(Vuex);
 

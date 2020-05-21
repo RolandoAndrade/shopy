@@ -1,40 +1,36 @@
 <template>
-         <section class="section-book">          
-                  <div class="book">
-                      <div class="book__form">
-                          <SignInForm/>
-                      </div> 
-                  </div>
-          </section>
+    <section class="section-book">
+        <div class="book">
+            <div class="book__form">
+                <SignInForm />
+            </div>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
-
-import { Component, Prop, Vue,Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import SignInForm from '@/components/login/SignInForm.vue';
 
 @Component({
-    components:{
+    components: {
         SignInForm
     }
 })
-export default class Login extends Vue{
+export default class Login extends Vue {
+    private loginFields: Array<object> = [
+        { id: 1, name: 'Email', type: 'email', placeholder: 'Email account' },
+        { id: 2, name: 'Password', type: 'password', placeholder: 'Password' }
+    ];
 
-    private loginFields : Array<object> =[
-        {id:1,name:'Email',type:'email',placeholder:'Email account'},
-        {id:2,name:'Password',type:'password',placeholder:'Password'}];
-
-   /* private providers = [
+    /* private providers = [
         {google: new firebase.auth.GoogleAuthProvider(),
          name: 'google'
          },
          {facebook: new firebase.auth.FacebookAuthProvider(),
          name:'facebook'}
     ]*/
-
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

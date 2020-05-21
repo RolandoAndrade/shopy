@@ -1,3 +1,1 @@
-export class Review {
-
-}
+export class Review {}

@@ -5,8 +5,11 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import Vuelidate from 'vuelidate';
-Vue.use(Vuelidate);
+import {LanguagePlugin} from "@/plugins/languages/language";
 
+
+Vue.use(Vuelidate);
+Vue.use(LanguagePlugin);
 Vue.config.productionTip = false;
 
 

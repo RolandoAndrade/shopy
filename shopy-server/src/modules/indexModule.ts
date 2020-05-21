@@ -17,6 +17,7 @@ import { StatusModule } from "./status/status.module";
 import { StockModule } from "./stock/stock.module";
 import { UserModule } from "./user/user.module";
 import { WalletModule } from "./wallet/wallet.module";
+import {TranslatorModule} from "./translator/translator.module";
 
 
 export const indexModules = [
@@ -38,5 +39,6 @@ export const indexModules = [
      StatusModule,
      StockModule,
      UserModule,
-     WalletModule
+     WalletModule,
+    TranslatorModule
 ]

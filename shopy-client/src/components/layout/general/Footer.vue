@@ -16,7 +16,7 @@
                         <template v-slot:activator="{ on }">
                             <v-btn color="purple" dark v-on="on">
                                 <Icon :size="'icon-small'" :icon="'icon-sphere'" class="mr-2" />
-                                <div class="title-terciary" style="color:white;">{{activeLan}}</div>
+                                <div class="title-terciary" style="color:white;">{{activeLang}}</div>
                                 <v-icon class="smallest-icon" color="white">mdi-chevron-down</v-icon>
                             </v-btn>
                         </template>
@@ -26,7 +26,7 @@
                                 v-for="(item, index) in languages"
                                 :key="index"
                                 class="item-small"
-                                
+                                @click="selectLanguage(item)"
                             >
                                 <v-list-item-title>{{ item }}</v-list-item-title>
                             </v-list-item>
@@ -41,6 +41,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Icon from '@/components/typography/Icon.vue';
+import {DEFAULT_LANGUAGE, ENGLISH, SPANISH, translator} from "@/constants/language.constants";
 
 @Component({
     components: { Icon }
@@ -55,8 +56,23 @@ export default class Footer extends Vue {
         'Contact Us'
     ];
 
-    public languages: Array<String> = ['EN', 'ES', 'ITA', 'FR'];
-    public activeLan: string = 'EN';
+    private lang: string = "EN";
+
+    get languages(): string[]
+    {
+        return [ENGLISH, SPANISH];
+    }
+
+    get activeLang(): string
+    {
+        return this.lang;
+    }
+
+    selectLanguage(lang: string)
+    {
+        translator.selectLanguage(lang);
+        this.lang = lang;
+    }
 }
 </script>
 

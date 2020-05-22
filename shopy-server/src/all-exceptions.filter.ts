@@ -26,10 +26,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        this.logger.error(`ERROR: ${status} - PATH: ${request.url} - NAME: ${exception["name"]} - MESSAGE: ${exception["message"]}`, 'AllExceptionsFilter');
+        this.logger.error(`ERROR: ${status} - PATH: ${request.url} - NAME: ${exception["name"]} - MESSAGE: ${exception["message"].message}`, 'AllExceptionsFilter');
 
         response.status(status).json({
             statusCode: status,
+            message:  exception["message"].message || 'unknown',
             timestamp: new Date().toISOString(),
             path: request.url,
         });

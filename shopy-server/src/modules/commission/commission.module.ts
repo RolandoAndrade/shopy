@@ -7,6 +7,7 @@ import { Commission } from './commission.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Commission])],
   providers: [CommissionService],
-  controllers: [CommissionController]
+  controllers: [CommissionController],
+  exports: [CommissionService]
 })
 export class CommisionModule {}

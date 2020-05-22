@@ -23,7 +23,6 @@ import {TranslatorModule} from "./translator/translator.module";
 export const indexModules = [
      AddressModule,
      BadgeModule,
-     CartModule,
      CategoryModule,
      CategoryTypeModule,
      CommisionModule,
@@ -39,6 +38,7 @@ export const indexModules = [
      StatusModule,
      StockModule,
      UserModule,
+     CartModule,
      WalletModule,
     TranslatorModule
 ]

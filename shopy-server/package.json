@@ -29,6 +29,7 @@
     "@nestjs/core": "^6.10.14",
     "@nestjs/platform-express": "^6.10.14",
     "@nestjs/typeorm": "^7.0.0",
+    "coingate-v2": "^1.0.1",
     "dotenv": "latest",
     "helmet": "^3.22.0",
     "pg": "^8.0.3",

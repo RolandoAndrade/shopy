@@ -29,8 +29,8 @@ export class Payment extends BaseEntity {
 
     @JoinColumn({ name: 'fk_wallet_id' })
     @ManyToOne(type => Wallet, wallet => wallet.payments,
-        { nullable: false })
-    wallet: Wallet;
+        { nullable: true })
+    wallet?: Wallet;
 
     @OneToMany(type => PaymentStatus, paymentStatus => paymentStatus.payment,
         { cascade: true })

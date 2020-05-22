@@ -4,7 +4,8 @@ import { Product } from './product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager, SelectQueryBuilder } from 'typeorm';
 import { logger } from 'src/logger/loggerConst';
-import { ProductParameters, PaginatedProducts } from './product-interfaces';
+import { ProductParameters } from './interfaces/product-parameters';
+import { PaginatedProducts } from './interfaces/paginated-products';
 import {DEFAULT_PRODUCT_START_INDEX, MAX_PRODUCTS_BY_PAGE} from "../../constants/products.constants";
 
 @Injectable()
@@ -56,15 +57,17 @@ export class ProductService {
         let query: SelectQueryBuilder<Product> = this.productRepository
                                                     .createQueryBuilder('product')
                                                     .innerJoinAndSelect('product.productImages', 'images')
+                                                    .innerJoin('product.stock', 'stock')
                                                     .innerJoin('product.productCategories', 'productCategories')
                                                     .innerJoin('productCategories.category', 'category')
                                                     .innerJoin('category.categoryType', 'categoryType')
         
-        !(parameters.name) || query.andWhere("UPPER(product.name) LIKE :name", { name: `%${parameters.name.toUpperCase()}%` })
-        !(parameters.score) || query.andWhere('FLOOR(product.score) = :score', { score: parameters.score })
-        !(parameters.new) || query.andWhere('product.new = :new', { new: parameters.new })
-        !(parameters.categoryId) || query.andWhere('category.id = :categoryId', { categoryId: parameters.categoryId })
-        !(parameters.categoryTypeId) || query.andWhere('categoryType.id = :categoryTypeId', { categoryTypeId: parameters.categoryTypeId })
+        !(parameters.name) || query.andWhere("UPPER(product.name) LIKE :name", { name: `%${parameters.name.toUpperCase()}%` });
+        !(parameters.score) || query.andWhere('FLOOR(product.score) = :score', { score: parameters.score });
+        !(parameters.new) || query.andWhere('product.new = :new', { new: parameters.new });
+        !(parameters.categoryId) || query.andWhere('category.id = :categoryId', { categoryId: parameters.categoryId });
+        !(parameters.categoryTypeId) || query.andWhere('categoryType.id = :categoryTypeId', { categoryTypeId: parameters.categoryTypeId });
+        query.andWhere('stock.quantity - stock.minimum_quantity > 0');
         
         return {
             products: await query

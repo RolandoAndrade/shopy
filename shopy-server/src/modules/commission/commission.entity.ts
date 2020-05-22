@@ -7,11 +7,14 @@ export class Commission extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ type: 'float', nullable: false })
-    percentage: number;
+    @Column({ name: 'service_fee', type: 'float', nullable: false })
+    serviceFee: number;
 
-    @Column({ type: 'float', nullable: false })
-    commission: number;
+    @Column({ name: 'processor_fee', type: 'float', nullable: false })
+    processorFee: number;
+
+    @Column({ type: 'boolean', nullable: false })
+    active: boolean;
 
     @OneToMany(type => Payment, payment => payment.commission,
         { onUpdate: 'CASCADE' })

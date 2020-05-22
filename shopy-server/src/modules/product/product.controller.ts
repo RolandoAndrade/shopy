@@ -3,7 +3,8 @@ import { ILogger } from 'src/logger/ILogger';
 import { logger } from 'src/logger/loggerConst';
 import { ProductService } from './product.service';
 import { Product } from './product.entity';
-import { ProductParameters, PaginatedProducts } from './product-interfaces';
+import { ProductParameters } from './interfaces/product-parameters';
+import { PaginatedProducts } from './interfaces/paginated-products';
 
 @Controller('products')
 export class ProductController {

@@ -17,7 +17,7 @@ export default new Vuetify({
                 purple: '#442464',
                 purple2: '#e2c6e7',
                 white: '#fff',
-                orange: '#fa8c73',
+                orange: '#f58c51',
                 black: '#333',
                 purplelight: '#faf5ff',
                 error: '#FF5252',

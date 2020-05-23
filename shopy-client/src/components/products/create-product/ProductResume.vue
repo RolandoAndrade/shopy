@@ -4,31 +4,31 @@
             <div class="space-around pa-10">
                 <div class="flex column half">
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Name:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.name')}}:</Title>
                         <Title size="title-terciary ">{{
                             product.title
                         }}</Title>
                     </div>
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Description:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.description')}}:</Title>
                         <Title size="title-terciary ">{{
                             product.description
                         }}</Title>
                     </div>
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Condition:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.condition')}}:</Title>
                         <Title size="title-terciary ">{{
                             product.condition
                         }}</Title>
                     </div>
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Quantity:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.quantity')}}:</Title>
                         <Title size="title-terciary ">{{
                             product.stock
                         }}</Title>
                     </div>
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Dimentions:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.dimentions')}}:</Title>
                         <Title size="title-terciary "
                             >{{ product.width }} x {{ product.height }}</Title
                         >
@@ -36,7 +36,7 @@
                 </div>
                 <div class=" flex column half">
                     <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">Price:</Title>
+                        <Title size="title-secondary mr-6">{{this.$language.get('product.price')}}:</Title>
                         <Title size="title-terciary ">{{
                             product.price
                         }}</Title>
@@ -45,7 +45,7 @@
                         <div class="flex column">
                             <v-combobox
                                 :items="categoriesName"
-                                label="Categories"
+                                :label="this.$language.get('filters.categories.name')"
                                 solo
                             ></v-combobox>
                         </div>
@@ -55,10 +55,10 @@
         </div>
         <div class="space-around wrap">
             <ButtonSecondary @click.native="publishProduct"
-                >Publish!</ButtonSecondary
+                >{{this.$language.get('sell.step-4.btn-publish')}}!</ButtonSecondary
             >
             <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
-                >Go back</ButtonSecondary
+                >{{this.$language.get('sell.btn-back')}}</ButtonSecondary
             >
         </div>
         <Popup
@@ -70,11 +70,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {Prop} from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import { Product } from '@/requests/products/Product';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Popup from '@/components/generic/Popup.vue';
+import Vue from 'vue';
 
 @Component({
     components: {

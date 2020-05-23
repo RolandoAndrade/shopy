@@ -8,30 +8,30 @@
                             v-model="productInfo.title"
                             type=""
                             class="form__input"
-                            placeholder="Name your product"
+                            :placeholder="this.$language.get('sell.step-2.title')"
                             id="name"
                             required
                         />
                         <label for="name" class="form__label"
-                            >Name of your product</label
+                            >{{this.$language.get('sell.step-2.name')}}</label
                         >
                     </div>
                     <v-textarea
                         filled
                         name="input-7-4"
-                        label="Describe your product"
+                        :label="this.$language.get('sell.step-2.describe')"
                         color="orange"
                         v-model="productInfo.description"
                     ></v-textarea>
 
                     <v-radio-group v-model="productInfo.condition" row>
                         <v-radio
-                            label="Used"
+                            :label="this.$language.get('product.used')"
                             value="Used"
                             color="orange"
                         ></v-radio>
                         <v-radio
-                            label="New"
+                            :label="this.$language.get('product.new')"
                             value="New"
                             color="orange"
                         ></v-radio>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="column  mb-4">
                     <Title :size="'title-secondary'" class="mr-5 mb-5"
-                        >Price:</Title
+                        >{{this.$language.get('product.price')}}:</Title
                     >
                     <div class="flex mb-4">
                         <div class="form__group mr-6">
@@ -79,12 +79,12 @@
                                 type="number"
                                 v-model="productInfo.width"
                                 class="form__number"
-                                placeholder="Width"
+                                :placeholder="this.$language.get('product.width')"
                                 id="width"
                                 required
                             />
                             <label for="width" class="form__label"
-                                >Width (cm)</label
+                                >{{this.$language.get('product.width')}} (cm)</label
                             >
                         </div>
 
@@ -93,12 +93,12 @@
                                 type="number"
                                 v-model="productInfo.height"
                                 class="form__number"
-                                placeholder="Height"
+                                :placeholder="this.$language.get('product.height')"
                                 id="height"
                                 required
                             />
                             <label for="height" class="form__label"
-                                >Height (cm)</label
+                                >{{this.$language.get('product.height')}} (cm)</label
                             >
                         </div>
                     </div>
@@ -108,11 +108,11 @@
                             v-model="productInfo.stock"
                             class="form__number"
                             id="quantity"
-                            placeholder="Quantity"
+                            :placeholder="this.$language.get('product.quantity')"
                             required
                         />
                         <label for="quantity" class="form__label"
-                            >Quantity</label
+                            >{{this.$language.get('product.quantity')}}</label
                         >
                     </div>
                     <div class="text-error mt-2">{{ numberErrors }}</div>
@@ -121,10 +121,10 @@
         </div>
         <div class="space-around wrap">
             <ButtonSecondary @click.native="nextStep()"
-                >Continue</ButtonSecondary
+                >{{this.$language.get('sell.btn-continue')}}</ButtonSecondary
             >
             <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
-                >Go back</ButtonSecondary
+                >{{this.$language.get('sell.btn-back')}}</ButtonSecondary
             >
         </div>
         <!--  <Popup :dialog="dialog" :response="response" :message="messageDialog" v-on:closeDialog="closeDialog"/> -->
@@ -204,7 +204,7 @@ export default class SelectInfo extends Vue {
             !this.$v.productInfo.stock!.$invalid
         )
             return error;
-        else error = 'There is an invalid field';
+        else error = this.$language.get('sell.step-2.errors.invalid-field');
         return error;
     }
 
@@ -220,9 +220,9 @@ export default class SelectInfo extends Vue {
         )
             return errors;
         if (!this.$v.productInfo.title!.maxLength) {
-            errors.push('The title must not contain more than  25 characters.');
+            errors.push(this.$language.get('sell.step-2.errors.characters'));
         } else {
-            errors.push('All fields must be filled!');
+            errors.push(this.$language.get('sell.step-2.errors.all-filled'));
         }
         return errors;
     }
@@ -234,7 +234,7 @@ export default class SelectInfo extends Vue {
                 return error;
             }
         }
-        error = 'Invalid Currency';
+        error = this.$language.get('sell.step-2.errors.invalid-currency');
         return error;
     }
 }

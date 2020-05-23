@@ -45,11 +45,11 @@ export default class ProductsView extends Vue {
     get items(): ProductFilterInterface[] {
         return [
             {
-                title: 'Categories',
+                title: this.$language.get('filters.categories.name'),
                 sections: this.getCategories
             },
             {
-                title: 'Condition',
+                title: this.$language.get('filters.condition.name'),
                 types: [
                     {
                         name: 'Nuevo',
@@ -64,7 +64,7 @@ export default class ProductsView extends Vue {
                 ]
             },
             {
-                title: 'Rating',
+                title: this.$language.get('filters.rating'),
                 rating: [5, 4, 3, 2, 1]
             }
         ];

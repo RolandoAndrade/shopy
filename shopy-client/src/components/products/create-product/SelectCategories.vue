@@ -1,13 +1,13 @@
 <template>
     <div style="height:500px;">
-        <div color="white" class="card-create mb-8  mt-8 inline to-column">
+        <div color="white" class="card-create mb-8 mt-8 inline to-column">
             <div class="inline half to-column">
                 <div class="column cover">
                     <v-select
                         color="orange"
                         :items="items"
                         filled
-                        label="Categories"
+                        :label="this.$language.get('sell.step-1.categories')"
                         dense
                         class="pa-3"
                         v-on:input="selectItem"
@@ -22,7 +22,7 @@
                                 `${subitems.name}, ${subitems.id},${subitems.active}`
                             "
                             item-text="name"
-                            label="Select your sub categories"
+                            :label="this.$language.get('sell.step-1.subcategories')"
                             multiple
                         >
                             <template v-slot:selection="{ item, index }">
@@ -32,8 +32,7 @@
                                 <span
                                     v-if="index === 3"
                                     class="grey--text caption"
-                                    >(+ {{ value.length - 3 }} others)</span
-                                >
+                                >(+ {{ value.length - 3 }} {{this.$language.get('sell.step-1.others')}})</span>
                             </template>
                         </v-select>
                     </v-container>
@@ -41,25 +40,25 @@
             </div>
         </div>
         <div class="space-around wrap">
-            <ButtonSecondary @click.native="setDialog"
-                >Continue</ButtonSecondary
-            >
-            <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
-                >Go back</ButtonSecondary
-            >
+            <ButtonSecondary @click.native="setDialog">{{this.$language.get('sell.btn-continue')}}</ButtonSecondary>
+            <ButtonSecondary
+                :reverse="true"
+                @click.native="$emit('goBack')"
+            >{{this.$language.get('sell.btn-back')}}</ButtonSecondary>
         </div>
         <Popup
             ref="errorModal"
-            message="You must select at lest one category"
+            :message="this.$language.get('sell.step-1.error')"
             :response="false"
         />
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Popup from '@/components/generic/Popup.vue';
+import Vue from 'vue';
 
 @Component({
     components: {

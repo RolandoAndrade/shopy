@@ -24,7 +24,7 @@
                 </v-list-item-action>
                 <v-list-item-content>
                     <v-list-item-title class="fs-sp"
-                        >Todos los productos</v-list-item-title
+                        >{{this.$language.get('generic.all-products')}}</v-list-item-title
                     >
                 </v-list-item-content>
             </v-list-item>

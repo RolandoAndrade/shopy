@@ -17,7 +17,7 @@
                         />
                         <input
                             type="button"
-                            value="Click here!"
+                            value="Click !"
                             onclick="document.getElementById('file').click();"
                             style="outline:none;"
                             class="title-terciary"
@@ -45,25 +45,26 @@
         </div>
         <div class="space-around wrap">
             <ButtonSecondary @click.native="nextStep()"
-                >Finish it!</ButtonSecondary
+                >{{this.$language.get('sell.step-3.btn-finish')}}</ButtonSecondary
             >
             <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
-                >Go back</ButtonSecondary
+                >{{this.$language.get('sell.btn-back')}}</ButtonSecondary
             >
         </div>
         <Popup
             ref="errorModal"
-            message="You must select at least one image"
+            :message="this.$language.get('sell.step-3.error')"
             :response="false"
         />
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
+import Vue from 'vue';
 
 @Component({
     components: {

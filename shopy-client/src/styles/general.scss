@@ -59,7 +59,15 @@
 }
 
 
-
+.general-container{
+    //margin:0 auto;
+    width: 90%;
+    padding: 3rem;
+    margin:50px auto;
+    border-radius: .5rem;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+    background-color:$color-grey-light-3;
+  }
 
 
 

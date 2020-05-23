@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <div>
-            <Title size="title-primary">My Orders</Title>
+            <Title size="title-primary">{{this.$language.get('my-orders.title')}}</Title>
             <div class="divider" style="height:1px; width:70%"></div>
         </div>
         <v-row
@@ -38,12 +38,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Title from '@/components/typography/Title.vue';
 import { getItemsPerPage, getLength } from '../utils/global-functions';
-
+import Vue from 'vue';
 @Component({
     components: {
         ButtonSecondary,

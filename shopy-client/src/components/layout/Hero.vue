@@ -3,7 +3,7 @@
         <img src="../../assets/Hero-image.jpg" />
         <div class="flex column padding-medium ">
             <Title :size="'title-primary'">{{
-                this.$language.get('title')
+                this.$language.get('home.hero.title')
             }}</Title>
             <div class="divider" />
             <Title
@@ -13,7 +13,7 @@
                 inventore alias velit ipsa cupiditate culpa?</Title
             >
             <ButtonPrimary class="end" @click.native="signIn">
-                Sign In
+                {{ this.$language.get('home.hero.btn-sign-in')}}
             </ButtonPrimary>
         </div>
     </div>

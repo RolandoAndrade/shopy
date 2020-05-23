@@ -17,8 +17,8 @@
 <script lang="ts">
 import Footer from '@/components/layout/general/Footer.vue';
 import Header from '@/components/layout/general/Header.vue';
-import Vue from 'vue';
 import Component from 'vue-class-component';
+import Vue from 'vue';
 
 @Component({
     components: {

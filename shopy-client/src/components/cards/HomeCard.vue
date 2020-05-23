@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
+import {Prop} from 'vue-property-decorator';
 import Title from '../typography/Title.vue';
-//import Icon from '../typography/Icon.vue';
+import Vue from 'vue';
 
 @Component({
     components: {

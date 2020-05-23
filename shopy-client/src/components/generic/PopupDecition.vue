@@ -13,10 +13,10 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="purple" text @click="sendResponse('no')"
-                    >No</v-btn
+                    >{{this.$language.get('messages.no')}}</v-btn
                 >
                 <v-btn color="purple" text @click="sendResponse('yes')"
-                    >Yes</v-btn
+                    >{{this.$language.get('messages.yes')}}</v-btn
                 >
             </v-card-actions>
         </v-card>
@@ -24,7 +24,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component'
+import {Prop} from 'vue-property-decorator';
+import Vue from 'vue';
 
 @Component({
     components: {}

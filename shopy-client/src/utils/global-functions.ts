@@ -13,4 +13,6 @@ function getLength(items: Array<any>, itemsPerPage: number) {
     return Math.ceil(items.length / itemsPerPage);
 }
 
-export { getItemsPerPage, getLength };
+
+
+export { getItemsPerPage, getLength};

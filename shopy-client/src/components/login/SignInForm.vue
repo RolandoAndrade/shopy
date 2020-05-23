@@ -1,12 +1,12 @@
 <template>
     <form action="#" class="form">
         <Title :size="'title-secondary'" class="ma-6" style="tex-align:start;"
-            >Login to Shopy</Title
+            >{{this.$language.get('login.title')}}</Title
         >
         <FederatedLogin :provider="provider" type="login">
-            Sign in with google
+            {{this.$language.get('login.login-federated')}} google
         </FederatedLogin>
-        <div class="title-center mb-2">or</div>
+        <div class="title-center mb-2"> {{this.$language.get('login.or')}}</div>
         <div class="form__group">
             <input
                 type="email"
@@ -15,7 +15,7 @@
                 id="email"
                 required
             />
-            <label for="email" class="form__label">Email account</label>
+            <label for="email" class="form__label"> {{this.$language.get('user.email')}}</label>
         </div>
         <div class="form__group">
             <input
@@ -25,27 +25,28 @@
                 id="password"
                 required
             />
-            <label for="password" class="form__label">Password</label>
+            <label for="password" class="form__label"> {{this.$language.get('user.password')}}</label>
         </div>
         <ButtonPrimary :color="'purple'" class="flex mb-4"
-            >Log in</ButtonPrimary
+            > {{this.$language.get('login.name')}}</ButtonPrimary
         >
         <div class="title-center mr-2">
-            Don't have an account yet?
+             {{this.$language.get('login.sign-up-question')}}
             <a class="title-center" @click="() => $router.push('/signup')"
-                >Sign up</a
+                > {{this.$language.get('sign-up.name')}}</a
             >
         </div>
     </form>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import FederatedLogin from '@/components/login/FederatedLogin.vue';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import Vue from 'vue';
 
 @Component({
     components: {

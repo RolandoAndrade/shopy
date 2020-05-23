@@ -22,8 +22,8 @@
                         <v-list-item>
                             <v-list-item-avatar>
                                 <img
-                                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                    alt="John"
+                                    src="../../../assets/team/stephanie.jpeg"
+                                    alt="User photo"
                                 />
                             </v-list-item-avatar>
 
@@ -77,9 +77,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import SearchBar from '@/components/generic/SearchBar.vue';
+import Vue from "vue";
 
 @Component({
     components: {
@@ -90,6 +91,11 @@ import SearchBar from '@/components/generic/SearchBar.vue';
 export default class Header extends Vue {
     private login = true;
     private navLinks: { title: string; icon: string; link?: string }[] = [
+        {
+            title: 'My profile',
+            icon: 'mdi-account-circle-outline',
+            link: '/profile'
+        },
         { title: 'Categories', icon: 'mdi-apps', link: '/products' },
         {
             title: 'My products',

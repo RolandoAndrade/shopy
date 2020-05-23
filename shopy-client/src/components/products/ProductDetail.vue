@@ -1,13 +1,13 @@
 <template>
     <v-container class="product-detail flex column">
         <div class="product-detail__title">{{ product.name }}</div>
-        <div class="product-detail__author">by {{ product.user.username }}</div>
+        <div class="product-detail__author">{{this.$language.get('generic.by')}} {{ product.user.username }}</div>
         <div class="product-detail__price">$ {{ product.price }}</div>
         <div class="product-detail__condition">
             {{ product.new ? 'New' : 'Used' }}
         </div>
         <div class="product-detail__stock mb-4">
-            {{ product.stock.quantity }} left in stock
+            {{ product.stock.quantity }} {{this.$language.get('generic.in-stock')}}
         </div>
         <v-row class="product-detail__rating justify-end">
             <Icon
@@ -27,19 +27,21 @@
         </v-row>
         <div class="product-detail__description">{{ product.description }}</div>
         <ButtonPrimary v-on:click.native="setDialog()">
-            Add to cart
+            {{this.$language.get('generic.add-to-cart')}}
         </ButtonPrimary>
         <div class="product-detail__comments mt-4">
             <v-btn color="purple" icon v-on:click="commentDialog = true">
                 <v-icon large> mdi-chat-processing</v-icon>
             </v-btn>
-            <div class="title-center" style="color:purple;">SEE COMMENTS</div>
+            <div class="title-center" style="color:purple;">
+                            {{this.$language.get('generic.see-comments')}}
+            </div>
         </div>
         <Popup :dialog="dialog" :response="response" :message="messageDialog" />
 
         <v-dialog v-model="commentDialog" scrollable max-width="600px">
             <v-card>
-                <v-card-title>Comments</v-card-title>
+                <v-card-title>{{this.$language.get('generic.Comments')}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text style="height: 300px;" v-if="comments.length > 0">
                     <div
@@ -60,13 +62,13 @@
                 </v-card-text>
                 <v-card-text v-else class="flex">
                     <div class="title-terciary mt-6">
-                        This publication has no comments
+                        {{this.$language.get('generic.no-comments')}}
                     </div>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-btn color="purple" text @click="commentDialog = false"
-                        >Close</v-btn
+                        >{{this.$language.get('generic.close')}}</v-btn
                     >
                 </v-card-actions>
             </v-card>
@@ -75,13 +77,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
 import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import { Product } from '@/requests/products/Product';
+import Vue from 'vue';
 
 @Component({
     components: {
@@ -94,7 +96,7 @@ export default class ProductDetail extends Vue {
     @Prop() product!: Product;
     private dialog = false;
     private response = true;
-
+   
     private messageDialog?: string;
     private commentDialog = false;
     private comments: Array<string> = [

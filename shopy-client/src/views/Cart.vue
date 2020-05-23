@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="inline align-center ma-6 to-column">
-            <Icon
+        <v-row class="space-around to-column mt-10">
+            <Title size="title-secondary-big">{{this.$language.get('cart.title')}}</Title>        
+            <div class="column" style="width:max-content;">
+                <Icon
                 icon="icon-cart"
-                size="icon-gigant"
-                class="mr-6"
+                size="icon-big"
                 color="orange-i"
+                style="width:100px;"
             />
-            <div class="column ">
-                <Title size="title-primary">My Cart</Title>
-                <div class="title-terciary mt-4">Total: {{ totalPrice }} $</div>
+                <div class="title-terciary ">{{this.$language.get('cart.total')}}: {{ totalPrice }} $</div>
             </div>
-        </div>
+        </v-row>
         <div class="divider" style="height:1px; width:70%"></div>
         <div v-if="items">
             <div class="mt-10 mb-10">
@@ -27,6 +27,7 @@
                         :key="n.id"
                         :product="n"
                         @selectedCards="selectedCards"
+                        :condition="'cart'"
                     />
                 </v-slide-group>
             </div>
@@ -34,11 +35,11 @@
                 class="flex to-column mb-10"
                 style="width:min-content;margin:0 auto;"
             >
-                <ButtonPrimary class="flex mr-8"
-                    >Buy all the products!</ButtonPrimary
+                <ButtonSecondary class="flex mr-8"
+                    >{{this.$language.get('cart.btn-buy-all')}}!</ButtonSecondary
                 >
-                <ButtonPrimary class="flex" v-if="selected.length > 0">
-                    Buy {{ selected.length }} items</ButtonPrimary
+                <ButtonSecondary class="flex" v-if="selected.length > 0">
+                    {{this.$language.get('cart.buy')}} {{ selected.length }} {{this.$language.get('cart.items')}}</ButtonSecondary
                 >
             </div>
         </div>
@@ -49,19 +50,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import Icon from '@/components/typography/Icon.vue';
 import Title from '@/components/typography/Title.vue';
 import ProductCard from '@/components/cards/ProductCard.vue';
-import ButtonPrimary from '@/components/generic/ButtonPrimary.vue';
+import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import { ProductInterface } from '../interfaces/product.interface';
+import Vue from 'vue';
 
 @Component({
     components: {
         Icon,
         Title,
         ProductCard,
-        ButtonPrimary
+        ButtonSecondary
     }
 })
 export default class Cart extends Vue {

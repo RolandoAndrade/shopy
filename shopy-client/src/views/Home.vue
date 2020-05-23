@@ -9,11 +9,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import CardContainer from '../components/cards/CardContainer.vue';
 import Hero from '../components/layout/Hero.vue';
 import Title from '../components/typography/Title.vue';
 import Carrousel from '../components/categories/Carrousel.vue';
+import Vue from "vue";
 
 @Component({
     components: {

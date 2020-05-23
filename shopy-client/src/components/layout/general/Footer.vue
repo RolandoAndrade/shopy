@@ -8,7 +8,7 @@
                 text
                 rounded
                 class="my-2"
-                >{{ link }}</v-btn
+                >{{ link}}</v-btn
             >
 
             <transition name="fade">
@@ -56,7 +56,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
+import Vue from "vue";
 import Icon from '@/components/typography/Icon.vue';
 import { ENGLISH, SPANISH, translator } from '@/constants/language.constants';
 
@@ -65,13 +66,15 @@ import { ENGLISH, SPANISH, translator } from '@/constants/language.constants';
 })
 export default class Footer extends Vue {
     public footerLinks: Array<string> = [
-        'Home',
+        'home',
         'About Us',
         'Team',
         'Services',
         'Blog',
         'Contact Us'
     ];
+
+   // public linkprueba : string= this.$language.get('footer.links.home')
 
     private lang = 'EN';
 

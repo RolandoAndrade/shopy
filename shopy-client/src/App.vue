@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import Layout from './components/layout/Layout.vue';
+import Vue from 'vue';
 
 export default Vue.extend({
     name: 'App',

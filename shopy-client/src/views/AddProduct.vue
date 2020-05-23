@@ -7,19 +7,19 @@
         >
             <img src="../assets/add-product.png" style="height:350px;" />
             <div class="column ">
-                <Title size="title-secondary-big">Sell your product</Title>
+                <Title size="title-secondary-big">{{this.$language.get('sell.title')}}</Title>
                 <ButtonSecondary v-on:click.native="next++" class="ml-10"
-                    >Get start!</ButtonSecondary
+                    >{{this.$language.get('sell.btn-start')}}</ButtonSecondary
                 >
             </div>
         </div>
         <v-stepper v-model="next" vertical>
             <v-stepper-step :complete="next > 1" step="1" color="purple">
                 <Title :size="'title-secondary'" class="mt-6"
-                    >Select the category of your product
+                    >{{this.$language.get('sell.step-1.title')}}
                 </Title>
                 <Title :size="'title-terciary'" class="mt-4"
-                    >You can add as many as you want!</Title
+                    >{{this.$language.get('sell.step-1.subtitle')}}</Title
                 >
             </v-stepper-step>
 
@@ -32,7 +32,7 @@
 
             <v-stepper-step :complete="next > 2" step="2" color="purple">
                 <Title :size="'title-secondary'"
-                    >Tell us about your product
+                    >{{this.$language.get('sell.step-2.title')}}
                 </Title>
             </v-stepper-step>
 
@@ -42,7 +42,7 @@
 
             <v-stepper-step :complete="next > 3" step="3" color="purple">
                 <Title :size="'title-secondary'"
-                    >Give us some images of your product!</Title
+                    >{{this.$language.get('sell.step-3.title')}}</Title
                 >
             </v-stepper-step>
 
@@ -51,7 +51,7 @@
             </v-stepper-content>
 
             <v-stepper-step step="4" color="purple">
-                <Title :size="'title-secondary'">That's it!</Title>
+                <Title :size="'title-secondary'"></Title>{{this.$language.get('sell.step-4.title')}}
             </v-stepper-step>
 
             <v-stepper-content step="4">
@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import SelectCategories from '@/components/products/create-product/SelectCategories.vue';
 import SelectInfo from '@/components/products/create-product/SelectInfo.vue';
@@ -75,6 +75,8 @@ import ProductResume from '@/components/products/create-product/ProductResume.vu
 import Title from '@/components/typography/Title.vue';
 import Icon from '@/components/typography/Icon.vue';
 import { Product } from '@/requests/products/Product';
+import Vue from 'vue';
+
 
 @Component({
     components: {

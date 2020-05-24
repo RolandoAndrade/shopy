@@ -14,7 +14,7 @@
     border-radius: 3px; 
     box-shadow: 0 1.5rem 4rem rgba(black , .2);
     height: min-content;
-    width:60%;
+    width:75%;
 
     
 
@@ -31,6 +31,7 @@
 
         @include respond(tab-port){
             width: 100%;
+            padding: 15px;
         }
     }
 }
@@ -45,7 +46,11 @@
     border-radius: 3px; 
     box-shadow: 0 1.5rem 4rem rgba(black , .2);
     height: min-content;
-    width:60%;
+    width:75%;
+
+    @include respond(tab-port){
+        width: 80%;
+    }
 
     &__form{
         

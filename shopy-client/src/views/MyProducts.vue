@@ -8,7 +8,6 @@
             <div class="divider" style="height:1px; width:70%"></div>
             <div class="flex wrap cover" style="width:100%;">
                 <ProductCard v-for="(n, k) in this.visibleProducts" :key="k" :product="n" condition='my-products'>
-
                 </ProductCard>
             </div>
             <div style="margin:25px auto;">
@@ -32,7 +31,7 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
-import { ProductInterface } from '../interfaces/product.interface';
+import { Product } from '../requests/products/Product';
 import ProductCard from '@/components/cards/ProductCard.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Icon from '@/components/typography/Icon.vue';
@@ -64,134 +63,134 @@ import Vue from 'vue';
     }
 })
 export default class MyProducts extends Vue {
-    private visibleProducts: ProductInterface[] = [];
+    private visibleProducts: Product[] = [];
     private currentPage = 1;
     private pageSize = 6;
 
     $refs!: {
         decitionModal: any;
     };
-    private currentProduct?: ProductInterface;
-    private myProducts: ProductInterface[] = [
+    private currentProduct?: Product;
+    private myProducts: Product[] = [
         {
             id: 1,
-            title: 'Banana',
+            name: 'Banana',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 2,
-            title: 'Laptop Pro Hp',
+            name: 'Laptop Pro Hp',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 3,
-            title: 'Iphone 11 max',
+            name: 'Iphone 11 max',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 4,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 5,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 6,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 7,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 8,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 9,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         },
         {
             id: 10,
-            title: 'Sacapuntas',
+            name: 'Sacapuntas',
             price: 234,
-            condition: 'New',
+            new:true,
             description: 'Hola que tal',
             width: 12,
             height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
+            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
             stock: 2,
-            author: 'Tete'
+            user: 'Tete'
         }
     ];
 

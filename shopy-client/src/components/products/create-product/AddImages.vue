@@ -8,19 +8,13 @@
                     class="card card-select-image ma-6"
                     @click="selected"
                 >
-                    <div v-if="!images[n - 1]" style="width:100%;">
+                    <div v-if="!images[n - 1]" style="height:100%;">
                         <Icon
                             :icon="'icon-camera'"
                             :color="'grey-i'"
                             :size="'icon-big'"
-                            style="width:100%;"
-                        />
-                        <input
-                            type="button"
-                            value="Click !"
+                            class="mb-12"
                             onclick="document.getElementById('file').click();"
-                            style="outline:none;"
-                            class="title-terciary"
                         />
                         <input
                             type="file"
@@ -35,6 +29,7 @@
                             :color="'success-i'"
                             :size="'icon-big'"
                             style="width:100%;"
+                            class="mb-6"
                         />
                     </div>
                 </div>

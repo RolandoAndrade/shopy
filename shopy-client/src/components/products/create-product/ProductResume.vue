@@ -1,7 +1,7 @@
 <template>
     <div>
         <div color="white" class="card-finish mb-12 mt-6">
-            <div class="space-around pa-10">
+            <div class="space-around to-column pa-10">
                 <div class="flex column half">
                     <div class="flex mb-6 start">
                         <Title size="title-secondary mr-6">{{this.$language.get('product.name')}}:</Title>

@@ -9,7 +9,7 @@
 .card-us{
     background-color: $color-white;
     border-radius: $border;
-    width: 230px;
+    width: 180px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     transition: all .3s;
 
@@ -166,6 +166,7 @@
     background-color: $color-grey-light-4;
     height: 100px;
     width: 100px;
+    padding:2px;
     border-radius: $border;
     cursor: pointer;
     transition: all .2s;

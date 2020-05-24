@@ -1,14 +1,14 @@
 <template>
     <div>
         <div color="white" class="card-create mt-6 ">
-            <div class="flex to-column-tablet margin-medium">
-                <div class="column mr-10 pa-5 cover">
-                    <div class="form__group ">
+            <div class="margin-medium">
+                <div class="flex to-column ">
+                    <div class="form__group half ma-4">
                         <input
                             v-model="productInfo.title"
                             type=""
                             class="form__input"
-                            :placeholder="this.$language.get('sell.step-2.title')"
+                            :placeholder="this.$language.get('sell.step-2.name')"
                             id="name"
                             required
                         />
@@ -16,14 +16,21 @@
                             >{{this.$language.get('sell.step-2.name')}}</label
                         >
                     </div>
-                    <v-textarea
-                        filled
-                        name="input-7-4"
-                        :label="this.$language.get('sell.step-2.describe')"
-                        color="orange"
-                        v-model="productInfo.description"
-                    ></v-textarea>
-
+                    <div class="form__group half ma-4">
+                        <input
+                            v-model="productInfo.description"
+                            type=""
+                            class="form__input"
+                            :placeholder="this.$language.get('sell.step-2.describe')"
+                            id="description"
+                            required
+                        />
+                        <label for="description" class="form__label"
+                            >{{this.$language.get('sell.step-2.describe')}}</label
+                        >
+                    </div>
+                </div>
+                <div class="flex">
                     <v-radio-group v-model="productInfo.condition" row>
                         <v-radio
                             :label="this.$language.get('product.used')"
@@ -36,50 +43,46 @@
                             color="orange"
                         ></v-radio>
                     </v-radio-group>
-                    <div
-                        v-for="(i, ind) in infoErrors"
-                        :key="ind"
-                        class="text-error mt-2"
-                    >
-                        {{ i }}
-                    </div>
+                    
                 </div>
-                <div class="column  mb-4">
-                    <Title :size="'title-secondary'" class="mr-5 mb-5"
-                        >{{this.$language.get('product.price')}}:</Title
-                    >
-                    <div class="flex mb-4">
-                        <div class="form__group mr-6">
+                <div class="flex to-column">
+                    <div class="flex half ">
+                        <div class="form__group half ma-4">
                             <input
                                 v-model="productInfo.price"
                                 type="number"
-                                class="form__number"
+                                class="form__input"
+                                :placeholder="this.$language.get('product.price')"
+                                id="price"
                                 required
                             />
+                            <label for="price" class="form__label"
+                                >{{this.$language.get('product.price')}}</label
+                            >
                         </div>
-                        <div class="text-area mb-6">
+                        <div class="column">
                             <v-combobox
                                 v-model="select"
                                 :items="items"
                                 dense
-                                class=""
-                                color="orange"
-                                item-color="orange"
+                                class="half ma-4"
+                                color="purple"
+                                item-color="purple"
                                 hide-details
                                 single-line="true"
                             ></v-combobox>
-                            <div class="text-error mt-2">
+                            <div class="text-error ">
                                 {{ currencieError }}
                             </div>
                         </div>
                     </div>
-                    <div class="inline mb-4">
-                        <div class="form__group mr-4">
+                    <div class="flex half">
+                        <div class="form__group half ma-4">
                             <input
-                                type="number"
                                 v-model="productInfo.width"
-                                class="form__number"
-                                :placeholder="this.$language.get('product.width')"
+                                type="number"
+                                class="form__input"
+                                :placeholder="this.$language.get('product.width')+' (cm)'"
                                 id="width"
                                 required
                             />
@@ -87,13 +90,12 @@
                                 >{{this.$language.get('product.width')}} (cm)</label
                             >
                         </div>
-
-                        <div class="form__group">
+                         <div class="form__group half ma-4">
                             <input
-                                type="number"
                                 v-model="productInfo.height"
-                                class="form__number"
-                                :placeholder="this.$language.get('product.height')"
+                                type="number"
+                                class="form__input"
+                                :placeholder="this.$language.get('product.height')+' (cm)'"
                                 id="height"
                                 required
                             />
@@ -102,22 +104,39 @@
                             >
                         </div>
                     </div>
-                    <div class="form__group">
-                        <input
-                            type="number"
-                            v-model="productInfo.stock"
-                            class="form__number"
-                            id="quantity"
-                            :placeholder="this.$language.get('product.quantity')"
-                            required
-                        />
-                        <label for="quantity" class="form__label"
-                            >{{this.$language.get('product.quantity')}}</label
-                        >
-                    </div>
-                    <div class="text-error mt-2">{{ numberErrors }}</div>
                 </div>
+                <div class="flex to-column">
+                <div class="inline half ">
+                     <div class="form__group half to-column ma-4">
+                            <input
+                                v-model="productInfo.stock"
+                                type="number"
+                                class="form__input"
+                                :placeholder="this.$language.get('product.quantity')"
+                                id="quantity"
+                                required
+                            />
+                            <label for="quantity" class="form__label"
+                                >{{this.$language.get('product.quantity')}}</label
+                            >
+                    </div>
+                </div>
+                    <div class="column half">
+                            <div class="text-error mt-2">{{ numberErrors }}</div>
+                            <div
+                                v-for="(i, ind) in infoErrors"
+                                :key="ind"
+                                class="text-error mt-2"
+                            >
+                                {{ i }}
+                            </div>
+                    </div>
+                </div>
+                    
+                   
             </div>
+                
+            
         </div>
         <div class="space-around wrap">
             <ButtonSecondary @click.native="nextStep()"

@@ -1,5 +1,6 @@
 <template>
-    <form class="search" action="#">
+<div style="width:300px;">
+    <div class="search" v-if="!this.$vuetify.breakpoint.xs">
         <input
             type="text"
             class="search__input"
@@ -11,7 +12,16 @@
                 <use xlink:href="../../assets//symbol-defs.svg#icon-search" />
             </svg>
         </button>
-    </form>
+    </div>
+     <div class="flex" v-else>
+                <div class="ml-4" style="width:cover;" v-if="expand===true">
+                    <v-text-field  color="purple2"  single-line hide-details style="width:100%;"></v-text-field>
+                </div>
+                <v-btn icon class="mr-2" v-on:click="expandSearch">
+                    <v-icon large color="purple2">mdi-magnify</v-icon>
+                </v-btn>  
+    </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -23,6 +33,7 @@ import { PRODUCTS_VIEW_SEARCH } from '@/store/products/actions/products.view.act
 @Component({})
 export default class SearchBar extends Vue {
     public searchTerm = '';
+    private expand = false;
 
     async search() {
         await this.searchProducts(this.searchTerm);
@@ -30,7 +41,15 @@ export default class SearchBar extends Vue {
     }
 
     @productsView.Action(PRODUCTS_VIEW_SEARCH) searchProducts!: Function;
+
+    private expandSearch(){
+        this.expand=true;
+        this.$emit('onMobile');
+    }
 }
 </script>
 
-<style></style>
+<style scoped>
+
+</style>
+

@@ -1,11 +1,11 @@
 <template>
     <Container>
-         <div class="inline to-column">
+        <div class="inline to-column">
                 <div class="column pa-2">
-                    <v-avatar color="orange" size="60" class="mr-4" onclick="document.getElementById('file').click();" >
-                        <span v-if="image === false" class="white--text headline">{{getFirstChar}}</span>
-                        <img v-else src="../assets/team/stephanie.jpeg" />
-                    </v-avatar>
+                        <v-avatar color="orange" size="60" class="mr-4" onclick="document.getElementById('file').click();" >
+                            <span v-if="image === false" class="white--text headline">{{getFirstChar}}</span>
+                            <img v-else src="../assets/team/stephanie.jpeg" />
+                        </v-avatar>
                     <input type="file" id="file" style="display:none;" @change="previewImage"/>
                 </div>
                 <Title size="title-secondary">{{this.$language.get('my-profile.title')}}</Title>

@@ -1,16 +1,12 @@
 <template>
     <v-app-bar app color="purple" class="pa-0">
-        <div class="cover space-between ">
-            <div class="inline">
-                <img
-                    class="logo"
-                    src="@/assets/shopy1w.png"
-                    @click="() => this.$router.push('/')"
-                />
+        <div class="cover space-between">
+            <div class="inline" v-if="showLogo === true">
+                <img class="logo" src="@/assets/shopy1w.png" @click="() => this.$router.push('/')" />
             </div>
-            <SearchBar />
-
-            <v-menu :close-on-content-click="false" offset-x offset-y>
+            <SearchBar @onMobile="onMobile"/>
+           
+            <v-menu :close-on-content-click="false" offset-x offset-y >
                 <template v-slot:activator="{ on }">
                     <v-btn icon class="mr-2" v-on="on">
                         <v-icon large color="purple2">mdi-menu</v-icon>
@@ -21,19 +17,12 @@
                     <v-list v-if="login">
                         <v-list-item>
                             <v-list-item-avatar>
-                                <img
-                                    src="../../../assets/team/stephanie.jpeg"
-                                    alt="User photo"
-                                />
+                                <img src="../../../assets/team/stephanie.jpeg" alt="User photo" />
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                                <v-list-item-title
-                                    >Stephanie Cruz</v-list-item-title
-                                >
-                                <v-list-item-subtitle
-                                    >scruz.17@est.ucab.edu.ve</v-list-item-subtitle
-                                >
+                                <v-list-item-title>Stephanie Cruz</v-list-item-title>
+                                <v-list-item-subtitle>scruz.17@est.ucab.edu.ve</v-list-item-subtitle>
                             </v-list-item-content>
 
                             <v-list-item-action>
@@ -44,7 +33,7 @@
                                         () => this.$router.push('/cart')
                                     "
                                 >
-                                    <v-icon large> mdi-cart-outline</v-icon>
+                                    <v-icon x-large>mdi-cart-outline</v-icon>
                                 </v-btn>
                             </v-list-item-action>
                         </v-list-item>
@@ -60,13 +49,15 @@
                             :to="item.link"
                         >
                             <v-list-item-icon>
-                                <v-icon>{{ item.icon }}</v-icon>
+                                <v-icon medium>{{ item.icon }}</v-icon>
                             </v-list-item-icon>
 
                             <v-list-item-content>
-                                <v-list-item-title class="py-2">{{
+                                <v-list-item-title class="py-2">
+                                    {{
                                     item.title
-                                }}</v-list-item-title>
+                                    }}
+                                </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list>
@@ -80,7 +71,8 @@
 import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import SearchBar from '@/components/generic/SearchBar.vue';
-import Vue from "vue";
+import Vue from 'vue';
+
 
 @Component({
     components: {
@@ -90,6 +82,7 @@ import Vue from "vue";
 })
 export default class Header extends Vue {
     private login = true;
+    private showLogo = true;
     private navLinks: { title: string; icon: string; link?: string }[] = [
         {
             title: 'My profile',
@@ -107,7 +100,18 @@ export default class Header extends Vue {
         { title: 'Log in', icon: 'mdi-login', link: '/login' },
         { title: 'Log out', icon: 'mdi-logout' }
     ];
+
+    private onMobile(){
+        this.showLogo=false;
+    }
 }
 </script>
 
-<style></style>
+<style scoped>
+header,
+.v-toolbar,
+header.v-app-bar {
+    width: 100vw !important;
+}
+
+</style>

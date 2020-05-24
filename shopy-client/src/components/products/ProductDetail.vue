@@ -14,14 +14,14 @@
                 v-for="n in Math.round(product.score)"
                 :key="n"
                 :icon="'icon-star-full'"
-                :size="'icon-medium'"
+                :size="'icon-small'"
                 :color="'orange-i'"
             />
             <Icon
                 v-for="n in 5 - Math.round(product.score)"
                 :key="n"
                 :icon="'icon-star-empty'"
-                :size="'icon-medium'"
+                :size="'icon-small'"
                 :color="'orange-i'"
             />
         </v-row>
@@ -33,7 +33,7 @@
             <v-btn color="purple" icon v-on:click="commentDialog = true">
                 <v-icon large> mdi-chat-processing</v-icon>
             </v-btn>
-            <div class="title-center" style="color:purple;">
+            <div class="title-center ml-2" style="color:purple;">
                             {{this.$language.get('generic.see-comments')}}
             </div>
         </div>

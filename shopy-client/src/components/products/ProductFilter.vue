@@ -17,7 +17,7 @@
 
         <v-list dense>
             <v-list-item link @click="searchAll()">
-                <v-list-item-action>
+                <v-list-item-action class="ml-2">
                     <v-icon style="font-size: 20px !important;"
                         >mdi-shopping</v-icon
                     >
@@ -29,7 +29,7 @@
                 </v-list-item-content>
             </v-list-item>
             <div v-for="(item, w) in items" :key="w">
-                <v-subheader class="overline">{{ item.title }}</v-subheader>
+                <v-subheader class="overline ml-2">{{ item.title }}</v-subheader>
                 <v-list-group
                     v-for="(section, j) in item.sections"
                     v-model="section.open"
@@ -41,7 +41,7 @@
                         }}</v-icon>
                     </template>
                     <template v-slot:activator>
-                        <v-list-item-action class="ml-n1">
+                        <v-list-item-action class="ml-2">
                             <v-icon
                                 x-small
                                 style="font-size: 20px !important;"
@@ -78,7 +78,7 @@
                     </v-list-item-group>
                 </v-list-group>
                 <v-list-item v-for="(child, i) in item.types" :key="i" link>
-                    <v-list-item-action class="ml-n1">
+                    <v-list-item-action class="ml-2">
                         <v-icon x-small style="font-size: 20px !important;">{{
                             child.icon
                         }}</v-icon>

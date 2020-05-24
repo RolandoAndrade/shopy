@@ -6,7 +6,7 @@
             </v-avatar>-->
             <img :src="image" class="card-image" />
             <div class="card-side bg-secondary" v-if="condition === 'catalog'" @click="addToCart()">
-                <Icon :size="'icon-medium'" :icon="'icon-add_shopping_cart'" :color="'white-i'" />
+                <Icon :size="'icon-medium'" :icon="'icon-add_shopping_cart'" :color="'white-i'" class="mr-4"/>
             </div>
         </div>
         <div class="card-product__title">
@@ -20,29 +20,29 @@
         <div v-if="condition === 'cart'">
             <div class="flex">
                 <v-btn color="orange" icon v-on:click="decrementQuantity()">
-                    <v-icon small>mdi-menu-left</v-icon>
+                    <v-icon medium>mdi-menu-left</v-icon>
                 </v-btn>
                 <div class="title-terciary">{{ quantity }}</div>
                 <v-btn color="orange" icon v-on:click="incrementQuantity()">
-                    <v-icon small>mdi-menu-right</v-icon>
+                    <v-icon medium>mdi-menu-right</v-icon>
                 </v-btn>
             </div>
             <div class="space-between mt-2">
                 <v-btn color="error" icon @click="deleteProduct()">
-                    <v-icon small v-if="true">mdi-delete-circle-outline</v-icon>
+                    <v-icon medium v-if="true">mdi-delete-circle-outline</v-icon>
                 </v-btn>
                 <v-btn color="success" icon @click="selectProduct()">
-                    <v-icon small v-if="selected === false">mdi-check-underline-circle-outline</v-icon>
-                    <v-icon small v-else>mdi-check-underline-circle</v-icon>
+                    <v-icon medium v-if="selected === false">mdi-check-underline-circle-outline</v-icon>
+                    <v-icon medium v-else>mdi-check-underline-circle</v-icon>
                 </v-btn>
             </div>
         </div>
         <div v-if="condition === 'my-products'">
               <v-btn color="success" icon @click="editProduct()">
-                  <v-icon large>mdi-pencil-circle</v-icon>
+                  <v-icon medium>mdi-pencil-circle</v-icon>
               </v-btn>
               <v-btn color="error" icon @click="deletePublication()">
-                  <v-icon large>mdi-trash-can</v-icon>
+                  <v-icon medium>mdi-trash-can</v-icon>
               </v-btn>
         </div>
         <Popup ref="modalAdd" :message="this.$language.get('messages.added-to-cart')" :response="true" />

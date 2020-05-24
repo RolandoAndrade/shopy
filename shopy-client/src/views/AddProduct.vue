@@ -51,7 +51,7 @@
             </v-stepper-content>
 
             <v-stepper-step step="4" color="purple">
-                <Title :size="'title-secondary'"></Title>{{this.$language.get('sell.step-4.title')}}
+                <Title :size="'title-secondary'">{{this.$language.get('sell.step-4.title')}}</Title>
             </v-stepper-step>
 
             <v-stepper-content step="4">

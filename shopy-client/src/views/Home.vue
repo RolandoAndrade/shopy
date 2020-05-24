@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" style="height:100% !important;">
         <div class="hero bg-white">
             <Hero />
         </div>

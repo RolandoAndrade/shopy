@@ -15,8 +15,8 @@ export default class ButtonPrimary extends Vue {
 
     private getClass(): string {
         if (this.color === 'purple') {
-            return 'button button__primary__purple margin-medium';
-        } else return 'button button__primary margin-medium';
+            return 'button button__primary__purple';
+        } else return 'button button__primary';
     }
 }
 </script>

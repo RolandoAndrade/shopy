@@ -8,14 +8,7 @@
             <div class="divider" style="height:1px; width:70%"></div>
             <div class="flex wrap cover" style="width:100%;">
                 <ProductCard v-for="(n, k) in this.visibleProducts" :key="k" :product="n" condition='my-products'>
-                   <!-- <div>
-                        <v-btn color="success" icon @click="findProduct(n.id)">
-                            <v-icon large>mdi-pencil-circle</v-icon>
-                        </v-btn>
-                        <v-btn color="error" icon @click="openDeleteModal">
-                            <v-icon large>mdi-trash-can</v-icon>
-                        </v-btn>
-                    </div>-->
+
                 </ProductCard>
             </div>
             <div style="margin:25px auto;">

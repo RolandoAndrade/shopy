@@ -1,5 +1,5 @@
 .banner {
-    margin: 5rem 2rem;
+    margin: 50px 20px;
     & > * {
         width: 50%;
     }
@@ -26,7 +26,7 @@
 
     @media only screen and (max-width: 600px) {
        @include clip(0%, 100%);
-        height: max-content; /*95% of the viewport height*/
+        height: min-content; /*95% of the viewport height*/
     }
 }
 
@@ -65,7 +65,6 @@
     padding: 3rem;
     margin:50px auto;
     border-radius: .5rem;
-    box-shadow: 0 5px 30px rgba(0,0,0,0.15);
     background-color:$color-grey-light-3;
   }
 

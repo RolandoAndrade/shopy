@@ -1,7 +1,9 @@
 <template>
-    <div class="banner flex">
-        <img src="../../assets/Hero-image.jpg" />
-        <div class="flex column padding-medium ">
+    <div class="flex to-column padding-medium">
+        <div class="half" style="text-align:center">
+        <img src="../../assets/Hero-image.jpg" style="width:100%;" />
+        </div>
+        <div class="column half padding-small">
             <Title :size="'title-primary'">{{
                 this.$language.get('home.hero.title')
             }}</Title>
@@ -12,9 +14,11 @@
                 repellendus facilis numquam impedit, est in sed atque ut
                 inventore alias velit ipsa cupiditate culpa?</Title
             >
-            <ButtonPrimary class="end" @click.native="signIn">
+            <v-row class="justify-end">
+            <ButtonPrimary  @click.native="signIn">
                 {{ this.$language.get('home.hero.btn-sign-in')}}
             </ButtonPrimary>
+            </v-row>
         </div>
     </div>
 </template>

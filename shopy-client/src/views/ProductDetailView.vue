@@ -19,7 +19,6 @@ import { productDetail } from '@/store/namespaces';
 import { PRODUCTS_DETAIL_FETCH_PRODUCT } from '@/store/products/actions/products.detail.actions';
 import { GET_PRODUCT_DATA } from '@/store/products/getters/products.detail.getters';
 import { Product } from '@/requests/products/Product';
-
 @Component({
     components: {
         ProductDetail,

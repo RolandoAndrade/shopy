@@ -1,8 +1,14 @@
 .margin-medium{
     margin:2rem;
 }
+.margin-small{
+    margin:1rem;
+}
 .padding-medium{
     padding: 3rem;
+}
+.padding-small{
+    padding: 1.5rem;
 }
 .margin-tmedium{
     margin: 0 3rem;
@@ -32,5 +38,10 @@
  }
 
  .text-error{
+     font-size: 16px;
      color: rgb(151, 29, 29);
+ }
+
+ .center{
+     margin:0 auto;
  }

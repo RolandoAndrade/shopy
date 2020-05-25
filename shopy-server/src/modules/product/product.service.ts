@@ -2,11 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { Product } from './product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getManager, SelectQueryBuilder } from 'typeorm';
+import { Repository, getManager, SelectQueryBuilder, DeleteResult } from 'typeorm';
 import { logger } from 'src/logger/loggerConst';
 import { ProductParameters } from './interfaces/product-parameters';
 import { PaginatedProducts } from './interfaces/paginated-products';
 import {DEFAULT_PRODUCT_START_INDEX, MAX_PRODUCTS_BY_PAGE} from "../../constants/products.constants";
+import { ProductCategoryService } from '../product-category/product-category.service';
+import { ProductCategory } from '../product-category/product-category.entity';
+import { ProductImage } from '../product-image/product-image.entity';
+import { ProductImageService } from '../product-image/product-image.service';
+import { Review } from '../review/review.entity';
+import { ReviewService } from '../review/review.service';
 
 @Injectable()
 export class ProductService {
@@ -15,7 +21,10 @@ export class ProductService {
 
     constructor(
         @InjectRepository(Product)
-        private readonly productRepository: Repository<Product>
+        private readonly productRepository: Repository<Product>,
+        private readonly productCategoryService: ProductCategoryService,
+        private readonly productImageService: ProductImageService,
+        private readonly reviewService: ReviewService
     ) {
         this.logger = logger;
     }
@@ -38,7 +47,6 @@ export class ProductService {
             }
         });
     }
-    
 
     /**
      * getProducts
@@ -92,9 +100,113 @@ export class ProductService {
                         .innerJoinAndSelect('product.productImages', 'images')
                         .innerJoinAndSelect('product.user', 'user')
                         .innerJoinAndSelect('product.stock', 'stock')
+                        .innerJoinAndSelect('product.productCategories', 'productCategories')
+                        .innerJoinAndSelect('productCategories.category', 'category')
                         .leftJoinAndSelect('product.reviews', 'reviews')
                         .where('product.id = :id', { id: productId })
                         .getOne()
     }
 
+    /**
+     * updateProduct
+     * @param product: Product
+     * @returns Promise<Product>
+    */
+    async updateProduct(product: Product): Promise<Product> {
+        this.logger.log(`updateProducts: Actualiazdo un producto [productId: ${product.id}]`,
+            'ProductService');
+
+        return await this.createProduct(product);
+    }
+
+    /**
+     * createProductCategories
+     * @param productId: number
+     * @param productCategories: Partial<ProductCategory>[]
+     * @returns Promise<ProductCategory[]>
+    */
+    async createProductCategories(productId: number, productCategories: Partial<ProductCategory>[]): Promise<ProductCategory[]> {
+        this.logger.log(`createProductCategories: Asociando un conjunto de categorias a un producto [productId: ${productId}]`,
+            'ProductService');
+
+        const product = await this.productRepository.findOne({ id: productId });
+        productCategories.forEach( productCategory => {
+            productCategory.product = product;
+        });
+        
+        return await this.productCategoryService.createProductCategories(productCategories);
+    }
+
+    /**
+     * deleteProductCategory
+     * @param productCategoryId: number
+     * @returns Promise<DeleteResult>
+    */
+    async deleteProductCategory(productCategoryId: number): Promise<DeleteResult> {
+        this.logger.log(`deleteProductCategory: Borrando la asociación entre una categoria y un producto`,
+            'ProductService');
+
+        return await this.productCategoryService.deleteProductCategory(productCategoryId);
+    }
+
+    /**
+     * createProductImages
+     * @param productId: number
+     * @param productImages: Partial<ProductImage>[]
+     * @returns Promise<ProductImage[]>
+    */
+    async createProductImages(productId: number, productImages: Partial<ProductImage>[]): Promise<ProductImage[]> {
+        this.logger.log(`createProductImages: Asociando un conjunto de imagenes a un producto [productId: ${productId}]`,
+            'ProductService');
+
+        const product = await this.productRepository.findOne({ id: productId });
+        productImages.forEach(productImage => {
+            productImage.product = product;
+        });
+
+        return await this.productImageService.createProductImages(productImages);
+    } 
+
+    /**
+     * deleteProductImage
+     * @param productImageId: number
+     * @returns Promise<DeleteResult>
+    */
+    async deleteProductImage(productImageId: number): Promise<DeleteResult> {
+        this.logger.log(`deleteProductImage: Borrando una imagen de un producto`,
+            'ProductService');
+
+        return await this.productImageService.deleteProductImage(productImageId);
+    }
+
+    /**
+     * createProductReview
+     * @param productId: number
+     * @param review: Partial<Review>
+     * @returns Promise<Review>
+    */
+    async createProductReview(productId: number, review: Partial<Review>): Promise<Review> {
+        this.logger.log(`createProductReview: Creando el review de un producto [productId: ${productId}]`,
+            'ProductService');
+
+        const newReview = await this.reviewService.createProductReview(review);
+        let newScore = await this.reviewService.getAverageScoreByProductId(productId);
+        const product = await this.productRepository.findOne({ id: productId });
+        product.score = newScore;
+        await this.createProduct(product);
+        
+        return newReview;
+    }
+
+    /**
+     * deleteProduct
+     * @param productId: number
+     * @returns Promise<DeleteResult>
+    */
+/*     async deleteProduct(productId: number): Promise<DeleteResult> {
+        this.logger.log(`deleteProduct: Borrando un producto [productId: ${productId}]`,
+            'ProductService');
+
+        return await this.productRepository.delete(productId);
+    } */
 }

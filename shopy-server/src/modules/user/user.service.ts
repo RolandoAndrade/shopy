@@ -34,6 +34,18 @@ export class UserService {
     }
 
     /**
+    * getUserProducts
+    * @param userId: number
+    * @returns Promise<User>
+    */
+    async getUserProducts(userId: number): Promise<User> {
+        this.logger.log(`getUserProducts: Obteniendo los productos de un usuario [userId: ${userId}]`,
+            'UserService');
+
+        return await this.userRepository.findOne({ relations:['products'], where: { id: userId } });
+    }
+
+    /**
     * getUserCarts
     * @param userId: number
     * @returns Promise<User>
@@ -46,6 +58,24 @@ export class UserService {
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.carts', 'carts')
             .innerJoinAndSelect('carts.product', 'product')
+            .where('user.id = :id ', { id: userId })
+            .getOne()
+    }
+
+    /**
+    * getUserShoppingHistories
+    * @param userId: number
+    * @returns Promise<User>
+    */
+    async getUserShoppingHistories(userId: number): Promise<User> {
+        this.logger.log(`getUserShoppingHistories: Obteniendo los historiales de compra de un usuario [userId: ${userId}]`,
+            'UserService');
+
+        return await this.userRepository
+            .createQueryBuilder('user')
+            .leftJoinAndSelect('user.shoppingHistories', 'shoppingHistories')
+            .innerJoinAndSelect('shoppingHistories.payment', 'payment')
+            .innerJoinAndSelect('shoppingHistories.product', 'product')
             .where('user.id = :id ', { id: userId })
             .getOne()
     }

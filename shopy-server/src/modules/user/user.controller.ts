@@ -13,11 +13,27 @@ export class UserController {
         this.logger = logger;
     }
 
+    @Get(':id/products')
+    getUserProducts(@Param('id', new ParseIntPipe()) userId: number): Promise<User> {
+        this.logger.log('getUserCarts: Obteniendo los productos de un usuario',
+            'UserController');
+
+        return this.userService.getUserProducts(userId);
+    }
+
     @Get(':id/carts')
     getUserCarts(@Param('id', new ParseIntPipe()) userId: number): Promise<User> {
         this.logger.log('getUserCarts: Obteniendo los carritos de compra de un usuario',
             'UserController');
 
         return this.userService.getUserCarts(userId);
+    }
+
+    @Get(':id/shopping-histories')
+    getUserShoppingHistories(@Param('id', new ParseIntPipe()) userId: number): Promise<User> {
+        this.logger.log('getUserShoppingHistories: Obteniendo los historiales de compra de un usuario',
+            'UserController');
+
+        return this.userService.getUserShoppingHistories(userId);
     }
 }

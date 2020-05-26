@@ -3,39 +3,31 @@
         <div color="white" class="card-create mb-12 mt-6">
             <div class="ma-5 flex wrap">
                 <div
-                    v-for="n in cardimages"
-                    :key="n"
+                    v-for="(n,k) in images"
+                    :key="k"
                     class="card card-select-image ma-6"
-                    @click="selected"
                 >
-                    <div v-if="!images[n - 1]" style="height:100%;">
-                        <Icon
-                            :icon="'icon-camera'"
-                            :color="'grey-i'"
-                            :size="'icon-big'"
-                            class="mb-12"
-                            onclick="document.getElementById('file').click();"
-                        />
-                        <input
-                            type="file"
-                            id="file"
-                            style="display:none;"
-                            @change="selected"
-                        />
+                    <div v-if="!n" style="height:100%;">
+                        <v-row align="center" class="fill-height" @click="uploadImage(k)">
+                            <Icon
+                                    :icon="'icon-camera'"
+                                    :color="'grey-i'"
+                                    :size="'icon-big'"
+                            />
+                        </v-row>
                     </div>
-                    <div v-else>
-                        <Icon
-                            :icon="'icon-checkmark2'"
-                            :color="'success-i'"
-                            :size="'icon-big'"
-                            style="width:100%;"
-                            class="mb-6"
-                        />
+                    <div v-else @click="dropImage(k)">
+                        <v-hover v-slot:default="{ hover }">
+                            <v-avatar tile width="100px" height="100px">
+                                <v-img :src="n">
+                                    <div :class="{'backDark': hover}">
+                                        <v-icon v-if="hover" color="red">mdi-delete</v-icon>
+                                    </div>
+                                </v-img>
+                            </v-avatar>
+                        </v-hover>
                     </div>
                 </div>
-                <v-btn color="success" icon @click="cardimages++">
-                    <v-icon large>mdi-plus</v-icon>
-                </v-btn>
             </div>
         </div>
         <div class="space-around wrap">
@@ -55,11 +47,12 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
+import Component, {mixins} from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Vue from 'vue';
+import MultipleImageLoader from "@/mixins/multiple-image-loader.mixin";
 
 @Component({
     components: {
@@ -68,28 +61,35 @@ import Vue from 'vue';
         Popup
     }
 })
-export default class AddImages extends Vue {
-    private images: Array<File> = [];
-    private cardimages = 1;
+export default class AddImages extends mixins(MultipleImageLoader) {
+    public cardImages = 1;
     $refs!: {
         errorModal: any;
     };
 
-    private selected(e: Event) {
-        const target = e.target as HTMLInputElement;
-        const file: File = (target.files as FileList)[0];
-        if (file !== undefined) {
-            this.images.push(file);
-        }
-    }
-
     private nextStep() {
-        if (this.images.length > 0) this.$emit('nextStep', this.images);
+        if (this.images.length > 0 && this.images[0]) this.$emit('nextStep', this.images);
         else {
             this.$refs.errorModal.openModal();
         }
     }
+
+    public pushImage()
+    {
+        this.images.push(undefined);
+    }
+
+    public dropImage(index: number)
+    {
+        this.images.splice(index,1)
+    }
 }
 </script>
 
-<style></style>
+<style scoped>
+    .backDark{
+        background: rgba(255,255,255,0.6);
+        width: 100%;
+        height: 100%;
+    }
+</style>

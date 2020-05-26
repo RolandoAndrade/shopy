@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="300px" v-model="modal">
+    <v-dialog max-width="400px" v-model="modal" width="80%">
         <v-card class="flex column">
             <Title :size="'title-terciary'" class="mt-4">{{
                 typeMessage

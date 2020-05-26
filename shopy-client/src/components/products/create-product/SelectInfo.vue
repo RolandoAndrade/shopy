@@ -5,7 +5,7 @@
                 <div class="flex to-column ">
                     <div class="form__group half ma-4">
                         <input
-                            v-model="productInfo.title"
+                            v-model="productInfo.name"
                             type=""
                             class="form__input"
                             :placeholder="this.$language.get('sell.step-2.name')"
@@ -31,15 +31,14 @@
                     </div>
                 </div>
                 <div class="flex">
-                    <v-radio-group v-model="productInfo.condition" row>
+                    <v-radio-group v-model="productInfo.new" row>
                         <v-radio
                             :label="this.$language.get('product.used')"
-                            value="Used"
-                            color="orange"
+                            :value="false"
                         ></v-radio>
                         <v-radio
                             :label="this.$language.get('product.new')"
-                            value="New"
+                            :value="true"
                             color="orange"
                         ></v-radio>
                     </v-radio-group>
@@ -55,6 +54,7 @@
                                 :placeholder="this.$language.get('product.price')"
                                 id="price"
                                 required
+                                min="1"
                             />
                             <label for="price" class="form__label"
                                 >{{this.$language.get('product.price')}}</label
@@ -69,7 +69,7 @@
                                 color="purple"
                                 item-color="purple"
                                 hide-details
-                                single-line="true"
+                                :single-line="true"
                             ></v-combobox>
                             <div class="text-error ">
                                 {{ currencieError }}
@@ -85,6 +85,7 @@
                                 :placeholder="this.$language.get('product.width')+' (cm)'"
                                 id="width"
                                 required
+                                min="1"
                             />
                             <label for="width" class="form__label"
                                 >{{this.$language.get('product.width')}} (cm)</label
@@ -98,6 +99,7 @@
                                 :placeholder="this.$language.get('product.height')+' (cm)'"
                                 id="height"
                                 required
+                                min="1"
                             />
                             <label for="height" class="form__label"
                                 >{{this.$language.get('product.height')}} (cm)</label
@@ -109,20 +111,33 @@
                 <div class="inline half ">
                      <div class="form__group half to-column ma-4">
                             <input
-                                v-model="productInfo.stock"
+                                v-model="productInfo.stock.quantity"
                                 type="number"
                                 class="form__input"
                                 :placeholder="this.$language.get('product.quantity')"
                                 id="quantity"
                                 required
+                                min="1"
                             />
                             <label for="quantity" class="form__label"
                                 >{{this.$language.get('product.quantity')}}</label
                             >
                     </div>
+                    <div class="form__group half to-column ma-4">
+                        <input
+                                v-model="productInfo.stock.minimumQuantity"
+                                type="number"
+                                class="form__input"
+                                :placeholder="'Min '+this.$language.get('product.quantity')"
+                                required
+                                min="1"
+                        />
+                        <label for="quantity" class="form__label"
+                        >{{this.$language.get('product.quantity')}}</label
+                        >
+                    </div>
                 </div>
                     <div class="column half">
-                            <div class="text-error mt-2">{{ numberErrors }}</div>
                             <div
                                 v-for="(i, ind) in infoErrors"
                                 :key="ind"
@@ -146,18 +161,20 @@
                 >{{this.$language.get('sell.btn-back')}}</ButtonSecondary
             >
         </div>
-        <!--  <Popup :dialog="dialog" :response="response" :message="messageDialog" v-on:closeDialog="closeDialog"/> -->
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Title from '@/components/typography/Title.vue';
 import Popup from '@/components/generic/Popup.vue';
 import { ProductInterface } from '../../../interfaces/product.interface';
 import { validationMixin } from 'vuelidate';
 import { maxLength, minValue, required } from 'vuelidate/lib/validators';
+    import {Stock} from "@/requests/stock/Stock";
+    import {Product} from "@/requests/products/Product";
+    import {User} from "@/requests/users/User";
 
 @Component({
     components: {
@@ -168,21 +185,15 @@ import { maxLength, minValue, required } from 'vuelidate/lib/validators';
     mixins: [validationMixin],
     validations: {
         productInfo: {
-            price: { minValue: minValue(1) },
-            width: { minValue: minValue(1) },
-            height: { minValue: minValue(1) },
-            stock: { minValue: minValue(1) },
-            title: { required, maxLength: maxLength(25) },
+            name: { required, maxLength: maxLength(25) },
             description: { required }
         }
     }
 })
 export default class SelectInfo extends Vue {
-    private title = '';
-    private description = '';
-    private row = '';
-    private items: Array<string> = ['$', 'Bs.F'];
+    private items: Array<string> = ['$'];
     private select: string = this.items[0];
+
     private usedorNot = true;
     private currencieErrors = '';
 
@@ -190,19 +201,18 @@ export default class SelectInfo extends Vue {
     private response?: boolean;
     private messageDialog?: string;
 
-    private productInfo: ProductInterface = {
+    private productInfo: Product = {
         id: 0,
-        title: '',
+        name: '',
         price: 1,
-        author: '',
-        condition: 'New',
+        user: new User(),
+        new: true,
         description: '',
         width: 1,
         height: 1,
-        image: '',
-        images: [],
-        rating: 0,
-        stock: 5
+        productImages: [],
+        score: 0,
+        stock: new Stock(5)
     };
 
     private nextStep() {
@@ -214,31 +224,15 @@ export default class SelectInfo extends Vue {
         } else return;
     }
 
-    get numberErrors() {
-        let error = '';
-        if (
-            !this.$v.productInfo.price!.$invalid &&
-            !this.$v.productInfo.width!.$invalid &&
-            !this.$v.productInfo.height!.$invalid &&
-            !this.$v.productInfo.stock!.$invalid
-        )
-            return error;
-        else error = this.$language.get('sell.step-2.errors.invalid-field');
-        return error;
-    }
 
     get infoErrors() {
         const errors: Array<string> = [];
         if (
-            !this.$v.productInfo.price!.$invalid &&
-            !this.$v.productInfo.width!.$invalid &&
-            !this.$v.productInfo.height!.$invalid &&
-            !this.$v.productInfo.stock!.$invalid &&
-            !this.$v.productInfo.title!.$invalid &&
+            !this.$v.productInfo.name!.$invalid &&
             !this.$v.productInfo.description!.$invalid
         )
             return errors;
-        if (!this.$v.productInfo.title!.maxLength) {
+        if (!this.$v.productInfo.name!.maxLength) {
             errors.push(this.$language.get('sell.step-2.errors.characters'));
         } else {
             errors.push(this.$language.get('sell.step-2.errors.all-filled'));

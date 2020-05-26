@@ -22,19 +22,19 @@ export class Product extends BaseEntity {
     @Column({ type: 'varchar', nullable: false })
     description: string;
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: 'float', default: 0})
     score: number;
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: 'float', default: 0})
     discount: number;
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: 'float', default: 0})
     width: number;
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: 'float', default: 0})
     height: number;
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: 'float', default: 0})
     depth: number;
 
     @Column({ type: 'boolean', nullable: false })

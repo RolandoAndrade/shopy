@@ -9,6 +9,7 @@ import { ProductCategory } from '../product-category/product-category.entity';
 import { DeleteResult } from 'typeorm';
 import { ProductImage } from '../product-image/product-image.entity';
 import { Review } from '../review/review.entity';
+import {ProductCreationInterface} from "./interfaces/product-creation-interface";
 
 @Controller('products')
 export class ProductController {
@@ -19,10 +20,10 @@ export class ProductController {
     }
 
     @Post()
-    createProduct(@Body() product: Partial<Product>): Promise<Product> {
+    createProduct(@Body() product: ProductCreationInterface): Promise<Product> {
         this.logger.log('createProduct: Creando un producto',
             'ProductController');
-
+        product.product.user!.id = 1;
         return this.productService.createProduct(product);
     }
 

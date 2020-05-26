@@ -7,10 +7,10 @@ export class Stock extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ type: 'int', nullable: false })
+    @Column({ type: 'int', default: 5})
     quantity: number;
 
-    @Column({ name: 'minimum_quantity', type: 'int', nullable: false })
+    @Column({ name: 'minimum_quantity', type: 'int', default: 0 })
     minimumQuantity: number;
 
     @JoinColumn({ name: 'fk_product_id' })

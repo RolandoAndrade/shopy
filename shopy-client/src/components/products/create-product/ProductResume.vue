@@ -1,60 +1,21 @@
 <template>
     <div>
+        <div
+                class="product-detail-container to-column space-between"
+                style="margin:40px auto;width:90%"
+        >
+            <ProductImages :product="product" class="mx-12" />
+            <ProductDetail :product="product" :onlyDetails="true"/>
+        </div>
         <div color="white" class="card-finish mb-12 mt-6">
-            <div class="space-around to-column pa-10">
-                <div class="flex column half">
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.name')}}:</Title>
-                        <Title size="title-terciary ">{{
-                            product.title
-                        }}</Title>
-                    </div>
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.description')}}:</Title>
-                        <Title size="title-terciary ">{{
-                            product.description
-                        }}</Title>
-                    </div>
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.condition')}}:</Title>
-                        <Title size="title-terciary ">{{
-                            product.condition
-                        }}</Title>
-                    </div>
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.quantity')}}:</Title>
-                        <Title size="title-terciary ">{{
-                            product.stock
-                        }}</Title>
-                    </div>
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.dimentions')}}:</Title>
-                        <Title size="title-terciary "
-                            >{{ product.width }} x {{ product.height }}</Title
-                        >
-                    </div>
-                </div>
-                <div class=" flex column half">
-                    <div class="flex mb-6 start">
-                        <Title size="title-secondary mr-6">{{this.$language.get('product.price')}}:</Title>
-                        <Title size="title-terciary ">{{
-                            product.price
-                        }}</Title>
-                    </div>
-                    <div class="inline mb-6 start">
-                        <div class="flex column">
-                            <v-combobox
-                                :items="categoriesName"
-                                :label="this.$language.get('filters.categories.name')"
-                                solo
-                            ></v-combobox>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <v-row justify="center">
+                <v-card v-for="(i,k) in categories" :key="k" class="title-terciary pa-4 ma-4" shaped color="primary" dark>
+                    {{i.name}}
+                </v-card>
+            </v-row>
         </div>
         <div class="space-around wrap">
-            <ButtonSecondary @click.native="publishProduct"
+            <ButtonSecondary @click.native="publishProduct" :isLoading="this.isLoading"
                 >{{this.$language.get('sell.step-4.btn-publish')}}!</ButtonSecondary
             >
             <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
@@ -77,9 +38,16 @@ import { Product } from '@/requests/products/Product';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Vue from 'vue';
+import {Category} from "@/requests/category/Category";
+import {productCreation} from "@/store/namespaces";
+import {PRODUCT_CREATION_CREATE} from "@/store/products/actions/product.creation.actions";
+import ProductImages from "@/components/products/ProductImages.vue";
+import ProductDetail from "@/components/products/ProductDetail.vue";
 
 @Component({
     components: {
+        ProductDetail,
+        ProductImages,
         Title,
         ButtonSecondary,
         Popup
@@ -87,23 +55,26 @@ import Vue from 'vue';
 })
 export default class ProductResume extends Vue {
     @Prop() product!: Product;
-    @Prop() categories!: Array<object>;
+    @Prop() categories!: Array<Category>;
+    isLoading: boolean = false;
 
     $refs!: {
         successModal: any;
     };
-    get categoriesName() {
-        const categoryName: Array<string> = [];
-        for (let i = 1; i < this.categories.length; i++) {
-            const name = this.categories[i].name;
-            categoryName.push(name);
-        }
-        return categoryName;
+
+
+    public async publishProduct() {
+        this.isLoading = true;
+        const f = await this.createProduct({
+            product: this.product,
+            categories: this.categories
+        });
+        this.isLoading = false;
+        this.$refs.successModal.openModal();
+        this.$router.push("/products")
     }
 
-    private publishProduct() {
-        this.$refs.successModal.openModal();
-    }
+    @productCreation.Action(PRODUCT_CREATION_CREATE) createProduct!: Function;
 }
 </script>
 

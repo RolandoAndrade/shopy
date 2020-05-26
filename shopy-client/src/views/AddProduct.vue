@@ -66,7 +66,6 @@
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import SelectCategories from '@/components/products/create-product/SelectCategories.vue';
 import SelectInfo from '@/components/products/create-product/SelectInfo.vue';
@@ -75,8 +74,15 @@ import ProductResume from '@/components/products/create-product/ProductResume.vu
 import Title from '@/components/typography/Title.vue';
 import Icon from '@/components/typography/Icon.vue';
 import { Product } from '@/requests/products/Product';
-import Vue from 'vue';
-
+import {productCreation} from "@/store/namespaces";
+import {
+    PRODUCT_CREATION_CREATE,
+    PRODUCT_CREATION_FETCH_CATEGORIES
+} from "@/store/products/actions/product.creation.actions";
+import Vue from "vue";
+import Component from "vue-class-component";
+import {Category} from "@/requests/category/Category";
+import {ProductImage} from "@/requests/product-image/ProductImage";
 
 @Component({
     components: {
@@ -90,31 +96,35 @@ import Vue from 'vue';
     }
 })
 export default class AddProduct extends Vue {
-    private images: Array<File> = [];
-    private categories: Array<object> = [];
     private next = 0;
-    private product!: Product;
+    private product: Product = new Product();
+    private categories: Category[] = [];
 
     private nextStep() {
         this.next++;
     }
 
     private getProducts(product: Product) {
-        console.log(product);
         this.product = product;
         this.nextStep();
     }
 
-    private getImages(images: Array<File>) {
-        this.images = images;
+    private getImages(images: string[]) {
+        this.product.productImages = images.filter(i=>i).map(i=>new ProductImage(i));
         this.nextStep();
     }
 
-    private getCategories(categories: Array<object>, category: string) {
+    private getCategories(categories: Category[]) {
         this.categories = categories;
-        console.log(categories, category);
         this.nextStep();
     }
+
+    async mounted()
+    {
+        await this.fetchCategories();
+    }
+
+    @productCreation.Action(PRODUCT_CREATION_FETCH_CATEGORIES) fetchCategories!: Function;
 }
 </script>
 
@@ -123,7 +133,7 @@ export default class AddProduct extends Vue {
     color: white;
 }
 .v-stepper {
-    font-size: 7rem !important;
+    font-size: 30px !important;
 }
 .v-select__selection,
 .v-label--active {
@@ -134,7 +144,7 @@ export default class AddProduct extends Vue {
     padding: 4px;
 }
 .v-chip__content {
-    font-size: 32px !important;
+    font-size: 20px !important;
 }
 .v-label,
 input,

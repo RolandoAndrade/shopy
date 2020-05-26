@@ -9,7 +9,13 @@
         <div class="product-detail__stock mb-4">
             {{ product.stock.quantity }} {{this.$language.get('generic.in-stock')}}
         </div>
-        <v-row class="product-detail__rating justify-end">
+        <div class="product-detail__stock mb-4" v-if="onlyDetails">
+            {{ product.stock.minimumQuantity }} min quantity on stock
+        </div>
+        <div class="product-detail__stock mb-4" v-if="onlyDetails">
+            {{ product.width }} x {{ product.height }} dimensions
+        </div>
+        <v-row class="product-detail__rating justify-end" v-if="!onlyDetails">
             <Icon
                 v-for="n in Math.round(product.score)"
                 :key="n"
@@ -26,10 +32,10 @@
             />
         </v-row>
         <div class="product-detail__description">{{ product.description }}</div>
-        <ButtonPrimary v-on:click.native="setDialog()">
+        <ButtonPrimary v-on:click.native="setDialog()" v-if="!onlyDetails">
             {{this.$language.get('generic.add-to-cart')}}
         </ButtonPrimary>
-        <div class="product-detail__comments mt-4">
+        <div class="product-detail__comments mt-4" v-if="!onlyDetails">
             <v-btn color="purple" icon v-on:click="commentDialog = true">
                 <v-icon large> mdi-chat-processing</v-icon>
             </v-btn>
@@ -94,10 +100,12 @@ import Vue from 'vue';
 })
 export default class ProductDetail extends Vue {
     @Prop() product!: Product;
+    @Prop({required: false, default: false})
+    onlyDetails!: boolean;
     private dialog = false;
     private response = true;
    
-    private messageDialog?: string;
+    private messageDialog: string="";
     private commentDialog = false;
     private comments: Array<string> = [
         'Excelente producto!Me encanto, quede fascinada...',

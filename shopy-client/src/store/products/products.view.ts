@@ -102,7 +102,7 @@ const productsView: Module<ProductsViewStateInterface, any> = {
         },
         async [PRODUCTS_VIEW_FETCH_CATEGORIES]({ commit }): Promise<boolean> {
             try {
-                const categories: CategoryType = await categoryTypeRepository.getAll();
+                const categories: CategoryType[] = await categoryTypeRepository.getAll();
                 commit(PRODUCTS_VIEW_SET_CATEGORIES, categories);
                 return true;
             } catch (e) {

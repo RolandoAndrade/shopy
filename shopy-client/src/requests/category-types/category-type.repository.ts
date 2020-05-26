@@ -6,7 +6,7 @@ export class CategoryTypeRepository extends AxiosRepository {
     constructor() {
         super(RESOURCE);
     }
-    async getAll(): Promise<CategoryType> {
+    async getAll(): Promise<CategoryType[]> {
         return super.getAll();
     }
 }

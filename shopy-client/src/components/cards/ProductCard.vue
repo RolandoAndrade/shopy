@@ -77,7 +77,7 @@ import Vue from 'vue';
     components: { Icon, Popup, PopupDecition,EditProductPopup }
 })
 export default class ProductCard extends Vue {
-    @Prop({ type: Product, required: true })
+    @Prop({ type: Object, required: true })
     product!: Product;
     @Prop()
     condition!: string;

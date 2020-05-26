@@ -13,6 +13,7 @@ import { ProductImage } from '../product-image/product-image.entity';
 import { ProductImageService } from '../product-image/product-image.service';
 import { Review } from '../review/review.entity';
 import { ReviewService } from '../review/review.service';
+import {ProductCreationInterface} from "./interfaces/product-creation-interface";
 
 @Injectable()
 export class ProductService {
@@ -34,14 +35,21 @@ export class ProductService {
      * @param product: Partial<Product>
      * @returns Promise<Product>
     */
-    async createProduct(product: Partial<Product>): Promise<Product> {
-        this.logger.log(`createProducts: [product: ${product.name}]`,
+    async createProduct(product: ProductCreationInterface): Promise<Product> {
+        this.logger.log(`createProducts: [product: ${product.product.name}]`,
             'ProductService');
 
         return await getManager().transaction(async transactionEntityManager => {
             try {
                 const productTransactionRepository: Repository<Product> = transactionEntityManager.getRepository(Product);
-                return await productTransactionRepository.save(product);
+                this.logger.log(`Creando producto`,'ProductService');
+                const p: Product =  await productTransactionRepository.save(product.product);
+                const productCategoryTransactionRepository: Repository<ProductCategory> = transactionEntityManager.getRepository(ProductCategory);
+                this.logger.log(`Asignando categorías`,'ProductService');
+                for (const i of product.categories) {
+                    await productCategoryTransactionRepository.save({product: p, category: i})
+                }
+                return p;
             } catch (error) {
                 this.logger.error(error, 'ProductService');
             }
@@ -116,7 +124,7 @@ export class ProductService {
         this.logger.log(`updateProducts: Actualiazdo un producto [productId: ${product.id}]`,
             'ProductService');
 
-        return await this.createProduct(product);
+        return product
     }
 
     /**
@@ -193,7 +201,7 @@ export class ProductService {
         let newScore = await this.reviewService.getAverageScoreByProductId(productId);
         const product = await this.productRepository.findOne({ id: productId });
         product.score = newScore;
-        await this.createProduct(product);
+        //await this.createProduct(product);
         
         return newReview;
     }

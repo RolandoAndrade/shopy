@@ -42,7 +42,12 @@ export class UserService {
         this.logger.log(`getUserProducts: Obteniendo los productos de un usuario [userId: ${userId}]`,
             'UserService');
 
-        return await this.userRepository.findOne({ relations:['products'], where: { id: userId } });
+        return await this.userRepository.createQueryBuilder('user')
+                                        .leftJoinAndSelect('user.products', 'products')
+                                        .innerJoinAndSelect('products.stock', 'stock')
+                                        .innerJoinAndSelect('products.productImages', 'productImages')
+                                        .where('user.id = :id ', { id: userId })
+                                        .getOne();
     }
 
     /**

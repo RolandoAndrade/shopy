@@ -10,6 +10,8 @@ import { DeleteResult } from 'typeorm';
 import { ProductImage } from '../product-image/product-image.entity';
 import { Review } from '../review/review.entity';
 import {ProductCreationInterface} from "./interfaces/product-creation-interface";
+import { ProductImagesDelete } from './interfaces/product-images-delete';
+import { ProductCategoriesDelete } from './interfaces/product-categories-delete';
 
 @Controller('products')
 export class ProductController {
@@ -59,12 +61,12 @@ export class ProductController {
         return this.productService.createProductCategories(productId, productCategories);
     }
 
-    @Delete(':productId/product-categories/:id')
-    deleteProductCategory(@Param('id', new ParseIntPipe()) productCategoryId: number): Promise<DeleteResult> {
-        this.logger.log('deleteProductCategory: Borrando la asociación entre una categoria y un producto',
+    @Delete(':id/product-categories')
+    deleteProductCategories(@Body() productCategoriesDelete: ProductCategoriesDelete): Promise<DeleteResult> {
+        this.logger.log('deleteProductCategories: Borrando la asociación entre varias categorias y un producto',
             'ProductController');
 
-        return this.productService.deleteProductCategory(productCategoryId);
+        return this.productService.deleteProductCategories(productCategoriesDelete);
     }
 
     @Post(':id/product-images')
@@ -75,12 +77,12 @@ export class ProductController {
         return this.productService.createProductImages(productId, productImages);
     }
 
-    @Delete(':productId/product-images/:id')
-    deleteProductImage(@Param('id', new ParseIntPipe()) productImageId: number): Promise<DeleteResult> {
-        this.logger.log('deleteProductImage: Borrando una imagen de un producto',
+    @Delete(':id/product-images')
+    deleteProductImages(@Body() productImagesDelete: ProductImagesDelete): Promise<DeleteResult> {
+        this.logger.log('deleteProductImages: Borrando un conjunto de imagenes de un producto',
             'ProductController');
 
-        return this.productService.deleteProductImage(productImageId);
+        return this.productService.deleteProductImages(productImagesDelete);
     }
 
     @Post(':id/reviews')

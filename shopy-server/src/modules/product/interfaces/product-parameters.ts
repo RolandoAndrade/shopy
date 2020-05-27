@@ -1,4 +1,5 @@
 export interface ProductParameters {
+    userId?: string,
     name?: string,
     score?: number,
     new?: boolean,

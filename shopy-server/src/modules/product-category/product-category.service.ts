@@ -31,14 +31,14 @@ export class ProductCategoryService {
     }
 
     /**
-    * deleteProductCategory
-    * @param productCategoryId: number
+    * deleteProductCategories
+    * @param productCategoryIds: number[]
     * @returns Promise<DeleteResult>
     */
-    async deleteProductCategory(productCategoryId: number): Promise<DeleteResult> {
-        this.logger.log(`deleteProductCategory: Borrando la asociación entre una categoria y un producto [productCategoryId: ${productCategoryId}]`,
+    async deleteProductCategories(productCategoryIds: number[]): Promise<DeleteResult> {
+        this.logger.log(`deleteProductCategories: Borrando la asociación entre varias categorias y un producto [productCategoryIds: ${productCategoryIds}]`,
             'ProductCategoryService');
 
-        return await this.productCategoryRepository.delete(productCategoryId);
+        return await this.productCategoryRepository.delete(productCategoryIds);
     }
 }

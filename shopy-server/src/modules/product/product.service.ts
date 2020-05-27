@@ -13,7 +13,9 @@ import { ProductImage } from '../product-image/product-image.entity';
 import { ProductImageService } from '../product-image/product-image.service';
 import { Review } from '../review/review.entity';
 import { ReviewService } from '../review/review.service';
-import {ProductCreationInterface} from "./interfaces/product-creation-interface";
+import { ProductCreationInterface } from "./interfaces/product-creation-interface";
+import { ProductImagesDelete } from './interfaces/product-images-delete';
+import { ProductCategoriesDelete } from './interfaces/product-categories-delete';
 
 @Injectable()
 export class ProductService {
@@ -78,7 +80,8 @@ export class ProductService {
                                                     .innerJoin('productCategories.category', 'category')
                                                     .innerJoin('category.categoryType', 'categoryType')
         
-        !(parameters.name) || query.andWhere("UPPER(product.name) LIKE :name", { name: `%${parameters.name.toUpperCase()}%` });
+        !(parameters.userId) || query.andWhere('product.fk_user_id = :userId', { userId: parameters.userId }); 
+        !(parameters.name) || query.andWhere('UPPER(product.name) LIKE :name', { name: `%${parameters.name.toUpperCase()}%` });
         !(parameters.score) || query.andWhere('FLOOR(product.score) = :score', { score: parameters.score });
         !(parameters.new) || query.andWhere('product.new = :new', { new: parameters.new });
         !(parameters.categoryId) || query.andWhere('category.id = :categoryId', { categoryId: parameters.categoryId });
@@ -124,7 +127,7 @@ export class ProductService {
         this.logger.log(`updateProducts: Actualiazdo un producto [productId: ${product.id}]`,
             'ProductService');
 
-        return product
+        return await this.productRepository.save(product);
     }
 
     /**
@@ -146,15 +149,15 @@ export class ProductService {
     }
 
     /**
-     * deleteProductCategory
-     * @param productCategoryId: number
+     * deleteProductCategories
+     * @param productCategoriesDelete: ProductCategoriesDelete
      * @returns Promise<DeleteResult>
     */
-    async deleteProductCategory(productCategoryId: number): Promise<DeleteResult> {
-        this.logger.log(`deleteProductCategory: Borrando la asociación entre una categoria y un producto`,
+    async deleteProductCategories(productCategoriesDelete: ProductCategoriesDelete): Promise<DeleteResult> {
+        this.logger.log(`deleteProductCategories: Borrando la asociación entre varias categorias y un producto`,
             'ProductService');
 
-        return await this.productCategoryService.deleteProductCategory(productCategoryId);
+        return await this.productCategoryService.deleteProductCategories(productCategoriesDelete.productCategoriesIds);
     }
 
     /**
@@ -176,15 +179,15 @@ export class ProductService {
     } 
 
     /**
-     * deleteProductImage
-     * @param productImageId: number
+     * deleteProductImages
+     * @param imagesDelete: ProductImagesDelete
      * @returns Promise<DeleteResult>
     */
-    async deleteProductImage(productImageId: number): Promise<DeleteResult> {
-        this.logger.log(`deleteProductImage: Borrando una imagen de un producto`,
+    async deleteProductImages(productImagesDelete: ProductImagesDelete): Promise<DeleteResult> {
+        this.logger.log(`deleteProductImages: Borrando una imagen de un producto`,
             'ProductService');
 
-        return await this.productImageService.deleteProductImage(productImageId);
+        return await this.productImageService.deleteProductImages(productImagesDelete.productImageIds);
     }
 
     /**
@@ -201,7 +204,7 @@ export class ProductService {
         let newScore = await this.reviewService.getAverageScoreByProductId(productId);
         const product = await this.productRepository.findOne({ id: productId });
         product.score = newScore;
-        //await this.createProduct(product);
+        await this.productRepository.save(product);
         
         return newReview;
     }

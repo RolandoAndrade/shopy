@@ -4,6 +4,8 @@ import storeExample from '@/store/store-example/store-example';
 import productsView from '@/store/products/products.view';
 import productDetail from '@/store/products/product.detail';
 import productCreation from "@/store/products/product.creation";
+import carts from "@/store/carts/carts";
+import user from "@/store/users/user";
 
 Vue.use(Vuex);
 
@@ -22,6 +24,8 @@ export default new Vuex.Store({
         storeExample,
         productsView,
         productDetail,
-        productCreation
+        productCreation,
+        carts,
+        user
     }
 });

@@ -124,10 +124,10 @@ const productsView: Module<ProductsViewStateInterface, any> = {
             commit,
             state,
             dispatch
-        }): Promise<boolean> {
+        }, newPage: number): Promise<boolean> {
             try {
                 const data: ProductFilters = {
-                    start: state.page * MAX_PRODUCTS_BY_PAGE,
+                    start: newPage,
                     name:
                         state.search && state.search.length
                             ? state.search
@@ -135,7 +135,7 @@ const productsView: Module<ProductsViewStateInterface, any> = {
                 };
                 const filter: Filter = new Filter(data);
                 dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS, filter);
-                commit(PRODUCTS_VIEW_SET_PAGE, state.page + 1);
+                commit(PRODUCTS_VIEW_SET_PAGE, newPage);
                 return true;
             } catch (e) {
                 return false;

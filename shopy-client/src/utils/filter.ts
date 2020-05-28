@@ -8,7 +8,7 @@ export class Filter {
             }
         }
         if (this._filter.length)
-            this._filter.substring(0, this._filter.length - 1);
+            this._filter = this._filter.substring(0, this._filter.length - 1);
     }
 
     get() {

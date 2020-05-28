@@ -13,21 +13,22 @@
             </div>
         </v-row>
         <div class="divider" style="height:1px; width:70%"></div>
-        <div v-if="items">
+        <div v-if="this.myCart">
             <div class="mt-10 mb-10">
                 <v-slide-group
-                    class="image-slider"
+                    class="image-slider text-center justify-center"
                     center-active
                     show-arrows
                     color="purple"
                 >
                     <ProductCard
                         ref="selectedItems"
-                        v-for="n in items"
-                        :key="n.id"
-                        :product="n"
-                        @selectedCards="selectedCards"
+                        v-for="(n,k) in this.myCart"
+                        :key="k"
+                        :product.sync="n.product"
+                        @selectedCards="selectCard"
                         :condition="'cart'"
+                        :cart.sync="n"
                     />
                 </v-slide-group>
             </div>
@@ -36,7 +37,7 @@
                 style="width:min-content;margin:0 auto;"
             >
                 <ButtonSecondary class="flex mr-8"
-                    >{{this.$language.get('cart.btn-buy-all')}}!</ButtonSecondary
+                    >{{this.$language.get('cart.btn-buy-all')}}</ButtonSecondary
                 >
                 <ButtonSecondary class="flex" v-if="selected.length > 0">
                     {{this.$language.get('cart.buy')}} {{ selected.length }} {{this.$language.get('cart.items')}}</ButtonSecondary
@@ -57,6 +58,12 @@ import ProductCard from '@/components/cards/ProductCard.vue';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import { ProductInterface } from '../interfaces/product.interface';
 import Vue from 'vue';
+import {carts, user} from "@/store/namespaces";
+import {USER_GET_USER} from "@/store/users/getters/user.getters";
+import {User} from "@/requests/users/User";
+import {CREATE_CART, FETCH_CART} from "@/store/carts/actions/carts.actions";
+import {GET_CART} from "@/store/carts/getters/carts.getters";
+import {Cart} from "@/requests/cart/Cart";
 
 @Component({
     components: {
@@ -66,149 +73,46 @@ import Vue from 'vue';
         ButtonSecondary
     }
 })
-export default class Cart extends Vue {
-    private selected: Array<number> = [];
-    private totalPrice = 1202;
-    private items: ProductInterface[] = [
-        {
-            id: 1,
-            title: 'Banana',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 2,
-            title: 'Laptop Pro Hp',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 3,
-            title: 'Iphone 11 max',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 4,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 5,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 6,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 7,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 8,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 9,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        },
-        {
-            id: 10,
-            title: 'Sacapuntas',
-            price: 234,
-            condition: 'New',
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            image: 'https://i.ytimg.com/vi/uHG7yNf-4k4/maxresdefault.jpg',
-            stock: 2,
-            author: 'Tete'
-        }
-    ];
+export default class CartView extends Vue {
+    private selected: Array<Cart> = [];
+    private items: ProductInterface[] = [];
     $refs!: {
         selectedItems: any;
     };
 
-    private selectedCards(id: number) {
-        console.log('AQUI');
-        console.log(id);
-        this.selectCard(id);
-    }
 
-    private selectCard(productId: number) {
-        const selected = this.selected.find(f => f === productId);
-        if (selected === undefined) this.selected.push(productId);
+    public selectCard(cart: Cart) {
+        const index = this.selectedItems.findIndex((i)=>i.id === cart.id)
+        if (index === -1) {
+            this.selected.push(cart);
+        }
         else {
-            const indx = this.selected.indexOf(productId);
-            this.selected.splice(indx, 1);
+            this.selected.splice(index, 1);
         }
     }
+
+    get selectedItems(): Cart[]
+    {
+        return this.selected;
+    }
+
+    get totalPrice(): number
+    {
+        let sum = 0;
+        this.selectedItems.forEach((i)=>{
+            sum += i!.quantity! * (i.product!.price! - (i.product!.discount || 0));
+        });
+        return sum;
+    }
+
+    async mounted()
+    {
+        await this.fetchCart(this.user);
+    }
+
+    @user.Getter(USER_GET_USER) user !: User;
+    @carts.Action(FETCH_CART) fetchCart !: Function;
+    @carts.Getter(GET_CART) myCart !: Cart[];
 }
 </script>
 

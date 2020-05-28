@@ -20,4 +20,7 @@ export class User {
     carts?: Cart[];
     products?: Product[];
     reviews?: Review[];
+    constructor(id: any) {
+        this.id = id;
+    }
 }

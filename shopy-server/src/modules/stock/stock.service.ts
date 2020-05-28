@@ -43,7 +43,6 @@ export class StockService {
             'StockService');
 
         let stock = await this.getStockByProductId(productId);
-
         if (stock.quantity - quantity < stock.minimumQuantity) {
             throw new BadRequestException(`No se pueden agarrar ${quantity} unidades de ese producto`);
         }

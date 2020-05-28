@@ -19,7 +19,7 @@
                 v-if="howManyPageAre > 0"
                 total-visible="10"
                 v-model="currentPage"
-                :length="howManyPageAre"
+                :length="howManyPageAre+1"
                 circle
                 color="purple"
                 @input="changePage()"
@@ -42,7 +42,10 @@ import {
     HOW_MANY_PAGES_ARE,
     LIST_OF_PRODUCTS
 } from '@/store/products/getters/products.view.getters';
-import { PRODUCTS_VIEW_FETCH_ALL_PRODUCTS } from '@/store/products/actions/products.view.actions';
+import {
+    PRODUCTS_VIEW_CHANGE_PAGE,
+    PRODUCTS_VIEW_FETCH_ALL_PRODUCTS
+} from '@/store/products/actions/products.view.actions';
 
 @Component({
     components: {
@@ -54,7 +57,10 @@ export default class ProductCatalog extends Vue {
     private currentPage = 1;
     private pageSize = 6;
 
-    changePage() {}
+    async changePage() {
+        window.scrollTo(0,0);
+        await this.setPage(this.currentPage);
+    }
 
     async mounted() {
         await this.fetchProducts();
@@ -64,6 +70,7 @@ export default class ProductCatalog extends Vue {
     @productsView.Getter(HOW_MANY_PAGES_ARE) howManyPageAre!: number;
     @productsView.Action(PRODUCTS_VIEW_FETCH_ALL_PRODUCTS)
     fetchProducts!: Function;
+    @productsView.Action(PRODUCTS_VIEW_CHANGE_PAGE) setPage !: Function;
 }
 </script>
 

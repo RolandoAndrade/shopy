@@ -25,7 +25,6 @@ export class ProductController {
     createProduct(@Body() product: ProductCreationInterface): Promise<Product> {
         this.logger.log('createProduct: Creando un producto',
             'ProductController');
-        product.product.user!.id = 1;
         return this.productService.createProduct(product);
     }
 

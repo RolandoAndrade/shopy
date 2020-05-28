@@ -175,6 +175,8 @@ import { maxLength, minValue, required } from 'vuelidate/lib/validators';
     import {Stock} from "@/requests/stock/Stock";
     import {Product} from "@/requests/products/Product";
     import {User} from "@/requests/users/User";
+    import {user} from "@/store/namespaces";
+    import {USER_GET_USER} from "@/store/users/getters/user.getters";
 
 @Component({
     components: {
@@ -220,6 +222,7 @@ export default class SelectInfo extends Vue {
         if (this.$v.$invalid) {
             return;
         } else if (this.currencieError === '') {
+            this.productInfo.user = this.user;
             this.$emit('nextStep', this.productInfo);
         } else return;
     }
@@ -250,6 +253,8 @@ export default class SelectInfo extends Vue {
         error = this.$language.get('sell.step-2.errors.invalid-currency');
         return error;
     }
+
+    @user.Getter(USER_GET_USER) user!: User;
 }
 </script>
 

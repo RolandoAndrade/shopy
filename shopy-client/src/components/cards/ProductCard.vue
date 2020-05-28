@@ -1,11 +1,9 @@
 <template>
-    <v-card class="card-product" :ripple="false" @click="getDetail()">
+    <div>
+        <v-card class="card-product" :ripple="false" @click="getDetail()" v-if="showCard">
         <div class="img-container">
-            <!-- <v-avatar tile height="150px" width="150px" class="ma-n8">
-                    <v-img :src="image" />
-            </v-avatar>-->
             <img :src="image" class="card-image" />
-            <div class="card-side bg-secondary" v-if="condition === 'catalog'" @click="addToCart()">
+            <div class="card-side bg-secondary" v-if="condition === 'catalog' && showCartIcon" @click="addToCart()">
                 <Icon :size="'icon-medium'" :icon="'icon-add_shopping_cart'" :color="'white-i'" class="mr-4"/>
             </div>
         </div>
@@ -22,7 +20,7 @@
                 <v-btn color="orange" icon v-on:click="decrementQuantity()">
                     <v-icon medium>mdi-menu-left</v-icon>
                 </v-btn>
-                <div class="title-terciary">{{ quantity }}</div>
+                <div class="title-terciary">{{ mCart.quantity }}</div>
                 <v-btn color="orange" icon v-on:click="incrementQuantity()">
                     <v-icon medium>mdi-menu-right</v-icon>
                 </v-btn>
@@ -48,8 +46,8 @@
         <Popup ref="modalAdd" :message="this.$language.get('messages.added-to-cart')" :response="true" />
         <PopupDecition
             ref="deleteCartModal"
-            :icon="true"
-            @receiveResponse="receiveResponse"
+            :is-delete="true"
+            @receiveResponse="receiveResponseDelete"
             :text="this.$language.get('messages.delete-from-cart')"
         />
         <PopupDecition
@@ -60,18 +58,25 @@
         />
         <EditProductPopup ref="editModal" :product="product"/>
     </v-card>
+    </div>
 </template>
 
 <script lang="ts">
 import Component from 'vue-class-component';
 import { Product } from '@/requests/products/Product';
-import { Prop } from 'vue-property-decorator';
+import {Prop, PropSync} from 'vue-property-decorator';
 import Icon from '../typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import PopupDecition from '@/components/generic/PopupDecition.vue';
 import EditProductPopup from '@/components/generic/popups/EditProductPopup.vue';
 import Vue from 'vue';
-
+import {carts, user} from "@/store/namespaces";
+import {CREATE_CART, DELETE_CART, UPDATE_CART} from "@/store/carts/actions/carts.actions";
+import {USER_GET_USER} from "@/store/users/getters/user.getters";
+import {User} from "@/requests/users/User";
+import {Cart} from "@/requests/cart/Cart";
+import {GET_CART} from "@/store/carts/getters/carts.getters";
+import {isInCart, isPoster} from "@/utils/global-functions";
 
 @Component({
     components: { Icon, Popup, PopupDecition,EditProductPopup }
@@ -81,11 +86,16 @@ export default class ProductCard extends Vue {
     product!: Product;
     @Prop()
     condition!: string;
+    @PropSync("cart", {required: false, type: Object})
+    mCart!: Cart;
+
+    showCard: boolean = true;
+    isShowCartButton: boolean = true;
 
     private flag = true;
-    private quantity = 1;
     private selected = false;
     private modalEdit = false;
+
     $refs!: {
         modalAdd: any;
         deleteCartModal: any;
@@ -105,20 +115,36 @@ export default class ProductCard extends Vue {
 
     public incrementQuantity() {
         this.flag = false;
-        this.quantity++;
+        if(this.mCart.quantity !=undefined && this.mCart.product && this.mCart.product.stock!.quantity && this.mCart.product.stock!.minimumQuantity)
+        {
+            if(this.mCart.product.stock!.quantity >this.mCart.product.stock!.minimumQuantity)
+            {
+                this.mCart.product.stock!.quantity--;
+                this.mCart.quantity++;
+                this.updateCart(this.mCart);
+            }
+        }
     }
 
     public decrementQuantity() {
         this.flag = false;
-        if (this.quantity > 0) {
-            this.quantity--;
+        if (this.mCart.quantity && this.mCart.quantity > 1 && this.mCart.product) {
+            if(this.mCart.product.stock!.quantity && this.mCart.product.stock!.minimumQuantity)
+            {
+                if(this.mCart.product.stock!.quantity)
+                {
+                    this.mCart.product.stock!.quantity++;
+                    this.mCart.quantity--;
+                    this.updateCart(this.mCart);
+                }
+            }
         }
     }
 
     public selectProduct() {
         this.flag = false;
         this.selected = !this.selected;
-        this.$emit('selectedCards', this.product.id);
+        this.$emit('selectedCards', this.mCart);
     }
 
     public deleteProduct() {
@@ -132,14 +158,15 @@ export default class ProductCard extends Vue {
     }
 
     public editProduct(){
-        console.log('editandodoooooo')
          this.flag = false;
          this.$refs.editModal.openModal();
        // this.modalEdit=true;
     }
 
-    public addToCart() {
+    public async addToCart() {
         this.flag = false;
+        this.isShowCartButton = false;
+        await this.addProductToCart({product: this.product, user: this.user});
         this.$refs.modalAdd.openModal();
     }
 
@@ -153,7 +180,38 @@ export default class ProductCard extends Vue {
         this.flag = true;
     }
 
+    public receiveResponseDelete(response: boolean)
+    {
+        if(response)
+        {
+            if(this.selected)
+            {
+                this.selected = !this.selected;
+                this.$emit('selectedCards', this.mCart);
+            }
+            this.showCard = false;
+            this.deleteCart(this.mCart);
+        }
+    }
 
+    public receiveResponse(response: boolean)
+    {
+
+    }
+
+    mounted(){
+    }
+
+    get showCartIcon(): boolean
+    {
+        return !isInCart(this.myCart, this.product) && !isPoster(this.product, this.user) && this.isShowCartButton;
+    }
+
+    @carts.Getter(GET_CART) myCart !: Cart[];
+    @carts.Action(CREATE_CART) addProductToCart !: Function;
+    @carts.Action(UPDATE_CART) updateCart !: Function;
+    @user.Getter(USER_GET_USER) user !: User;
+    @carts.Action(DELETE_CART) deleteCart !: Function;
 }
 </script>
 

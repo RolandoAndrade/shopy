@@ -28,8 +28,11 @@ import ProductFilter from '@/components/products/ProductFilter.vue';
 import { ProductFilterInterface } from '@/interfaces/productFilter.interface';
 import { GET_CATEGORIES } from '@/store/products/getters/products.view.getters';
 import { SectionInterface } from '@/interfaces/section.interface';
-import { productsView } from '@/store/namespaces';
+import {carts, productsView, user} from '@/store/namespaces';
 import { PRODUCTS_VIEW_FETCH_CATEGORIES } from '@/store/products/actions/products.view.actions';
+import {FETCH_CART} from "@/store/carts/actions/carts.actions";
+import {USER_GET_USER} from "@/store/users/getters/user.getters";
+import {User} from "@/requests/users/User";
 
 @Component({
     components: {
@@ -76,11 +79,15 @@ export default class ProductsView extends Vue {
 
     async mounted() {
         await this.fetchCategories();
+        await this.fetchCart(this.user);
     }
 
     @productsView.Getter(GET_CATEGORIES) getCategories!: SectionInterface[];
     @productsView.Action(PRODUCTS_VIEW_FETCH_CATEGORIES)
     fetchCategories!: Function;
+
+    @user.Getter(USER_GET_USER) user !: User;
+    @carts.Action(FETCH_CART) fetchCart !: Function;
 }
 </script>
 

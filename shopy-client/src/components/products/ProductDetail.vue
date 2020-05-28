@@ -25,14 +25,14 @@
             />
             <Icon
                 v-for="n in 5 - Math.round(product.score)"
-                :key="n"
+                :key="n+5"
                 :icon="'icon-star-empty'"
                 :size="'icon-small'"
                 :color="'orange-i'"
             />
         </v-row>
         <div class="product-detail__description">{{ product.description }}</div>
-        <ButtonPrimary v-on:click.native="setDialog()" v-if="!onlyDetails">
+        <ButtonPrimary @click.native="setDialog" v-if="!onlyDetails && showButton">
             {{this.$language.get('generic.add-to-cart')}}
         </ButtonPrimary>
         <div class="product-detail__comments mt-4" v-if="!onlyDetails">
@@ -43,7 +43,6 @@
                             {{this.$language.get('generic.see-comments')}}
             </div>
         </div>
-        <Popup :dialog="dialog" :response="response" :message="messageDialog" />
 
         <v-dialog v-model="commentDialog" scrollable max-width="600px">
             <v-card>
@@ -79,6 +78,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <Popup ref="modalAdd" :message="this.$language.get('messages.added-to-cart')" :response="true" />
     </v-container>
 </template>
 
@@ -90,6 +90,13 @@ import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import { Product } from '@/requests/products/Product';
 import Vue from 'vue';
+import {carts, user} from "@/store/namespaces";
+import {GET_CART} from "@/store/carts/getters/carts.getters";
+import {Cart} from "@/requests/cart/Cart";
+import {USER_GET_USER} from "@/store/users/getters/user.getters";
+import {User} from "@/requests/users/User";
+import {isInCart, isPoster} from "@/utils/global-functions";
+import {CREATE_CART} from "@/store/carts/actions/carts.actions";
 
 @Component({
     components: {
@@ -102,8 +109,11 @@ export default class ProductDetail extends Vue {
     @Prop() product!: Product;
     @Prop({required: false, default: false})
     onlyDetails!: boolean;
-    private dialog = false;
-    private response = true;
+    $refs!: {
+        modalAdd: any
+    };
+
+    showAddToCartButton: boolean = true;
    
     private messageDialog: string="";
     private commentDialog = false;
@@ -113,14 +123,21 @@ export default class ProductDetail extends Vue {
         'El producto es una maravilla, como los creadores de este sitio'
     ];
 
-    private setDialog() {
-        this.dialog = true;
-        if (this.response === true) {
-            this.messageDialog = 'Se ha añadido al carrito correctamente!';
-        } else {
-            this.messageDialog = 'El producto no se encuentra disponible!';
-        }
+
+    public async setDialog() {
+        this.showAddToCartButton = false;
+        await this.addProductToCart({product: this.product, user: this.user});
+        this.$refs.modalAdd.openModal();
     }
+
+    get showButton(): boolean
+    {
+        return !isInCart(this.myCart, this.product) && !isPoster(this.product, this.user) && this.showAddToCartButton;
+    }
+
+    @carts.Getter(GET_CART) myCart !: Cart[];
+    @carts.Action(CREATE_CART) addProductToCart !: Function;
+    @user.Getter(USER_GET_USER) user !: User;
 }
 </script>
 

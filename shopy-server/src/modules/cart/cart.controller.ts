@@ -1,17 +1,26 @@
-import { Controller, Post, Body, Delete, Param, Query, ParseIntPipe } from '@nestjs/common';
+import {Controller, Post, Body, Delete, Param, Query, ParseIntPipe, Put, Get} from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { CartService } from './cart.service'
 import { Cart } from './cart.entity';
 import { logger } from 'src/logger/loggerConst';
-import { DeleteResult } from 'typeorm';
+import {DeleteResult} from 'typeorm';
 
 @Controller('carts')
 export class CartController {
 
     private logger: ILogger;
 
-    constructor(private readonly cartService: CartService) {
+    constructor(
+        private readonly cartService: CartService) {
         this.logger = logger;
+    }
+
+    @Get()
+    async getCart(@Query() params: {userId: number}): Promise<Cart[]>
+    {
+        this.logger.log(`getCart: Obteniendo el carrito de compra de un usuario [${JSON.stringify(params)}]`,
+            'CartController');
+        return this.cartService.getCarts(params.userId);
     }
 
     @Post()
@@ -30,4 +39,11 @@ export class CartController {
         return this.cartService.deleteCart(cartId);
     }
 
+    @Put(':id')
+    updateCart(@Param('id', new ParseIntPipe()) id: number, @Body() cart: Cart): Promise<boolean>
+    {
+        this.logger.log('createCart: Actualizando un carrito de compra',
+            'CartController');
+        return this.cartService.update(id, cart);
+    }
 }

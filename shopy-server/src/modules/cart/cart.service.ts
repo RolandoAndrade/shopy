@@ -45,7 +45,9 @@ export class CartService {
 
         return await getManager().transaction(async transactionEntityManager => {
             try {
+                this.logger.log(`createCart: Actualizando el stock`,'CartService');
                 await this.stockService.updateStockForCart(cart.product.id, cart.quantity, transactionEntityManager);
+                this.logger.log(`createCart: Guardando el carrito`,'CartService');
                 const cartTransactionRepository: Repository<Cart> = transactionEntityManager.getRepository(Cart);
                 return await cartTransactionRepository.save(cart);
             } catch (error) {
@@ -53,6 +55,30 @@ export class CartService {
             }
         });
     }
+
+    /**
+     * createCart
+     * @param cart: Cart
+     * @param id: number
+     * @returns Promise<Cart>
+     */
+    async update(id: number, cart: Cart): Promise<boolean> {
+        this.logger.log(`createCart: Actualizando un carrito de compra [cart:${JSON.stringify(cart)}]`,
+            'CartService');
+
+        return await getManager().transaction(async transactionEntityManager => {
+            try {
+                const cartTransactionRepository: Repository<Cart> = transactionEntityManager.getRepository(Cart);
+                const q: Cart = await cartTransactionRepository.findOne(id);
+                await this.stockService.updateStockForCart(cart.product.id, cart.quantity - q.quantity, transactionEntityManager);
+                await cartTransactionRepository.update(id, cart);
+                return true;
+            } catch (error) {
+                throw error;
+            }
+        });
+    }
+
 
     /**
     * deleteCart
@@ -124,5 +150,17 @@ export class CartService {
             return description += `${cart.product.name} quantity:${cart.quantity} `;
         })
         return description;
+    }
+
+
+    async getCarts(userId: number): Promise<Cart[]>
+    {
+        this.logger.log(`getCarts: Obteniendo el carrito de compra de un usuario [userId: ${userId}]`,
+            'CartService');
+        return await this.cartRepository.find({relations: ['product', 'user', 'product.productImages', 'product.stock'], where: {
+            user: {
+                id: userId
+            }
+        }})
     }
 }

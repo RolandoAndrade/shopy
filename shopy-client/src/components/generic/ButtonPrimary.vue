@@ -1,13 +1,15 @@
 <template>
-    <button :class="getClass()">
-        <div class="button__text">
+    <v-btn :class="getClass()">
+        <div class="button__text button-text">
             <slot />
         </div>
-    </button>
+    </v-btn>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
+import Vue from "vue";
+import Component from "vue-class-component";
 
 @Component({})
 export default class ButtonPrimary extends Vue {
@@ -20,3 +22,14 @@ export default class ButtonPrimary extends Vue {
     }
 }
 </script>
+
+<style>
+    .button-text{
+        font-family:'Poppins', sans-serif;
+        font-size: 15px !important;
+        color:white;
+        text-transform: none !important;
+        letter-spacing: normal;
+    }
+
+</style>

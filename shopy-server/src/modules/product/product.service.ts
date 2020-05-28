@@ -71,7 +71,6 @@ export class ProductService {
         parameters.limit = parameters.limit || MAX_PRODUCTS_BY_PAGE;
 
         parameters.start = parameters.start * parameters.limit - parameters.limit;
-
         let query: SelectQueryBuilder<Product> = this.productRepository
                                                     .createQueryBuilder('product')
                                                     .innerJoinAndSelect('product.productImages', 'images')
@@ -79,8 +78,9 @@ export class ProductService {
                                                     .innerJoin('product.productCategories', 'productCategories')
                                                     .innerJoin('productCategories.category', 'category')
                                                     .innerJoin('category.categoryType', 'categoryType')
+                                                    .innerJoinAndSelect('product.user', 'user')
         
-        !(parameters.userId) || query.andWhere('product.fk_user_id = :userId', { userId: parameters.userId }); 
+        !(parameters.userId) || query.andWhere('product.fk_user_id = :userId', { userId: parameters.userId });
         !(parameters.name) || query.andWhere('UPPER(product.name) LIKE :name', { name: `%${parameters.name.toUpperCase()}%` });
         !(parameters.score) || query.andWhere('FLOOR(product.score) = :score', { score: parameters.score });
         !(parameters.new) || query.andWhere('product.new = :new', { new: parameters.new });

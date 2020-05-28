@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <div>
-            <Title size="title-primary">{{this.$language.get('my-orders.title')}}</Title>
+            <Title size="title-secondary-big">{{this.$language.get('my-orders.title')}}</Title>
             <div class="divider" style="height:1px; width:70%"></div>
         </div>
         <v-row
@@ -111,7 +111,7 @@ export default class Orders extends Vue {
 
     &__image {
         height: auto;
-        width: 15rem;
+        width: 150px;
     }
 }
 </style>

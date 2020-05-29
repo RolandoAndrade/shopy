@@ -61,7 +61,9 @@ export class PaymentService {
         let payment: Payment = new Payment();
         payment.totalPrice = price + price * commission.serviceFee + price * commission.processorFee;
         payment.date = new Date().toISOString();
-        payment.address = user.addresses[0];
+        if(user.addresses[0]){
+            payment.address = user.addresses[0];
+        }
         payment.commission = commission;
         payment.carts = checkoutCarts.cartsForCheckout;
         let paymentStatus: PaymentStatus = new PaymentStatus();

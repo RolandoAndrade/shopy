@@ -6,7 +6,6 @@ import { logger } from 'src/logger/loggerConst';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
-//@UseGuards(AuthGuard())
 export class UserController {
 
     private logger: ILogger;

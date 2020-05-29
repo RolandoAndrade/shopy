@@ -18,7 +18,6 @@ export class PaymentController {
     }
 
     @Post('/orders')
-    @UseGuards(AuthGuard())
     createOrder(@Body() checkoutCarts: CheckoutCarts): Promise<NewPayment> {
         this.logger.log('createOrder: Creando una orden',
             'PaymentController');

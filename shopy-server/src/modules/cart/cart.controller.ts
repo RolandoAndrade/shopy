@@ -7,7 +7,6 @@ import { DeleteResult } from 'typeorm';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('carts')
-@UseGuards(AuthGuard())
 export class CartController {
 
     private logger: ILogger;

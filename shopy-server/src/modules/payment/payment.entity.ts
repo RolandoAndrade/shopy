@@ -19,7 +19,8 @@ export class Payment extends BaseEntity {
     date?: string;
 
     @JoinColumn({ name: 'fk_address_id' })
-    @ManyToOne(type => Address, address => address.payments)
+    @ManyToOne(type => Address, address => address.payments,
+        { nullable: true })
     address?: Address;
 
     @JoinColumn({ name: 'fk_commission_id' })

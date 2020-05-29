@@ -6,7 +6,6 @@ import { AddressService } from './address.service';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('addresses')
-@UseGuards(AuthGuard())
 export class AddressController {
 
     private logger: ILogger;

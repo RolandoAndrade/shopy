@@ -1,0 +1,1 @@
+export const DOLAR_BADGE = 'Dolar';

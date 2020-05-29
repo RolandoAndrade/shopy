@@ -10,6 +10,7 @@ import { CommisionModule } from '../commission/commission.module';
 import { StatusModule } from '../status/status.module';
 import { PaymentStatusModule } from '../payment-status/payment-status.module';
 import { ShoppingHistoryModule } from '../shopping-history/shopping-history.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ShoppingHistoryModule } from '../shopping-history/shopping-history.modu
     StatusModule,
     PaymentStatusModule,
     ShoppingHistoryModule,
+    AuthModule,
     TypeOrmModule.forFeature([Payment])
   ],
   providers: [PaymentService],

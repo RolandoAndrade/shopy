@@ -9,9 +9,9 @@ import { indexModules } from '../modules/indexModule';
 
 @Module({
   imports: [
-        ...indexModules,
-        ConfigModule,
-        DatabaseModule,
+      ...indexModules,
+      ConfigModule,
+      DatabaseModule
   ],
   controllers: [AppController],
   providers: [AppService],

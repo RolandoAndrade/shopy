@@ -1,10 +1,12 @@
-import { Controller, Post, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { logger } from 'src/logger/loggerConst';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
+@UseGuards(AuthGuard())
 export class UserController {
 
     private logger: ILogger;

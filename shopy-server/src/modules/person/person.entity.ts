@@ -13,7 +13,7 @@ export class Person extends BaseEntity {
     @Column({ type: 'varchar', length: 25, nullable: false })
     lastname: string;
     
-    @Column({ name: 'birth_date', type: 'timestamp', nullable: false })
+    @Column({ name: 'birth_date', type: 'timestamp', default: new Date() })
     birthDate: string;
 
     @Column({ type: 'varchar', nullable: true })

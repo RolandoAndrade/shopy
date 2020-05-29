@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Post, Body, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, ParseIntPipe, Put, Delete, UseGuards } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { logger } from 'src/logger/loggerConst';
 import { ProductService } from './product.service';
@@ -10,8 +10,10 @@ import { DeleteResult } from 'typeorm';
 import { ProductImage } from '../product-image/product-image.entity';
 import { Review } from '../review/review.entity';
 import {ProductCreationInterface} from "./interfaces/product-creation-interface";
+import { AuthGuard } from '@nestjs/passport';
 import { ProductImagesDelete } from './interfaces/product-images-delete';
 import { ProductCategoriesDelete } from './interfaces/product-categories-delete';
+
 
 @Controller('products')
 export class ProductController {
@@ -22,6 +24,7 @@ export class ProductController {
     }
 
     @Post()
+    @UseGuards(AuthGuard())
     createProduct(@Body() product: ProductCreationInterface): Promise<Product> {
         this.logger.log('createProduct: Creando un producto',
             'ProductController');
@@ -45,6 +48,7 @@ export class ProductController {
     }
 
     @Put()
+    @UseGuards(AuthGuard())
     updateProduct(@Body() product: Product): Promise<Product> {
         this.logger.log('updateProduct: Actualizando un producto',
             'ProductController');
@@ -53,6 +57,7 @@ export class ProductController {
     }
 
     @Post(':id/product-categories')
+    @UseGuards(AuthGuard())
     createProductCategories(@Param('id', new ParseIntPipe()) productId: number, @Body() productCategories: Partial<ProductCategory>[]): Promise<ProductCategory[]> {
         this.logger.log('createProductCategories: Asociando un cojunto de categorias a un producto',
             'ProductController');
@@ -60,7 +65,9 @@ export class ProductController {
         return this.productService.createProductCategories(productId, productCategories);
     }
 
+
     @Delete(':id/product-categories')
+    @UseGuards(AuthGuard())
     deleteProductCategories(@Body() productCategoriesDelete: ProductCategoriesDelete): Promise<DeleteResult> {
         this.logger.log('deleteProductCategories: Borrando la asociación entre varias categorias y un producto',
             'ProductController');
@@ -69,6 +76,7 @@ export class ProductController {
     }
 
     @Post(':id/product-images')
+    @UseGuards(AuthGuard())
     createProductImages(@Param('id', new ParseIntPipe()) productId: number, @Body() productImages: Partial<ProductImage>[]): Promise<ProductImage[]> {
         this.logger.log('createProductImages: Asociando un conjunto de imagenes a un producto',
             'ProductController');
@@ -77,6 +85,7 @@ export class ProductController {
     }
 
     @Delete(':id/product-images')
+    @UseGuards(AuthGuard())
     deleteProductImages(@Body() productImagesDelete: ProductImagesDelete): Promise<DeleteResult> {
         this.logger.log('deleteProductImages: Borrando un conjunto de imagenes de un producto',
             'ProductController');
@@ -85,6 +94,7 @@ export class ProductController {
     }
 
     @Post(':id/reviews')
+    @UseGuards(AuthGuard())
     createProductReview(@Param('id', new ParseIntPipe()) productId: number, @Body() review: Partial<Review>): Promise<Review> {
         this.logger.log('createProductReview: Creando el review de un producto',
             'ProductController');

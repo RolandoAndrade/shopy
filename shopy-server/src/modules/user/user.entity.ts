@@ -7,6 +7,7 @@ import { ShoppingHistory } from "../shopping-history/shopping-history.entity";
 import { Cart } from "../cart/cart.entity";
 import { Review } from "../review/review.entity";
 import { Product } from "../product/product.entity";
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -17,11 +18,15 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', length: 50, nullable: false })
     email: string;
 
-    @Column({ type: 'varchar', length: 25, nullable: false })
+    @Exclude()
+    @Column({ type: 'text', default: '#####' })
+    password: string;
+
+    @Column({ type: 'varchar' })
     username: string;
 
-    @Column({ type: 'text', nullable: false, select: false })
-    password: string;
+    @Column({ type: 'boolean', default: false })
+    federate: boolean;
 
     @JoinColumn({ name: 'fk_person_id' }) // es el que tiene la clave foranea
     @OneToOne(type => Person, person => person.user,

@@ -6,12 +6,14 @@ import { Product } from './product.entity';
 import { ProductCategoryModule } from '../product-category/product-category.module';
 import { ProductImageModule } from '../product-image/product-image.module';
 import { ReviewModule } from '../review/review.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
     ProductCategoryModule,
     ProductImageModule,
     ReviewModule,
+    AuthModule,
     TypeOrmModule.forFeature([Product])
   ],
   providers: [ProductService],

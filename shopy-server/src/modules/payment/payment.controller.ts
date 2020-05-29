@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, UseGuards } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { logger } from 'src/logger/loggerConst';
 import { PaymentService } from './payment.service';
@@ -6,6 +6,7 @@ import { Cart } from '../cart/cart.entity';
 import { CheckoutCarts } from './interfaces/checkout-carts';
 import { NewPayment } from './interfaces/new-payment';
 import { OrderStatus } from './interfaces/order-status';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('payments')
 export class PaymentController {
@@ -17,6 +18,7 @@ export class PaymentController {
     }
 
     @Post('/orders')
+    @UseGuards(AuthGuard())
     createOrder(@Body() checkoutCarts: CheckoutCarts): Promise<NewPayment> {
         this.logger.log('createOrder: Creando una orden',
             'PaymentController');

@@ -7,6 +7,7 @@ import { Badge } from './badge.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Badge])],
   providers: [BadgeService],
-  controllers: [BadgeController]
+  controllers: [BadgeController],
+  exports: [BadgeService]
 })
 export class BadgeModule {}

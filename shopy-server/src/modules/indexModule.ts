@@ -18,9 +18,11 @@ import { StockModule } from "./stock/stock.module";
 import { UserModule } from "./user/user.module";
 import { WalletModule } from "./wallet/wallet.module";
 import {TranslatorModule} from "./translator/translator.module";
+import { AuthModule } from "./auth/auth.module";
 
 
 export const indexModules = [
+     AuthModule,
      AddressModule,
      BadgeModule,
      CategoryModule,
@@ -40,5 +42,5 @@ export const indexModules = [
      UserModule,
      CartModule,
      WalletModule,
-    TranslatorModule
+     TranslatorModule
 ]

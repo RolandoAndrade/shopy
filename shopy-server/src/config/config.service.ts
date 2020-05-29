@@ -1,6 +1,6 @@
 import  * as fs from 'fs'
-import {parse} from 'dotenv'
-import {logger} from "../logger/loggerConst";
+import { parse } from 'dotenv'
+import { logger } from "../logger/loggerConst";
 
 export class ConfigService
 {

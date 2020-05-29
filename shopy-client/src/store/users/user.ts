@@ -1,5 +1,6 @@
 import { Module } from 'vuex';
 import { USER_FETCH_PRODUCTS } from '@/store/users/actions/user.products.actions';
+import {USER_LOGIN_FEDERATED} from '@/store/users/actions/user.actions';
 import { USER_SET_PRODUCTS } from '@/store/users/mutations/user.products.mutations';
 import { Product } from '@/requests/products/Product';
 import { usersRepository } from '@/requests/users/users.repository';
@@ -48,6 +49,17 @@ const user: Module<UserStateInterface, any> = {
                 return false;
             }
         },
+        async [USER_LOGIN_FEDERATED]({commit, state},loginInfo :{email:string,username:string,image:string}): Promise<any>{
+            try{
+                console.log(loginInfo);
+                const payload: PayloadInterface = await authRepository.signInFederated(loginInfo);
+                console.log(payload)
+                return true;
+            }catch(e){
+                return false;
+            }
+        },
+     
         async [USER_SIGN_UP]({commit}, user: UserSignupInterface): Promise<boolean>
         {
             try {

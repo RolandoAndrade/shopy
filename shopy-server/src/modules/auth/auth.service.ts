@@ -87,7 +87,6 @@ export class AuthService {
             'AuthService');
 
         const userExist = await this._authRepository.findOne({ email: userSignup.user.email });
-
         if(userExist){
             throw new ConflictException();
         }

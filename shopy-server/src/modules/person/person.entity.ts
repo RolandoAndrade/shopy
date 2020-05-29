@@ -7,10 +7,10 @@ export class Person extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ type: 'varchar', length: 25, nullable: false })
+    @Column({ type: 'varchar', nullable: false })
     name: string;
     
-    @Column({ type: 'varchar', length: 25, nullable: false })
+    @Column({ type: 'varchar', nullable: false })
     lastname: string;
     
     @Column({ name: 'birth_date', type: 'timestamp', default: new Date() })

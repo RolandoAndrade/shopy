@@ -35,6 +35,7 @@ import {SendGridMailService} from "../mails/send-grid-mail.service";
     })
   ],
   controllers: [AuthController],
+
   providers: [AuthService, JwtStrategy, GoogleStrategy, ConfigService, SendGridMailService],
   exports: [JwtStrategy, GoogleStrategy, PassportModule]
 

@@ -26,10 +26,10 @@ import Vue from 'vue';
 })
 export default class Home extends Vue {
     public homeItems: Record<string, any> = [
-        { title: 'Give the best gifts', icon: 'home1.png' },
-        { title: 'Secure payments', icon: 'home2.png' },
-        { title: '5 languages available', icon: 'home3.png' },
-        { title: 'Sell for free', icon: 'home4.png' }
+        { title: this.$language.get('home.us.card1'), icon: 'home1.png' },
+        { title: this.$language.get('home.us.card2'), icon: 'home2.png' },
+        { title: this.$language.get('home.us.card3'), icon: 'home3.png' },
+        { title: this.$language.get('home.us.card4'), icon: 'home4.png' }
     ];
 }
 </script>

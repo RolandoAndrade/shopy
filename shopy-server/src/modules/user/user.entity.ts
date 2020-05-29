@@ -15,7 +15,7 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ type: 'varchar', length: 50, nullable: false })
+    @Column({ type: 'varchar', nullable: false })
     email: string;
 
     @Exclude()

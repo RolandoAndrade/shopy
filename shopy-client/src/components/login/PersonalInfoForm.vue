@@ -245,6 +245,7 @@ import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
         }
     }
 })
+
 export default class PersonalInfoForm extends Vue {
     private imageWidget!: ImageWidget;
 

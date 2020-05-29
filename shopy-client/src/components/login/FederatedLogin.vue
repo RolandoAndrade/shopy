@@ -13,7 +13,9 @@
 
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import firebase, {User} from 'firebase/app';
+    import {signInFederatedRepository} from '../../requests/federated-login/federated-login.repository';
     import "firebase/auth";
+    import { user } from '../../store/namespaces';
 
     @Component({
 })
@@ -24,21 +26,14 @@ export default class FederatedLogin extends Vue{
     private user!: User;
     private profile!: {name?:string};
 
-
-    private signIn(){
-        const event= this;
-          firebase
-            .auth()
-            .signInWithPopup(this.provider)
-            .then(function(result){
-                const pro  = <User>result.user;
-                    event.user = pro;
-                    
-            })
-            .catch(function(err) {console.log(err)});
+    private async signIn(){
+          let user = await signInFederatedRepository.verifyEmail();
+          console.log(user);
+         await this.signupFederated(user);
     }
 
-
+    @user.Action('USER_LOGIN_FEDERATED')
+    signupFederated!: Function;
 }
 </script>
 

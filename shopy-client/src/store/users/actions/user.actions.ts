@@ -1,2 +1,4 @@
+export const USER_LOGIN_FEDERATED = 'USER_LOGIN_FEDERATED';
 export const USER_SIGN_UP = "USER_SIGN_UP";
 export const USER_LOGIN = "USER_LOGIN"
+

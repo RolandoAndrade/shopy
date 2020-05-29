@@ -69,7 +69,7 @@
                                 type="number"
                                 v-model="productReset.price"
                                 class="form__input mr-4"
-                                :placeholder="product.price"
+                                :placeholder="product.price+' $'"
                                 id="name"
                                 required
                             />

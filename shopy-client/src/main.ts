@@ -6,6 +6,10 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import Vuelidate from 'vuelidate';
 import { LanguagePlugin } from '@/plugins/languages/language';
+import firebase from 'firebase';
+import {firebaseConfig} from '../firebaseConfig';
+
+  
 
 Vue.use(Vuelidate);
 Vue.use(LanguagePlugin);
@@ -15,6 +19,8 @@ new Vue({
     router,
     store,
     vuetify,
-    created() {},
+    created() {
+        firebase.initializeApp(firebaseConfig);
+    },
     render: h => h(App)
 }).$mount('#app');

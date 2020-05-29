@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white padding-medium">
-        <Title :size="'title-secondary'" class="ma-6">Our categories</Title>
+        <Title :size="'title-secondary'" class="ma-6">{{this.$language.get('home.categories')}}</Title>
         <v-carousel height="max-content" hide-delimiter-background>
             <v-carousel-item v-for="(slide, i) in categories" :key="i">
                 <v-sheet color="white" height="100%" class="padding-medium">

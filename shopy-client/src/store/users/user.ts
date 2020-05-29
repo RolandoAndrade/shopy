@@ -7,11 +7,11 @@ import { usersRepository } from '@/requests/users/users.repository';
 import { User } from '@/requests/users/User';
 import { UserStateInterface } from '@/store/users/interfaces/user.state.interface';
 import {
-    GET_PRODUCTS_DATA,
+    GET_PRODUCTS_DATA, IS_LOGGED,
     USER_GET_USER
 } from '@/store/users/getters/user.getters';
-import { USER_ONE_STATE } from '@/store/users/states/user.states';
-import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
+import {USER_EMPTY_STATE, USER_ONE_STATE} from '@/store/users/states/user.states';
+import {USER_LOGIN, USER_SIGN_UP} from "@/store/users/actions/user.actions";
 import {UserSignupInterface} from "@/interfaces/user-signup.interface";
 import {PayloadInterface} from "@/interfaces/payload.interface";
 import {authRepository} from "@/requests/auth/auth.repository";
@@ -19,13 +19,17 @@ import {USER_SET_USER} from "@/store/users/mutations/user.mutations";
 
 const user: Module<UserStateInterface, any> = {
     namespaced: true,
-    state: USER_ONE_STATE,
+    state: USER_EMPTY_STATE,
     getters: {
         [GET_PRODUCTS_DATA](state): Product[] {
             return state.user.products!;
         },
         [USER_GET_USER](state): User {
             return state.user;
+        },
+        [IS_LOGGED](state): boolean
+        {
+            return !!state.user.id;
         }
     },
     mutations: {
@@ -59,21 +63,35 @@ const user: Module<UserStateInterface, any> = {
                 return false;
             }
         },
-     
-        async [USER_SIGN_UP]({commit}, user: UserSignupInterface): Promise<boolean>
+
+        async [USER_SIGN_UP]({commit, dispatch}, user: UserSignupInterface): Promise<boolean>
         {
             try {
                 const payload: boolean = await authRepository.signUp(user);
                 if(payload)
                 {
-                    //dispatchLogin
+                    if(!(await dispatch(USER_LOGIN, user.user)))
+                    {
+                        return false;
+                    }
                 }
                 return payload;
             }
             catch (e) {
                 return false;
             }
-
+        },
+        async [USER_LOGIN]({commit}, user: {email: string, password: string}): Promise<boolean>
+        {
+            try {
+                const payload: PayloadInterface = await authRepository.login(user);
+                commit(USER_SET_USER, payload.user);
+                localStorage.setItem("token", payload.token);
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
         }
     }
 };

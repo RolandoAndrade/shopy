@@ -111,7 +111,7 @@ import {
     DELETE_CART,
     UPDATE_CART
 } from '@/store/carts/actions/carts.actions';
-import { USER_GET_USER } from '@/store/users/getters/user.getters';
+import {IS_LOGGED, USER_GET_USER} from '@/store/users/getters/user.getters';
 import { User } from '@/requests/users/User';
 import { Cart } from '@/requests/cart/Cart';
 import { GET_CART } from '@/store/carts/getters/carts.getters';
@@ -253,7 +253,8 @@ export default class ProductCard extends Vue {
         return (
             !isInCart(this.myCart, this.product) &&
             !isPoster(this.product, this.user) &&
-            this.isShowCartButton
+            this.isShowCartButton &&
+                    this.isLogged
         );
     }
 
@@ -266,6 +267,7 @@ export default class ProductCard extends Vue {
     deletePub!: Function;
     @productDetail.Action('PRODUCTS_DETAIL_FETCH_PRODUCT')
     fetchProduct!: Function;
+    @user.Getter(IS_LOGGED) isLogged !: boolean;
 }
 </script>
 

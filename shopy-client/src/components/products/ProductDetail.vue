@@ -105,7 +105,7 @@ import Vue from 'vue';
 import { carts, user } from '@/store/namespaces';
 import { GET_CART } from '@/store/carts/getters/carts.getters';
 import { Cart } from '@/requests/cart/Cart';
-import { USER_GET_USER } from '@/store/users/getters/user.getters';
+import {IS_LOGGED, USER_GET_USER} from '@/store/users/getters/user.getters';
 import { User } from '@/requests/users/User';
 import { isInCart, isPoster } from '@/utils/global-functions';
 import { CREATE_CART } from '@/store/carts/actions/carts.actions';
@@ -145,13 +145,15 @@ export default class ProductDetail extends Vue {
         return (
             !isInCart(this.myCart, this.product) &&
             !isPoster(this.product, this.user) &&
-            this.showAddToCartButton
+            this.showAddToCartButton &&
+                    this.isLogged
         );
     }
 
     @carts.Getter(GET_CART) myCart!: Cart[];
     @carts.Action(CREATE_CART) addProductToCart!: Function;
     @user.Getter(USER_GET_USER) user!: User;
+    @user.Getter(IS_LOGGED) isLogged !: boolean;
 }
 </script>
 

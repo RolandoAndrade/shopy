@@ -22,22 +22,25 @@
                         <v-list-item>
                             <v-list-item-avatar>
                                 <img
-                                    src="../../../assets/team/stephanie.jpeg"
+                                    v-if="isLogged && userImage"
+                                    :src="userImage"
                                     alt="User photo"
                                 />
+                                <v-icon v-else-if="isLogged && !userImage">mdi-account</v-icon>
                             </v-list-item-avatar>
 
                             <v-list-item-content>
                                 <v-list-item-title
-                                    >Stephanie Cruz</v-list-item-title
+                                    >{{userName}}</v-list-item-title
                                 >
                                 <v-list-item-subtitle
-                                    >scruz.17@est.ucab.edu.ve</v-list-item-subtitle
+                                    >{{user.email}}</v-list-item-subtitle
                                 >
                             </v-list-item-content>
 
                             <v-list-item-action>
                                 <v-btn
+                                        v-if="isLogged"
                                     color="orange"
                                     icon
                                     v-on:click="
@@ -58,6 +61,7 @@
                             :key="item.title"
                             link
                             :to="item.link"
+                            @click="()=>item.click()"
                         >
                             <v-list-item-icon>
                                 <v-icon medium>{{ item.icon }}</v-icon>
@@ -81,6 +85,9 @@ import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import SearchBar from '@/components/generic/SearchBar.vue';
 import Vue from 'vue';
+import {user} from "@/store/namespaces";
+import {IS_LOGGED, USER_GET_USER} from "@/store/users/getters/user.getters";
+import {User} from "@/requests/users/User";
 
 @Component({
     components: {
@@ -91,28 +98,80 @@ import Vue from 'vue';
 export default class Header extends Vue {
     private login = true;
     private showLogo = true;
-    private navLinks: { title: string; icon: string; link?: string }[] = [
+    private navLink: { title: string; icon: string; link?: string, show: boolean, click?: Function}[] = [
         {
             title: 'My profile',
             icon: 'mdi-account-circle-outline',
-            link: '/profile'
+            link: '/profile',
+            show: false
         },
-        { title: 'Categories', icon: 'mdi-apps', link: '/products' },
+        { title: 'Categories', icon: 'mdi-apps', link: '/products' , show: true},
         {
             title: 'My products',
             icon: 'mdi-bulletin-board',
-            link: '/edit/products'
+            link: '/edit/products',
+            show: false
         },
-        { title: 'My orders', icon: 'mdi-shopping-outline', link: '/orders' },
-        { title: 'Sell', icon: 'mdi-cash', link: '/add/product' },
-        { title: 'Log in', icon: 'mdi-login', link: '/login' },
-        { title: 'Log out', icon: 'mdi-logout' }
+        { title: 'My orders', icon: 'mdi-shopping-outline', link: '/orders', show: false},
+        { title: 'Sell', icon: 'mdi-cash', link: '/add/product', show: false},
+        { title: 'Log in', icon: 'mdi-login', link: '/login' , show: true},
+        { title: 'Log out', icon: 'mdi-logout', show: false, click: ()=>{
+            localStorage.removeItem("token");
+            window.location.reload();
+            }}
     ];
+
+    get navLinks(): { title: string; icon: string; link?: string; show: boolean }[]
+    {
+        return this.navLink.filter((i)=>{
+            if(i.icon=="mdi-login")
+            {
+                return !this.isLogged;
+            }
+            else if(i.icon=="mdi-logout")
+            {
+                return this.isLogged;
+            }
+            return (i.show||this.isLogged)
+        })
+    }
 
     get onMobile() {
         if (this.$vuetify.breakpoint.smAndDown) return 'logo__small';
         else return 'logo__big';
     }
+
+    get userName()
+    {
+        if(this.user.person)
+        {
+            return this.user.person.name + " " + this.user.person.lastname;
+        }
+        return "";
+    }
+
+    get userImage()
+    {
+        if(this.isLogged)
+        {
+            if(this.user.person && this.user.person.image && this.user.person.image.length)
+            {
+                return this.user.person.image;
+            }
+            else
+            {
+                return undefined
+            }
+        }
+        else
+        {
+            return undefined;
+        }
+
+    }
+
+    @user.Getter(IS_LOGGED) isLogged !: boolean;
+    @user.Getter(USER_GET_USER) user !: User;
 }
 </script>
 

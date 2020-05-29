@@ -18,6 +18,7 @@
                 class="form__input"
                 placeholder="Email account"
                 id="email"
+                v-model="email"
                 required
             />
             <label for="email" class="form__label">
@@ -29,6 +30,7 @@
                 type="password"
                 class="form__input"
                 placeholder="Password"
+                v-model="password"
                 id="password"
                 required
             />
@@ -36,7 +38,7 @@
                 {{ this.$language.get('user.password') }}</label
             >
         </div>
-        <ButtonPrimary :color="'purple'" class="flex mb-4">
+        <ButtonPrimary :color="'purple'" class="flex mb-4" @click.native="signIn">
             {{ this.$language.get('login.name') }}</ButtonPrimary
         >
         <div class="title-center mr-2">
@@ -56,6 +58,8 @@ import FederatedLogin from '@/components/login/FederatedLogin.vue';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Vue from 'vue';
+import {user} from "@/store/namespaces";
+import {USER_LOGIN} from "@/store/users/actions/user.actions";
 
 @Component({
     components: {
@@ -66,6 +70,30 @@ import Vue from 'vue';
 })
 export default class SignInForm extends Vue {
     private provider = new firebase.auth.GoogleAuthProvider();
+    public email: string ="";
+    public password: string ="";
+
+    async signIn()
+    {
+        if(this.email && this.password)
+        {
+            if(await this.login({email: this.email, password: this.password}))
+            {
+                this.$router.push("/");
+            }
+            else
+            {
+                //error
+            }
+        }
+        else
+        {
+            //error
+        }
+
+    }
+
+    @user.Action(USER_LOGIN) login !: Function;
 }
 </script>
 

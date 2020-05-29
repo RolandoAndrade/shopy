@@ -9,11 +9,11 @@
                 color="orange-i"
                 style="width:100px;"
             />
-                <div class="title-terciary ">{{this.$language.get('cart.total')}}: {{ totalPrice }} $</div>
+                <div class="title-terciary ">{{this.$language.get('cart.total')}}: ${{ totalPrice }} </div>
             </div>
         </v-row>
         <div class="divider" style="height:1px; width:70%"></div>
-        <div v-if="this.myCart">
+        <div v-if="this.myCart && this.myCart.length">
             <div class="mt-10 mb-10">
                 <v-slide-group
                     class="image-slider text-center justify-center"
@@ -36,10 +36,10 @@
                 class="flex to-column mb-10"
                 style="width:min-content;margin:0 auto;"
             >
-                <ButtonSecondary class="flex mr-8"
+                <ButtonSecondary class="flex mr-8" @click.native="payAll"
                     >{{this.$language.get('cart.btn-buy-all')}}</ButtonSecondary
                 >
-                <ButtonSecondary class="flex" v-if="selected.length > 0">
+                <ButtonSecondary class="flex" v-if="selected.length > 0" @click.native="paySelected">
                     {{this.$language.get('cart.buy')}} {{ selected.length }} {{this.$language.get('cart.items')}}</ButtonSecondary
                 >
             </div>
@@ -47,6 +47,7 @@
         <div v-else class="mt-10 mb-10">
             <Title size="title-secondary">Your cart is empty</Title>
         </div>
+        <BillPopup :carts="bill" ref="bill"></BillPopup>
     </div>
 </template>
 
@@ -64,9 +65,11 @@ import {User} from "@/requests/users/User";
 import {CREATE_CART, FETCH_CART} from "@/store/carts/actions/carts.actions";
 import {GET_CART} from "@/store/carts/getters/carts.getters";
 import {Cart} from "@/requests/cart/Cart";
+import BillPopup from "@/components/generic/popups/BillPopup.vue";
 
 @Component({
     components: {
+        BillPopup,
         Icon,
         Title,
         ProductCard,
@@ -74,10 +77,12 @@ import {Cart} from "@/requests/cart/Cart";
     }
 })
 export default class CartView extends Vue {
+    private bill: Array<Cart> = [];
     private selected: Array<Cart> = [];
     private items: ProductInterface[] = [];
     $refs!: {
         selectedItems: any;
+        bill: any;
     };
 
 
@@ -108,6 +113,18 @@ export default class CartView extends Vue {
     async mounted()
     {
         await this.fetchCart(this.user);
+    }
+
+    public payAll()
+    {
+        this.bill = this.myCart;
+        this.$refs.bill.openModal();
+    }
+
+    public paySelected()
+    {
+        this.bill = this.selected;
+        this.$refs.bill.openModal();
     }
 
     @user.Getter(USER_GET_USER) user !: User;

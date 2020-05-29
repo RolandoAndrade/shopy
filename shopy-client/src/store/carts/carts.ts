@@ -56,10 +56,14 @@ const carts: Module<CartsStateInterfaces, any> = {
             }
         },
 
-        async [DELETE_CART]({commit}, cart: Cart)
+        async [DELETE_CART]({commit, state}, cart: Cart)
         {
             try {
-                return await cartRepository.delete(cart.id!);
+                const d: boolean = await cartRepository.delete(cart.id!);
+                if(d)
+                {
+                    commit(SET_CART, state.cart.filter((i)=>i.id !== cart.id));
+                }
             } catch (e) {
                 return false;
             }

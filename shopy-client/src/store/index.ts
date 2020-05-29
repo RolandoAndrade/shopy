@@ -6,6 +6,8 @@ import productDetail from '@/store/products/product.detail';
 import productCreation from "@/store/products/product.creation";
 import carts from "@/store/carts/carts";
 import user from "@/store/users/user";
+import payment from "@/store/payments/payment";
+
 
 Vue.use(Vuex);
 
@@ -26,6 +28,7 @@ export default new Vuex.Store({
         productDetail,
         productCreation,
         carts,
-        user
+        user,
+        payment
     }
 });

@@ -1,6 +1,18 @@
 insert into roles(name, description) values ('Admin','administrador');
 
 
+
+insert into commissions(service_fee, processor_fee, active) values (0.0175,0.03,true);
+insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 17 Calle 21','Chapinero','Bogota','Cundinamarca','411',1);
+insert into statuses(name, description) values ('Nueva Orden','Nueva orden creada');
+insert into statuses(name, description) values ('Orden Pendiente','Orden pendiente para ser pagada');
+insert into statuses(name, description) values ('Confirmando Orden','Confirmando una orden en la blockchain');
+insert into statuses(name, description) values ('Orden Pagada','Orden pagada y confirmada');
+insert into statuses(name, description) values ('Orden Invalida','Orden invalidada en la blockchain');
+insert into statuses(name, description) values ('Orden Expirada','Orden expirada por haber pasado 20 min sin pagar');
+insert into statuses(name, description) values ('Orden Cancelada','Orden cancelada por el cliente');
+
+
 insert into foreign_exchange(name, simbol, exchange_rate) values ('Dolar', '$', 1);
 
 
@@ -104,3 +116,5 @@ insert into categories(name, description, fk_category_type_id) values ('Otros', 
 insert into categories(name, description, fk_category_type_id) values ('Baños', 'Inmuebles para el baño', 6);
 insert into categories(name, description, fk_category_type_id) values ('Cocinas', 'Inmuebles para la cocina', 6);
 insert into categories(name, description, fk_category_type_id) values ('Otros', 'Otros productos para el hogar', 6);
+
+

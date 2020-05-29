@@ -14,8 +14,6 @@ import { ProductImageService } from '../product-image/product-image.service';
 import { Review } from '../review/review.entity';
 import { ReviewService } from '../review/review.service';
 import { ProductCreationInterface } from "./interfaces/product-creation-interface";
-import { ProductImagesDelete } from './interfaces/product-images-delete';
-import { ProductCategoriesDelete } from './interfaces/product-categories-delete';
 
 @Injectable()
 export class ProductService {
@@ -25,8 +23,6 @@ export class ProductService {
     constructor(
         @InjectRepository(Product)
         private readonly productRepository: Repository<Product>,
-        private readonly productCategoryService: ProductCategoryService,
-        private readonly productImageService: ProductImageService,
         private readonly reviewService: ReviewService
     ) {
         this.logger = logger;
@@ -119,6 +115,18 @@ export class ProductService {
     }
 
     /**
+     * getProductById
+     * @param productId: number
+     * @returns Promise<Product> 
+     */
+    async getProductById(productId: number): Promise<Product>{
+        this.logger.log(`getProductById: Obteniendo los datos basicos de un producto [productId: ${productId}]`,
+            'ProductService');
+
+        return await this.productRepository.findOne({ id: productId });
+    }
+
+    /**
      * updateProduct
      * @param product: Product
      * @returns Promise<Product>
@@ -128,66 +136,6 @@ export class ProductService {
             'ProductService');
 
         return await this.productRepository.save(product);
-    }
-
-    /**
-     * createProductCategories
-     * @param productId: number
-     * @param productCategories: Partial<ProductCategory>[]
-     * @returns Promise<ProductCategory[]>
-    */
-    async createProductCategories(productId: number, productCategories: Partial<ProductCategory>[]): Promise<ProductCategory[]> {
-        this.logger.log(`createProductCategories: Asociando un conjunto de categorias a un producto [productId: ${productId}]`,
-            'ProductService');
-
-        const product = await this.productRepository.findOne({ id: productId });
-        productCategories.forEach( productCategory => {
-            productCategory.product = product;
-        });
-        
-        return await this.productCategoryService.createProductCategories(productCategories);
-    }
-
-    /**
-     * deleteProductCategories
-     * @param productCategoriesDelete: ProductCategoriesDelete
-     * @returns Promise<DeleteResult>
-    */
-    async deleteProductCategories(productCategoriesDelete: ProductCategoriesDelete): Promise<DeleteResult> {
-        this.logger.log(`deleteProductCategories: Borrando la asociación entre varias categorias y un producto`,
-            'ProductService');
-
-        return await this.productCategoryService.deleteProductCategories(productCategoriesDelete.productCategoriesIds);
-    }
-
-    /**
-     * createProductImages
-     * @param productId: number
-     * @param productImages: Partial<ProductImage>[]
-     * @returns Promise<ProductImage[]>
-    */
-    async createProductImages(productId: number, productImages: Partial<ProductImage>[]): Promise<ProductImage[]> {
-        this.logger.log(`createProductImages: Asociando un conjunto de imagenes a un producto [productId: ${productId}]`,
-            'ProductService');
-
-        const product = await this.productRepository.findOne({ id: productId });
-        productImages.forEach(productImage => {
-            productImage.product = product;
-        });
-
-        return await this.productImageService.createProductImages(productImages);
-    } 
-
-    /**
-     * deleteProductImages
-     * @param imagesDelete: ProductImagesDelete
-     * @returns Promise<DeleteResult>
-    */
-    async deleteProductImages(productImagesDelete: ProductImagesDelete): Promise<DeleteResult> {
-        this.logger.log(`deleteProductImages: Borrando una imagen de un producto`,
-            'ProductService');
-
-        return await this.productImageService.deleteProductImages(productImagesDelete.productImageIds);
     }
 
     /**
@@ -214,10 +162,10 @@ export class ProductService {
      * @param productId: number
      * @returns Promise<DeleteResult>
     */
-/*     async deleteProduct(productId: number): Promise<DeleteResult> {
+    async deleteProduct(productId: number): Promise<DeleteResult> {
         this.logger.log(`deleteProduct: Borrando un producto [productId: ${productId}]`,
             'ProductService');
 
         return await this.productRepository.delete(productId);
-    } */
+    } 
 }

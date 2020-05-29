@@ -5,6 +5,8 @@ import { ProductCategory } from './product-category.entity';
 import { EntityManager, DeleteResult } from 'typeorm';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ProductCategoriesCreate } from './interfaces/product-categories-create';
+import { ProductService } from '../product/product.service';
 
 @Injectable()
 export class ProductCategoryService {
@@ -13,21 +15,21 @@ export class ProductCategoryService {
 
     constructor(
         @InjectRepository(ProductCategory)
-        private readonly productCategoryRepository: Repository<ProductCategory>,
+        private readonly productCategoryRepository: Repository<ProductCategory>
     ) {
         this.logger = logger;
     }
 
     /**
     * createProductCategories
-    * @param productCategories: Partial<ProductCategory>[]
+    * @param productCategoriesCreate: ProductCategoriesCreate
     * @returns Promise<ProductCategory[]>
     */
-    async createProductCategories(productCategories: Partial<ProductCategory>[]):Promise<ProductCategory[]>{
+    async createProductCategories(productCategoriesCreate: ProductCategoriesCreate):Promise<ProductCategory[]>{
         this.logger.log(`createProductCategories: Asociando un cojunto de categorias a un producto`,
             'ProductCategoryService');
-
-        return await this.productCategoryRepository.save(productCategories);
+        
+        return await this.productCategoryRepository.save(productCategoriesCreate.productCategories);
     }
 
     /**

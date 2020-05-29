@@ -15,7 +15,7 @@ export class Stock extends BaseEntity {
 
     @JoinColumn({ name: 'fk_product_id' })
     @OneToOne(type => Product, product => product.stock,
-        { nullable: false })
+        { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     product: Product;
 
 }

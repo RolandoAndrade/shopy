@@ -4,6 +4,7 @@ import { logger } from 'src/logger/loggerConst';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { ProductImage } from './product-image.entity';
+import { ProductImagesCreate } from './interfaces/product-images-create';
 
 @Injectable()
 export class ProductImageService {
@@ -12,21 +13,21 @@ export class ProductImageService {
 
     constructor(
         @InjectRepository(ProductImage)
-        private readonly productImageRepository: Repository<ProductImage>,
+        private readonly productImageRepository: Repository<ProductImage>
     ) {
         this.logger = logger;
     }
 
     /**
     * createProductImages
-    * @param productImages: Partial<ProductImage>[]
+    * @param productImagesCreate: ProductImagesCreate
     * @returns Promise<ProductImage[]>
     */
-    async createProductImages(productImages: Partial<ProductImage>[]): Promise<ProductImage[]> {
+    async createProductImages(productImagesCreate: ProductImagesCreate): Promise<ProductImage[]> {
         this.logger.log(`createProductImages: Asociando un conjunto de imagenes a un producto`,
             'ProductImageService');
 
-        return await this.productImageRepository.save(productImages);
+        return await this.productImageRepository.save(productImagesCreate.productImages);
     }
 
     /**

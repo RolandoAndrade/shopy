@@ -20,7 +20,8 @@ export class ShoppingHistory extends BaseEntity {
     user?: User;
 
     @JoinColumn({ name: 'fk_product_id' })
-    @ManyToOne(type => Product, product => product.shoppingHistories)
+    @ManyToOne(type => Product, product => product.shoppingHistories,
+        { onDelete: 'SET NULL', onUpdate: 'CASCADE' })
     product?: Product;
 
     @JoinColumn({ name: 'fk_payment_id' })

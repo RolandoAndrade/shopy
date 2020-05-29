@@ -12,7 +12,7 @@ export class ProductImage extends BaseEntity {
 
     @JoinColumn({ name: 'fk_product_id' })
     @ManyToOne(type => Product, product => product.productImages,
-        { nullable: false })
+        { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     product: Product;
 
 }

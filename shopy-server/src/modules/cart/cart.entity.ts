@@ -19,7 +19,7 @@ export class Cart extends BaseEntity {
 
     @JoinColumn({ name: 'fk_product_id' })
     @ManyToOne(type => Product, product => product.carts,
-        { nullable: false })
+        { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     product: Product;
 
     @JoinColumn({ name: 'fk_payment_id' })

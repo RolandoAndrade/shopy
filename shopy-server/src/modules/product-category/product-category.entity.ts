@@ -10,7 +10,7 @@ export class ProductCategory extends BaseEntity {
 
     @JoinColumn({ name: 'fk_product_id' })
     @ManyToOne(type => Product, product => product.productCategories,
-        { nullable: false })
+        { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     product: Product;
 
     @JoinColumn({ name: 'fk_category_id' })

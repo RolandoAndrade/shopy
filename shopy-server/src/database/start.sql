@@ -22,11 +22,11 @@ insert into users(email, username, password, fk_person_id, fk_role_id, fk_badge_
 insert into users(email, username, password, fk_person_id, fk_role_id, fk_badge_id) values ('ij@keb.mv','Eddie','#f8a3b6',5,1,1);
 
 
-insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 17 Calle 21','Chapinero','Bogota','Cundinamarca','111311',1);
-insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 18 Calle 15','Chapinero','Bogota','Cundinamarca','111311',2);
-insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 7 Calle 19','Chapinero','Bogota','Cundinamarca','111311',3);
-insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 10 Calle 20','Chapinero','Bogota','Cundinamarca','111311',4);
-insert into addresses(firts_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 15 Calle 21','Chapinero','Bogota','Cundinamarca','111311',5);
+insert into addresses(first_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 17 Calle 21','Chapinero','Bogota','Cundinamarca','111311',1);
+insert into addresses(first_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 18 Calle 15','Chapinero','Bogota','Cundinamarca','111311',2);
+insert into addresses(first_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 7 Calle 19','Chapinero','Bogota','Cundinamarca','111311',3);
+insert into addresses(first_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 10 Calle 20','Chapinero','Bogota','Cundinamarca','111311',4);
+insert into addresses(first_line, second_line, city, state, postal_code, fk_user_id) values ('Carrera 15 Calle 21','Chapinero','Bogota','Cundinamarca','111311',5);
 
 
 insert into products(name, price, description, score, discount, width, height, depth, new, fk_user_id) values ('Camisas de vestir', 589.5, 'Todos los tamaños', 4.9, 0, 5, 7, 9, true, 1);

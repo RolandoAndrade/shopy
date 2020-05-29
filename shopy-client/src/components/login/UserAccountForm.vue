@@ -1,12 +1,14 @@
 <template>
     <form action="#" class="form ">
-        <Title :size="'title-secondary'" class="pt-6" style="tex-align:start;"
-            > {{this.$language.get('sign-up.title')}}
+        <Title :size="'title-secondary'" class="pt-6" style="tex-align:start;">
+            {{ this.$language.get('sign-up.title') }}
         </Title>
         <FederatedLogin :provider="provider" type="login" class="mt-4">
-            {{this.$language.get('sign-up.name')}} with google
+            {{ this.$language.get('sign-up.name') }} with google
         </FederatedLogin>
-        <div class="title-center mb-6">{{this.$language.get('login.or')}}</div>
+        <div class="title-center mb-6">
+            {{ this.$language.get('login.or') }}
+        </div>
 
         <div class="form__group">
             <input
@@ -18,7 +20,9 @@
                 @input="$v.accountEmail.$touch()"
                 @blur="$v.accountEmail.$touch()"
             />
-            <label for="email" class="form__label">{{this.$language.get('user.email')}}</label>
+            <label for="email" class="form__label">{{
+                this.$language.get('user.email')
+            }}</label>
             <div
                 v-for="(i, ind) in emailErrors"
                 :key="ind"
@@ -37,7 +41,9 @@
                 @input="$v.accountPassword.$touch()"
                 @blur="$v.accountPassword.$touch()"
             />
-            <label for="password" class="form__label">{{this.$language.get('user.password')}}</label>
+            <label for="password" class="form__label">{{
+                this.$language.get('user.password')
+            }}</label>
             <div
                 v-for="(i, ind) in passwordErrors"
                 :key="ind"
@@ -56,7 +62,9 @@
                 @input="$v.repeatPassword.$touch()"
                 @blur="$v.repeatPassword.$touch()"
             />
-            <label for="passwordr" class="form__label">{{this.$language.get('sign-up.repeat-password')}}</label>
+            <label for="passwordr" class="form__label">{{
+                this.$language.get('sign-up.repeat-password')
+            }}</label>
             <div
                 v-for="(i, ind) in repeatPasswordErrors"
                 :key="ind"
@@ -69,13 +77,13 @@
             :color="'purple'"
             class="flex mb-6"
             @click.native="changePage"
-            >{{this.$language.get('generic.next-step')}}</ButtonPrimary
+            >{{ this.$language.get('generic.next-step') }}</ButtonPrimary
         >
         <div class="title-center mr-2">
-            {{this.$language.get('sign-up.have-account')}}
-            <a class="title-center" @click="() => $router.push('/login')"
-                >{{this.$language.get('login.name')}}</a
-            >
+            {{ this.$language.get('sign-up.have-account') }}
+            <a class="title-center" @click="() => $router.push('/login')">{{
+                this.$language.get('login.name')
+            }}</a>
         </div>
     </form>
 </template>
@@ -115,8 +123,10 @@ export default class UserAccountForm extends Vue {
     get emailErrors() {
         const errors: Array<string> = [];
         if (!this.$v.accountEmail.$dirty) return errors;
-        !this.$v.accountEmail.email && errors.push(this.$language.get('sign-up.errors.invalid-email'));
-        !this.$v.accountEmail.required && errors.push(this.$language.get('sign-up.errors.email-required'));
+        !this.$v.accountEmail.email &&
+            errors.push(this.$language.get('sign-up.errors.invalid-email'));
+        !this.$v.accountEmail.required &&
+            errors.push(this.$language.get('sign-up.errors.email-required'));
         return errors;
     }
 
@@ -125,7 +135,8 @@ export default class UserAccountForm extends Vue {
         if (!this.$v.accountPassword.$dirty) return errors;
         !this.$v.accountPassword.minLength &&
             errors.push(this.$language.get('sign-up.errors.long-password'));
-        !this.$v.accountEmail.required && errors.push(this.$language.get('sign-up.errors.password-required'));
+        !this.$v.accountEmail.required &&
+            errors.push(this.$language.get('sign-up.errors.password-required'));
 
         return errors;
     }
@@ -133,7 +144,9 @@ export default class UserAccountForm extends Vue {
         const errors: Array<string> = [];
         if (!this.$v.repeatPassword.$dirty) return errors;
         !this.$v.repeatPassword.sameAsPassword &&
-            errors.push(this.$language.get('sign-up.errors.identical-password'));
+            errors.push(
+                this.$language.get('sign-up.errors.identical-password')
+            );
         return errors;
     }
 

@@ -6,13 +6,19 @@ import { EnvironmentConstants } from '@/constants/environmentConstants';
 const URL = EnvironmentConstants.HOST + 'translator';
 
 export class TranslatorService implements TranslatorInterface {
-    _terms: { term: string;context:string; translation: { content: string } }[] = [];
+    _terms: {
+        term: string;
+        context: string;
+        translation: { content: string };
+    }[] = [];
     private _isStarted = false;
 
     constructor() {}
     get(term: string): string {
         try {
-            return this._terms!.find(i => i.context.replace(/"/g,"")+"."+i.term === term)!.translation.content;
+            return this._terms!.find(
+                i => i.context.replace(/"/g, '') + '.' + i.term === term
+            )!.translation.content;
         } catch (e) {
             return '';
         }

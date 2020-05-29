@@ -1,12 +1,17 @@
 <template>
     <form action="#" class="form">
-        <Title :size="'title-secondary'" class="ma-6" style="tex-align:start;"
-            >{{this.$language.get('login.title')}}</Title
+        <Title
+            :size="'title-secondary'"
+            class="ma-6"
+            style="tex-align:start;"
+            >{{ this.$language.get('login.title') }}</Title
         >
         <FederatedLogin :provider="provider" type="login">
-            {{this.$language.get('login.login-federated')}} google
+            {{ this.$language.get('login.login-federated') }} google
         </FederatedLogin>
-        <div class="title-center mb-2"> {{this.$language.get('login.or')}}</div>
+        <div class="title-center mb-2">
+            {{ this.$language.get('login.or') }}
+        </div>
         <div class="form__group">
             <input
                 type="email"
@@ -15,7 +20,9 @@
                 id="email"
                 required
             />
-            <label for="email" class="form__label"> {{this.$language.get('user.email')}}</label>
+            <label for="email" class="form__label">
+                {{ this.$language.get('user.email') }}</label
+            >
         </div>
         <div class="form__group">
             <input
@@ -25,15 +32,17 @@
                 id="password"
                 required
             />
-            <label for="password" class="form__label"> {{this.$language.get('user.password')}}</label>
+            <label for="password" class="form__label">
+                {{ this.$language.get('user.password') }}</label
+            >
         </div>
-        <ButtonPrimary :color="'purple'" class="flex mb-4"
-            > {{this.$language.get('login.name')}}</ButtonPrimary
+        <ButtonPrimary :color="'purple'" class="flex mb-4">
+            {{ this.$language.get('login.name') }}</ButtonPrimary
         >
         <div class="title-center mr-2">
-             {{this.$language.get('login.sign-up-question')}}
-            <a class="title-center" @click="() => $router.push('/signup')"
-                > {{this.$language.get('sign-up.name')}}</a
+            {{ this.$language.get('login.sign-up-question') }}
+            <a class="title-center" @click="() => $router.push('/signup')">
+                {{ this.$language.get('sign-up.name') }}</a
             >
         </div>
     </form>

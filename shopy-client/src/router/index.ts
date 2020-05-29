@@ -50,13 +50,13 @@ const routes: Array<RouteConfig> = [
         component: () => import('../views/Orders.vue')
     },
     {
-        path:'/profile',
-        name:'Profile',
+        path: '/profile',
+        name: 'Profile',
         component: () => import('../views/Profile.vue')
     },
     {
-        path:'/waiting',
-        name:'Waiting',
+        path: '/waiting',
+        name: 'Waiting',
         component: () => import('../views/Waiting.vue')
     },
     {

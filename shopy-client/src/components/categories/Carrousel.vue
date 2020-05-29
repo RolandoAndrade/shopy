@@ -11,7 +11,12 @@
                             :type="'card-categories'"
                             :title="cat.title"
                         >
-                            <Icon :icon="cat.icon" :size="'icon-medium'" color="orange-i" class="mb-4"/>
+                            <Icon
+                                :icon="cat.icon"
+                                :size="'icon-medium'"
+                                color="orange-i"
+                                class="mb-4"
+                            />
                         </HomeCard>
                     </div>
                 </v-sheet>

@@ -1,5 +1,5 @@
-import {Commission} from "@/requests/commissions/Commission";
+import { Commission } from '@/requests/commissions/Commission';
 
 export interface PaymentStateInterface {
-    commission: Commission
+    commission: Commission;
 }

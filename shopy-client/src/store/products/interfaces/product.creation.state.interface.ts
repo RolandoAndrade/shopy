@@ -1,6 +1,6 @@
-import {CategoryType} from "@/requests/category-types/CategoryType";
+import { CategoryType } from '@/requests/category-types/CategoryType';
 
 export interface ProductCreationStateInterface {
-    categories: CategoryType[],
-    isLoadingCategories: boolean
+    categories: CategoryType[];
+    isLoadingCategories: boolean;
 }

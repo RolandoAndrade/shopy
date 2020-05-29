@@ -1,6 +1,5 @@
 export class FormRules {
-    required(message: string)
-    {
+    required(message: string) {
         return (v: any) => !!v || message;
     }
 }

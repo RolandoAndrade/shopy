@@ -13,10 +13,9 @@ export class UsersRepository extends AxiosRepository {
         return super.get(id);
     }
 
-    public async getByUrl(url: string,id: number):Promise<User>{
-        return super.getByUrl(url,id);
+    public async getByUrl(url: string, id: number): Promise<User> {
+        return super.getByUrl(url, id);
     }
 }
-
 
 export const usersRepository = new UsersRepository();

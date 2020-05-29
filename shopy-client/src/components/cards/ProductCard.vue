@@ -128,8 +128,8 @@ export default class ProductCard extends Vue {
     @PropSync('cart', { required: false, type: Object })
     mCart!: Cart;
 
-    showCard: boolean = true;
-    isShowCartButton: boolean = true;
+    showCard = true;
+    isShowCartButton = true;
 
     private flag = true;
     private selected = false;
@@ -242,8 +242,8 @@ export default class ProductCard extends Vue {
 
     public async receiveResponseDeletePublication(response: boolean) {
         if (response === true) {
-           const x = await this.deletePub(this.product.id);
-           this.$emit('updateProducts')
+            const x = await this.deletePub(this.product.id);
+            this.$emit('updateProducts');
         }
     }
 
@@ -262,11 +262,10 @@ export default class ProductCard extends Vue {
     @carts.Action(UPDATE_CART) updateCart!: Function;
     @user.Getter(USER_GET_USER) user!: User;
     @carts.Action(DELETE_CART) deleteCart!: Function;
-     @productDetail.Action('PRODUCT_DETAIL_DELETE_PRODUCT')
+    @productDetail.Action('PRODUCT_DETAIL_DELETE_PRODUCT')
     deletePub!: Function;
     @productDetail.Action('PRODUCTS_DETAIL_FETCH_PRODUCT')
     fetchProduct!: Function;
-   
 }
 </script>
 

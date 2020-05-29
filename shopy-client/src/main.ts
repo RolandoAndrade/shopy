@@ -7,8 +7,6 @@ import vuetify from './plugins/vuetify';
 import Vuelidate from 'vuelidate';
 import { LanguagePlugin } from '@/plugins/languages/language';
 
-
-
 Vue.use(Vuelidate);
 Vue.use(LanguagePlugin);
 Vue.config.productionTip = false;
@@ -17,7 +15,6 @@ new Vue({
     router,
     store,
     vuetify,
-    created() {
-    },
+    created() {},
     render: h => h(App)
 }).$mount('#app');

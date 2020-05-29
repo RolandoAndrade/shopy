@@ -1,6 +1,6 @@
-import {Cart} from "@/requests/cart/Cart";
+import { Cart } from '@/requests/cart/Cart';
 
 export interface CheckoutCartsInterface {
-    userId: number,
-    cartsForCheckout: Cart[]
+    userId: number;
+    cartsForCheckout: Cart[];
 }

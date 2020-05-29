@@ -7,20 +7,22 @@
         >
             <img src="../assets/add-product.png" style="height:350px;" />
             <div class="column ">
-                <Title size="title-secondary-big">{{this.$language.get('sell.title')}}</Title>
-                <ButtonSecondary v-on:click.native="next++" class="ml-10"
-                    >{{this.$language.get('sell.btn-start')}}</ButtonSecondary
-                >
+                <Title size="title-secondary-big">{{
+                    this.$language.get('sell.title')
+                }}</Title>
+                <ButtonSecondary v-on:click.native="next++" class="ml-10">{{
+                    this.$language.get('sell.btn-start')
+                }}</ButtonSecondary>
             </div>
         </div>
         <v-stepper v-model="next" vertical>
             <v-stepper-step :complete="next > 1" step="1" color="purple">
                 <Title :size="'title-secondary'" class="mt-6"
-                    >{{this.$language.get('sell.step-1.title')}}
+                    >{{ this.$language.get('sell.step-1.title') }}
                 </Title>
-                <Title :size="'title-terciary'" class="mt-4"
-                    >{{this.$language.get('sell.step-1.subtitle')}}</Title
-                >
+                <Title :size="'title-terciary'" class="mt-4">{{
+                    this.$language.get('sell.step-1.subtitle')
+                }}</Title>
             </v-stepper-step>
 
             <v-stepper-content step="1" color="purple" class="column">
@@ -32,7 +34,7 @@
 
             <v-stepper-step :complete="next > 2" step="2" color="purple">
                 <Title :size="'title-secondary'"
-                    >{{this.$language.get('sell.step-2.title')}}
+                    >{{ this.$language.get('sell.step-2.title') }}
                 </Title>
             </v-stepper-step>
 
@@ -41,9 +43,9 @@
             </v-stepper-content>
 
             <v-stepper-step :complete="next > 3" step="3" color="purple">
-                <Title :size="'title-secondary'"
-                    >{{this.$language.get('sell.step-3.title')}}</Title
-                >
+                <Title :size="'title-secondary'">{{
+                    this.$language.get('sell.step-3.title')
+                }}</Title>
             </v-stepper-step>
 
             <v-stepper-content step="3">
@@ -51,7 +53,9 @@
             </v-stepper-content>
 
             <v-stepper-step step="4" color="purple">
-                <Title :size="'title-secondary'">{{this.$language.get('sell.step-4.title')}}</Title>
+                <Title :size="'title-secondary'">{{
+                    this.$language.get('sell.step-4.title')
+                }}</Title>
             </v-stepper-step>
 
             <v-stepper-content step="4">
@@ -74,15 +78,15 @@ import ProductResume from '@/components/products/create-product/ProductResume.vu
 import Title from '@/components/typography/Title.vue';
 import Icon from '@/components/typography/Icon.vue';
 import { Product } from '@/requests/products/Product';
-import {productCreation} from "@/store/namespaces";
+import { productCreation } from '@/store/namespaces';
 import {
     PRODUCT_CREATION_CREATE,
     PRODUCT_CREATION_FETCH_CATEGORIES
-} from "@/store/products/actions/product.creation.actions";
-import Vue from "vue";
-import Component from "vue-class-component";
-import {Category} from "@/requests/category/Category";
-import {ProductImage} from "@/requests/product-image/ProductImage";
+} from '@/store/products/actions/product.creation.actions';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Category } from '@/requests/category/Category';
+import { ProductImage } from '@/requests/product-image/ProductImage';
 
 @Component({
     components: {
@@ -110,7 +114,9 @@ export default class AddProduct extends Vue {
     }
 
     private getImages(images: string[]) {
-        this.product.productImages = images.filter(i=>i).map(i=>new ProductImage(i));
+        this.product.productImages = images
+            .filter(i => i)
+            .map(i => new ProductImage(i));
         this.nextStep();
     }
 
@@ -119,12 +125,12 @@ export default class AddProduct extends Vue {
         this.nextStep();
     }
 
-    async mounted()
-    {
+    async mounted() {
         await this.fetchCategories();
     }
 
-    @productCreation.Action(PRODUCT_CREATION_FETCH_CATEGORIES) fetchCategories!: Function;
+    @productCreation.Action(PRODUCT_CREATION_FETCH_CATEGORIES)
+    fetchCategories!: Function;
 }
 </script>
 

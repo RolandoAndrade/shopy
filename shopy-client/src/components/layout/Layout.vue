@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header/>
+        <Header />
         <div class="push-footer">
             <v-fade-transition hide-on-leave>
                 <v-content>

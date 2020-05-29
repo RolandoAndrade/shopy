@@ -1,12 +1,16 @@
 <template>
     <v-app-bar app color="purple" class="pa-0">
         <div class="cover space-between">
-            <div class="inline" >
-                <img :class="onMobile" src="@/assets/shopy1w.png" @click="() => this.$router.push('/')" />
+            <div class="inline">
+                <img
+                    :class="onMobile"
+                    src="@/assets/shopy1w.png"
+                    @click="() => this.$router.push('/')"
+                />
             </div>
             <SearchBar />
-           
-            <v-menu :close-on-content-click="false" offset-x offset-y >
+
+            <v-menu :close-on-content-click="false" offset-x offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn icon class="mr-2" v-on="on">
                         <v-icon large color="purple2">mdi-menu</v-icon>
@@ -17,12 +21,19 @@
                     <v-list v-if="login">
                         <v-list-item>
                             <v-list-item-avatar>
-                                <img src="../../../assets/team/stephanie.jpeg" alt="User photo" />
+                                <img
+                                    src="../../../assets/team/stephanie.jpeg"
+                                    alt="User photo"
+                                />
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                                <v-list-item-title>Stephanie Cruz</v-list-item-title>
-                                <v-list-item-subtitle>scruz.17@est.ucab.edu.ve</v-list-item-subtitle>
+                                <v-list-item-title
+                                    >Stephanie Cruz</v-list-item-title
+                                >
+                                <v-list-item-subtitle
+                                    >scruz.17@est.ucab.edu.ve</v-list-item-subtitle
+                                >
                             </v-list-item-content>
 
                             <v-list-item-action>
@@ -54,9 +65,7 @@
 
                             <v-list-item-content>
                                 <v-list-item-title class="py-2">
-                                    {{
-                                    item.title
-                                    }}
+                                    {{ item.title }}
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
@@ -72,7 +81,6 @@ import Component from 'vue-class-component';
 import Title from '@/components/typography/Title.vue';
 import SearchBar from '@/components/generic/SearchBar.vue';
 import Vue from 'vue';
-
 
 @Component({
     components: {
@@ -101,11 +109,9 @@ export default class Header extends Vue {
         { title: 'Log out', icon: 'mdi-logout' }
     ];
 
-
     get onMobile() {
-        if (this.$vuetify.breakpoint.smAndDown)
-        return 'logo__small'
-        else return 'logo__big'
+        if (this.$vuetify.breakpoint.smAndDown) return 'logo__small';
+        else return 'logo__big';
     }
 }
 </script>
@@ -116,5 +122,4 @@ header,
 header.v-app-bar {
     width: 100vw !important;
 }
-
 </style>

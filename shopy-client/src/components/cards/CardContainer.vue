@@ -6,7 +6,10 @@
             :title="item.title"
             :type="'card-us margin-small'"
         >
-            <img :src="require(`@/assets/${item.icon}`)" class="card-us__image" />
+            <img
+                :src="require(`@/assets/${item.icon}`)"
+                class="card-us__image"
+            />
         </HomeCard>
     </div>
 </template>

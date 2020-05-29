@@ -195,7 +195,7 @@ import {
 import { Images } from '../../../interfaces/productImages.interface';
 import { ProductImage } from '../../../requests/product-image/ProductImage';
 import { imagesIds } from '../../../interfaces/images.id.interface';
-import {ProductImagesInterface} from '../../../requests/product-image/product-images.interface';
+import { ProductImagesInterface } from '../../../requests/product-image/product-images.interface';
 @Component({
     components: { Title, ProductImages },
     mixins: [validationMixin],
@@ -212,7 +212,7 @@ import {ProductImagesInterface} from '../../../requests/product-image/product-im
 })
 export default class EditProductPopup extends Vue {
     @Prop() product!: Product;
-    private modalEdit: boolean = false;
+    private modalEdit = false;
     images: ProductImage[] = this.resetImages;
     imagesDeleted: ProductImage[] = [];
     newImages: ProductImage[] = [];
@@ -245,7 +245,7 @@ export default class EditProductPopup extends Vue {
             !this.$v.product.price!.$invalid &&
             !this.$v.product.width!.$invalid &&
             !this.$v.product.height!.$invalid &&
-            this.product.stock!.minimumQuantity! >0 &&
+            this.product.stock!.minimumQuantity! > 0 &&
             this.product.stock!.quantity! > 0
         ) {
             if (!this.$v.product.discount!.$invalid) return errors;
@@ -268,8 +268,7 @@ export default class EditProductPopup extends Vue {
             !this.$v.product.width!.$invalid &&
             !this.$v.product.height!.$invalid &&
             !this.$v.product.name!.$invalid &&
-            !this.$v.product.description!.$invalid 
-            
+            !this.$v.product.description!.$invalid
         )
             return errors;
         if (!this.$v.product.name!.maxLength) {
@@ -296,7 +295,12 @@ export default class EditProductPopup extends Vue {
     private saveChanges() {
         this.$refs.getChildData.bringData();
         this.$v.$touch();
-        if (this.$v.$invalid || this.images.length === 0 || this.product.stock!.quantity! <=0 || this.product.stock!.minimumQuantity!<=0) {
+        if (
+            this.$v.$invalid ||
+            this.images.length === 0 ||
+            this.product.stock!.quantity! <= 0 ||
+            this.product.stock!.minimumQuantity! <= 0
+        ) {
             return;
         } else {
             this.updateProduct();
@@ -304,7 +308,7 @@ export default class EditProductPopup extends Vue {
     }
 
     get imagesIds() {
-        let arraynumber: Array<number> = [];
+        const arraynumber: Array<number> = [];
         this.imagesDeleted.map(i => arraynumber.push(i.id!));
         if (arraynumber.length > 0) {
             this.ids!.productImageIds = arraynumber;
@@ -317,10 +321,16 @@ export default class EditProductPopup extends Vue {
         const ids = this.imagesIds;
         if (this.imagesDeleted.length > 0) await this.deleteImages(ids);
         if (this.newImages.length > 0) {
-            let images : ProductImagesInterface ={productImages:[]};
-            this.newImages.map(i=> images!.productImages!.push({image:i.image,product:this.product.id}))
-            await this.addImages(images);}
-        
+            const images: ProductImagesInterface = { productImages: [] };
+            this.newImages.map(i =>
+                images!.productImages!.push({
+                    image: i.image,
+                    product: this.product.id
+                })
+            );
+            await this.addImages(images);
+        }
+
         this.modalEdit = false;
     }
 

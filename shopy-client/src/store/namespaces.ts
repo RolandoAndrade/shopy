@@ -6,4 +6,3 @@ export const productCreation = namespace('productCreation');
 export const carts = namespace('carts');
 export const user = namespace('user');
 export const payment = namespace('payment');
-

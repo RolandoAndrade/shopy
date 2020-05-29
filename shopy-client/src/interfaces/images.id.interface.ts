@@ -1,3 +1,3 @@
 export interface imagesIds {
-    productImageIds: Array<number>
+    productImageIds: Array<number>;
 }

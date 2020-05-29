@@ -23,13 +23,15 @@
                     >
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title class="fs-sp"
-                        >{{this.$language.get('generic.all-products')}}</v-list-item-title
-                    >
+                    <v-list-item-title class="fs-sp">{{
+                        this.$language.get('generic.all-products')
+                    }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <div v-for="(item, w) in items" :key="w">
-                <v-subheader class="overline ml-2">{{ item.title }}</v-subheader>
+                <v-subheader class="overline ml-2">{{
+                    item.title
+                }}</v-subheader>
                 <v-list-group
                     v-for="(section, j) in item.sections"
                     v-model="section.open"
@@ -77,9 +79,14 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list-group>
-                <v-list-item v-for="(child, i) in item.types" :key="i" link @click="searchNew(!child.used)">
+                <v-list-item
+                    v-for="(child, i) in item.types"
+                    :key="i"
+                    link
+                    @click="searchNew(!child.used)"
+                >
                     <v-list-item-action class="ml-2">
-                        <v-icon  x-small style="font-size: 20px !important;">{{
+                        <v-icon x-small style="font-size: 20px !important;">{{
                             child.icon
                         }}</v-icon>
                     </v-list-item-action>
@@ -95,7 +102,6 @@
                     link
                     class="ml-4"
                     @click="searchReview(child)"
-                   
                 >
                     <Icon
                         v-for="n in child"
@@ -150,12 +156,12 @@ export default class ProductFilter extends Vue {
         console.log(this.total);
     }
 
-    async searchNew(newProduct: boolean){
-        await this.searchByNew(newProduct)
+    async searchNew(newProduct: boolean) {
+        await this.searchByNew(newProduct);
     }
 
-    async searchReview(score: number){
-        await this.searchByReview(score)
+    async searchReview(score: number) {
+        await this.searchByReview(score);
     }
 
     async searchAll() {
@@ -164,10 +170,10 @@ export default class ProductFilter extends Vue {
 
     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_CATEGORIES)
     searchByCategories!: Function;
-     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_NEW)
-    searchByNew!: Function; 
-     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_REVIEW)
-    searchByReview!: Function; 
+    @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_NEW)
+    searchByNew!: Function;
+    @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_REVIEW)
+    searchByReview!: Function;
     @productsView.Action(PRODUCTS_VIEW_FETCH_ALL_PRODUCTS)
     searchAllProducts!: Function;
     @productsView.Getter(GET_TOTAL_PRODUCTS) total!: number;

@@ -1,7 +1,7 @@
 <template>
     <section class="section-book">
         <div class="book">
-            <GoBackButton/>
+            <GoBackButton />
             <div class="book__form">
                 <SignInForm />
             </div>

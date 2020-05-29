@@ -18,30 +18,30 @@
             />
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="purple" text @click="sendResponse(false)"
-                    >{{this.$language.get('messages.no')}}</v-btn
-                >
-                <v-btn color="purple" text @click="sendResponse(true)"
-                    >{{this.$language.get('messages.yes')}}</v-btn
-                >
+                <v-btn color="purple" text @click="sendResponse(false)">{{
+                    this.$language.get('messages.no')
+                }}</v-btn>
+                <v-btn color="purple" text @click="sendResponse(true)">{{
+                    this.$language.get('messages.yes')
+                }}</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script lang="ts">
-import Component from 'vue-class-component'
-import {Prop} from 'vue-property-decorator';
+import Component from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import Vue from 'vue';
-import Icon from "@/components/typography/Icon.vue";
+import Icon from '@/components/typography/Icon.vue';
 
 @Component({
-    components: {Icon}
+    components: { Icon }
 })
 export default class PopupDecition extends Vue {
     @Prop() text!: string;
     @Prop() icon?: boolean;
-    @Prop({required: false, default: false}) isDelete!: boolean;
+    @Prop({ required: false, default: false }) isDelete!: boolean;
     private localModal = false;
 
     public sendResponse(response: boolean) {
@@ -56,7 +56,7 @@ export default class PopupDecition extends Vue {
 </script>
 
 <style scoped>
-.headline{
+.headline {
     font-size: 16px !important;
 }
 </style>

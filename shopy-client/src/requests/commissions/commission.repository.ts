@@ -1,5 +1,5 @@
-import {AxiosRepository} from "@/requests/interfaces/axios.repository";
-import {Commission} from "@/requests/commissions/Commission";
+import { AxiosRepository } from '@/requests/interfaces/axios.repository';
+import { Commission } from '@/requests/commissions/Commission';
 
 const RESOURCE = 'commission';
 
@@ -8,8 +8,7 @@ export class CommissionRepository extends AxiosRepository {
         super(RESOURCE);
     }
 
-    get(): Promise<Commission>
-    {
+    get(): Promise<Commission> {
         return super.getAll();
     }
 }

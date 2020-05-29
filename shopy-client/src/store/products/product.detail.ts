@@ -80,8 +80,10 @@ const productDetail: Module<ProductsDetailsStateInterface, any> = {
             images: ProductImagesInterface
         ): Promise<boolean> {
             try {
-                console.log(images)
-                const result: ProductImage[] = await productImagesRepository.post(images);
+                console.log(images);
+                const result: ProductImage[] = await productImagesRepository.post(
+                    images
+                );
                 return true;
             } catch (e) {
                 return false;
@@ -92,10 +94,14 @@ const productDetail: Module<ProductsDetailsStateInterface, any> = {
             id: number
         ): Promise<boolean> {
             try {
-              
-                const result: DeleteResult = await productsRepository.delete(id);
-                if (result.affected! > 0)  {
-                    commit(PRODUCTS_DETAIL_SET_PRODUCT, PRODUCT_DETAIL_EMPTY_STATE);
+                const result: DeleteResult = await productsRepository.delete(
+                    id
+                );
+                if (result.affected! > 0) {
+                    commit(
+                        PRODUCTS_DETAIL_SET_PRODUCT,
+                        PRODUCT_DETAIL_EMPTY_STATE
+                    );
                 }
                 return true;
             } catch (e) {

@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import Title from '../typography/Title.vue';
 import Vue from 'vue';
 

@@ -1,6 +1,6 @@
-export interface ProductImagesInterface{
+export interface ProductImagesInterface {
     productImages?: Array<{
-        image?:string;
+        image?: string;
         product?: number;
-    }>
+    }>;
 }

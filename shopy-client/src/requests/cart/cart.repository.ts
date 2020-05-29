@@ -1,9 +1,9 @@
-import {AxiosRepository} from "@/requests/interfaces/axios.repository";
-import {Cart} from "@/requests/cart/Cart";
-import {Filter} from "@/utils/filter";
+import { AxiosRepository } from '@/requests/interfaces/axios.repository';
+import { Cart } from '@/requests/cart/Cart';
+import { Filter } from '@/utils/filter';
 
 const RESOURCE = 'carts';
-export class CartRepository extends AxiosRepository{
+export class CartRepository extends AxiosRepository {
     constructor() {
         super(RESOURCE);
     }

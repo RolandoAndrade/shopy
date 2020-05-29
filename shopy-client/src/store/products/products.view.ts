@@ -122,11 +122,10 @@ const productsView: Module<ProductsViewStateInterface, any> = {
                 return false;
             }
         },
-        async [PRODUCTS_VIEW_CHANGE_PAGE]({
-            commit,
-            state,
-            dispatch
-        }, newPage: number): Promise<boolean> {
+        async [PRODUCTS_VIEW_CHANGE_PAGE](
+            { commit, state, dispatch },
+            newPage: number
+        ): Promise<boolean> {
             try {
                 const data: ProductFilters = {
                     start: newPage,
@@ -177,38 +176,35 @@ const productsView: Module<ProductsViewStateInterface, any> = {
             }
         },
         async [PRODUCTS_VIEW_SEARCH_BY_NEW](
-            {commit,dispatch},
-             newProduct : boolean
-        ): Promise<boolean>{
-            try{
-                const data: ProductFilters = {new: newProduct};
-                const filter : Filter = new Filter(data);
+            { commit, dispatch },
+            newProduct: boolean
+        ): Promise<boolean> {
+            try {
+                const data: ProductFilters = { new: newProduct };
+                const filter: Filter = new Filter(data);
                 console.log(filter);
                 commit(PRODUCTS_VIEW_SET_SEARCH, '');
-                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS,filter)
+                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS, filter);
                 return true;
-            }
-            catch(e){
+            } catch (e) {
                 return false;
             }
         },
         async [PRODUCTS_VIEW_SEARCH_BY_REVIEW](
-            {commit,dispatch},
-             productScore : number
-        ): Promise<boolean>{
-            try{
-                const data: ProductFilters = {score: productScore};
-                const filter : Filter = new Filter(data);
+            { commit, dispatch },
+            productScore: number
+        ): Promise<boolean> {
+            try {
+                const data: ProductFilters = { score: productScore };
+                const filter: Filter = new Filter(data);
                 console.log(filter);
                 commit(PRODUCTS_VIEW_SET_SEARCH, '');
-                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS,filter)
+                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS, filter);
                 return true;
-            }
-            catch(e){
+            } catch (e) {
                 return false;
             }
         }
-
     }
 };
 

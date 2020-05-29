@@ -2,16 +2,28 @@
     <div>
         <Container>
             <div class="column mt-4 mb-8" style="margin:0 auto;">
-                <Title size="title-secondary-big">{{this.$language.get('my-product.title')}}</Title>
-                <div class="title-center">{{products.length}} {{this.$language.get('cart.items')}}</div>
+                <Title size="title-secondary-big">{{
+                    this.$language.get('my-product.title')
+                }}</Title>
+                <div class="title-center">
+                    {{ products.length }} {{ this.$language.get('cart.items') }}
+                </div>
             </div>
             <div class="divider" style="height:1px; width:70%"></div>
             <div class="flex wrap cover" style="width:100%;" v-if="products">
-                <ProductCard v-for="(n, k) in this.products" :key="k" :product="n" condition='my-products' @updateProducts="updateProducts">
+                <ProductCard
+                    v-for="(n, k) in this.products"
+                    :key="k"
+                    :product="n"
+                    condition="my-products"
+                    @updateProducts="updateProducts"
+                >
                 </ProductCard>
             </div>
             <v-content v-else>
-                <Title size="title-secondary">There are no publications yet</Title>
+                <Title size="title-secondary"
+                    >There are no publications yet</Title
+                >
             </v-content>
             <div style="margin:25px auto;">
                 <v-pagination
@@ -26,9 +38,6 @@
                 ></v-pagination>
             </div>
         </Container>
-        
-
-      
     </div>
 </template>
 
@@ -42,11 +51,11 @@ import Icon from '@/components/typography/Icon.vue';
 import PopupDecition from '@/components/generic/PopupDecition.vue';
 import Container from '@/components/layout/Container.vue';
 import { maxLength, minValue, required } from 'vuelidate/lib/validators';
-import {USER_FETCH_PRODUCTS} from '../store/users/actions/user.products.actions';
-import {user} from '../store/namespaces';
+import { USER_FETCH_PRODUCTS } from '../store/users/actions/user.products.actions';
+import { user } from '../store/namespaces';
 import { validationMixin } from 'vuelidate';
 import Vue from 'vue';
-import {GET_PRODUCTS_DATA} from "@/store/users/getters/user.getters";
+import { GET_PRODUCTS_DATA } from '@/store/users/getters/user.getters';
 
 @Component({
     components: {
@@ -107,14 +116,13 @@ export default class MyProducts extends Vue {
         );
     }
 
-     mounted() {
-            this.updateProducts();
+    mounted() {
+        this.updateProducts();
     }
 
-    public async updateProducts(){
-            await this.fetchProducts();
+    public async updateProducts() {
+        await this.fetchProducts();
     }
-    
 
     @user.Getter(GET_PRODUCTS_DATA) products?: Product[];
     @user.Action(USER_FETCH_PRODUCTS)

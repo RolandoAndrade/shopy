@@ -3,16 +3,20 @@
         <div color="white" class="card-create mb-12 mt-6">
             <div class="ma-5 flex wrap">
                 <div
-                    v-for="(n,k) in images"
+                    v-for="(n, k) in images"
                     :key="k"
                     class="card card-select-image ma-6"
                 >
                     <div v-if="!n" style="height:100%;">
-                        <v-row align="center" class="fill-height" @click="uploadImage(k)">
+                        <v-row
+                            align="center"
+                            class="fill-height"
+                            @click="uploadImage(k)"
+                        >
                             <Icon
-                                    :icon="'icon-camera'"
-                                    :color="'grey-i'"
-                                    :size="'icon-big'"
+                                :icon="'icon-camera'"
+                                :color="'grey-i'"
+                                :size="'icon-big'"
                             />
                         </v-row>
                     </div>
@@ -20,8 +24,10 @@
                         <v-hover v-slot:default="{ hover }">
                             <v-avatar tile width="100px" height="100px">
                                 <v-img :src="n">
-                                    <div :class="{'backDark': hover}">
-                                        <v-icon v-if="hover" color="red">mdi-delete</v-icon>
+                                    <div :class="{ backDark: hover }">
+                                        <v-icon v-if="hover" color="red"
+                                            >mdi-delete</v-icon
+                                        >
                                     </div>
                                 </v-img>
                             </v-avatar>
@@ -31,12 +37,12 @@
             </div>
         </div>
         <div class="space-around wrap">
-            <ButtonSecondary @click.native="nextStep()"
-                >{{this.$language.get('sell.step-3.btn-finish')}}</ButtonSecondary
-            >
-            <ButtonSecondary :reverse="true" @click.native="$emit('goBack')"
-                >{{this.$language.get('sell.btn-back')}}</ButtonSecondary
-            >
+            <ButtonSecondary @click.native="nextStep()">{{
+                this.$language.get('sell.step-3.btn-finish')
+            }}</ButtonSecondary>
+            <ButtonSecondary :reverse="true" @click.native="$emit('goBack')">{{
+                this.$language.get('sell.btn-back')
+            }}</ButtonSecondary>
         </div>
         <Popup
             ref="errorModal"
@@ -47,12 +53,12 @@
 </template>
 
 <script lang="ts">
-import Component, {mixins} from 'vue-class-component';
+import Component, { mixins } from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Vue from 'vue';
-import MultipleImageLoader from "../../../mixins/multiple-image-loader.mixin";
+import MultipleImageLoader from '../../../mixins/multiple-image-loader.mixin';
 @Component({
     components: {
         ButtonSecondary,
@@ -67,28 +73,27 @@ export default class AddImages extends mixins(MultipleImageLoader) {
     };
 
     private nextStep() {
-        if (this.images.length > 0 && this.images[0]) this.$emit('nextStep', this.images);
+        if (this.images.length > 0 && this.images[0])
+            this.$emit('nextStep', this.images);
         else {
             this.$refs.errorModal.openModal();
         }
     }
 
-    public pushImage()
-    {
+    public pushImage() {
         this.images.push(undefined);
     }
 
-    public dropImage(index: number)
-    {
-        this.images.splice(index,1)
+    public dropImage(index: number) {
+        this.images.splice(index, 1);
     }
 }
 </script>
 
 <style scoped>
-    .backDark{
-        background: rgba(255,255,255,0.6);
-        width: 100%;
-        height: 100%;
-    }
+.backDark {
+    background: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    height: 100%;
+}
 </style>

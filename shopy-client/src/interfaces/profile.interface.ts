@@ -9,10 +9,9 @@ export interface Profile {
 //pruebas para "Mi perfil"
 export interface ProfileInterface {
     name?: string;
-    lastName?:string;
+    lastName?: string;
     email?: string;
     picture?: string;
     date?: string;
-    address?: Address
-};
-
+    address?: Address;
+}

@@ -14,7 +14,7 @@ import CardContainer from '../components/cards/CardContainer.vue';
 import Hero from '../components/layout/Hero.vue';
 import Title from '../components/typography/Title.vue';
 import Carrousel from '../components/categories/Carrousel.vue';
-import Vue from "vue";
+import Vue from 'vue';
 
 @Component({
     components: {

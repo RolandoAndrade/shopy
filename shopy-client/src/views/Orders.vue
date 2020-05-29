@@ -1,25 +1,38 @@
 <template>
     <v-content>
         <div>
-            <Title size="title-secondary-big">{{this.$language.get('my-orders.title')}}</Title>
+            <Title size="title-secondary-big">{{
+                this.$language.get('my-orders.title')
+            }}</Title>
             <div class="divider" style="height:1px; width:70%"></div>
         </div>
-        <v-row class="card-order pa-6 to-column" v-for="(n, i) in visibleProducts" :key="i">
+        <v-row
+            class="card-order pa-6 to-column"
+            v-for="(n, i) in visibleProducts"
+            :key="i"
+        >
             <img
                 src="https://i.ebayimg.com/images/g/NgUAAOSwZntccwEN/s-l300.jpg"
                 class="card-order__image"
             />
             <v-col class="ml-4">
                 <Title size="title-secondary" style="text-align:start;">
-                    {{
-                    n.title
-                    }}
+                    {{ n.title }}
                 </Title>
-                <Title size="title-terciary " style="text-align:start;">{{ currency }} {{ n.price }}</Title>
+                <Title size="title-terciary " style="text-align:start;"
+                    >{{ currency }} {{ n.price }}</Title
+                >
             </v-col>
             <div class="mr-4">
-                <v-rating background-color="purple" color="orange" v-model="n.rating" small></v-rating>
-                <ButtonSecondary style="margin:10px;">See order</ButtonSecondary>
+                <v-rating
+                    background-color="purple"
+                    color="orange"
+                    v-model="n.rating"
+                    small
+                ></v-rating>
+                <ButtonSecondary style="margin:10px;"
+                    >See order</ButtonSecondary
+                >
             </div>
         </v-row>
         <v-content class="mb-6">

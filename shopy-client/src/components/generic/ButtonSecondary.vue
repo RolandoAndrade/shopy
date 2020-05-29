@@ -1,21 +1,19 @@
 <template>
     <v-btn :class="getClass()" :loading="isLoading">
         <div class="button__text button-text">
-            <slot>
-
-            </slot>
+            <slot> </slot>
         </div>
     </v-btn>
 </template>
 
 <script lang="ts">
-import Vue from "vue"
+import Vue from 'vue';
 import { Prop } from 'vue-property-decorator';
-import Component from "vue-class-component";
+import Component from 'vue-class-component';
 @Component({})
 export default class ButtonPrimary extends Vue {
     @Prop() reverse?: boolean;
-    @Prop({required: false, default: false})
+    @Prop({ required: false, default: false })
     isLoading!: boolean;
 
     private getClass(): string {
@@ -26,12 +24,11 @@ export default class ButtonPrimary extends Vue {
 </script>
 
 <style>
-    .button-text{
-        font-family:'Poppins', sans-serif;
-        font-size: 15px !important;
-        color:white;
-        text-transform: none !important;
-        letter-spacing: normal;
-    }
-
+.button-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px !important;
+    color: white;
+    text-transform: none !important;
+    letter-spacing: normal;
+}
 </style>

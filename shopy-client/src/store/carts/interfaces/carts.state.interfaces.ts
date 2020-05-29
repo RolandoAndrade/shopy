@@ -1,5 +1,5 @@
-import {Cart} from "@/requests/cart/Cart";
+import { Cart } from '@/requests/cart/Cart';
 
 export interface CartsStateInterfaces {
-    cart: Cart[]
+    cart: Cart[];
 }

@@ -1,10 +1,7 @@
 <template>
     <div>
         <div class="flex wrap ma-2 container-space">
-            <v-fade-transition
-                group
-                class="flex wrap ma-2 container-space"
-            >
+            <v-fade-transition group class="flex wrap ma-2 container-space">
                 <ProductCard
                     v-for="(n, k) in this.listOfProducts"
                     :key="k"
@@ -19,7 +16,7 @@
                 v-if="howManyPageAre > 0"
                 total-visible="10"
                 v-model="currentPage"
-                :length="howManyPageAre+1"
+                :length="howManyPageAre + 1"
                 circle
                 color="purple"
                 @input="changePage()"
@@ -58,7 +55,7 @@ export default class ProductCatalog extends Vue {
     private pageSize = 6;
 
     async changePage() {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         await this.setPage(this.currentPage);
     }
 
@@ -70,7 +67,7 @@ export default class ProductCatalog extends Vue {
     @productsView.Getter(HOW_MANY_PAGES_ARE) howManyPageAre!: number;
     @productsView.Action(PRODUCTS_VIEW_FETCH_ALL_PRODUCTS)
     fetchProducts!: Function;
-    @productsView.Action(PRODUCTS_VIEW_CHANGE_PAGE) setPage !: Function;
+    @productsView.Action(PRODUCTS_VIEW_CHANGE_PAGE) setPage!: Function;
 }
 </script>
 

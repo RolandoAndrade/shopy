@@ -11,7 +11,11 @@
                         :label="this.$language.get('sell.step-1.categories')"
                         class="pa-3"
                         return-object
-                        :rules="[rules.required(this.$language.get('sell.step-1.error'))]"
+                        :rules="[
+                            rules.required(
+                                this.$language.get('sell.step-1.error')
+                            )
+                        ]"
                     >
                     </v-select>
                     <v-container fluid v-if="selectedCategory">
@@ -21,9 +25,15 @@
                             v-model="categoriesSaved"
                             :items="selectedCategory.categories"
                             item-text="name"
-                            :label="this.$language.get('sell.step-1.subcategories')"
+                            :label="
+                                this.$language.get('sell.step-1.subcategories')
+                            "
                             multiple
-                            :rules="[rules.required(this.$language.get('sell.step-1.error'))]"
+                            :rules="[
+                                rules.required(
+                                    this.$language.get('sell.step-1.error')
+                                )
+                            ]"
                         >
                             <template v-slot:selection="{ item, index }">
                                 <v-chip v-if="index >= 0 && index < 3">
@@ -32,7 +42,13 @@
                                 <span
                                     v-if="index === 3"
                                     class="grey--text caption"
-                                >(+ {{ value.length - 3 }} {{this.$language.get('sell.step-1.others')}})</span>
+                                    >(+ {{ value.length - 3 }}
+                                    {{
+                                        this.$language.get(
+                                            'sell.step-1.others'
+                                        )
+                                    }})</span
+                                >
                             </template>
                         </v-select>
                     </v-container>
@@ -40,11 +56,12 @@
             </div>
         </div>
         <div class="space-around wrap">
-            <ButtonSecondary @click.native="validate">{{this.$language.get('sell.btn-continue')}}</ButtonSecondary>
-            <ButtonSecondary
-                :reverse="true"
-                @click.native="$emit('goBack')"
-            >{{this.$language.get('sell.btn-back')}}</ButtonSecondary>
+            <ButtonSecondary @click.native="validate">{{
+                this.$language.get('sell.btn-continue')
+            }}</ButtonSecondary>
+            <ButtonSecondary :reverse="true" @click.native="$emit('goBack')">{{
+                this.$language.get('sell.btn-back')
+            }}</ButtonSecondary>
         </div>
     </v-form>
 </template>
@@ -54,12 +71,12 @@ import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Vue from 'vue';
-import {productCreation} from "@/store/namespaces";
-import {PRODUCT_CREATION_GET_CATEGORIES} from "@/store/products/getters/product.creation.getters";
-import {CategoryType} from "@/requests/category-types/CategoryType";
-import {Category} from "@/requests/category/Category";
-import {FormRules} from "@/rules/form.rules";
-import {Emit} from "vue-property-decorator";
+import { productCreation } from '@/store/namespaces';
+import { PRODUCT_CREATION_GET_CATEGORIES } from '@/store/products/getters/product.creation.getters';
+import { CategoryType } from '@/requests/category-types/CategoryType';
+import { Category } from '@/requests/category/Category';
+import { FormRules } from '@/rules/form.rules';
+import { Emit } from 'vue-property-decorator';
 
 @Component({
     components: {
@@ -68,28 +85,25 @@ import {Emit} from "vue-property-decorator";
     }
 })
 export default class SelectCategories extends Vue {
-
     $refs!: {
         errorModal: any;
-        form: any
+        form: any;
     };
 
     @Emit()
-    validate()
-    {
-        if(this.$refs.form.validate())
-        {
-            this.$emit("nextStep",this.categoriesSaved);
+    validate() {
+        if (this.$refs.form.validate()) {
+            this.$emit('nextStep', this.categoriesSaved);
         }
     }
 
     rules: FormRules = new FormRules();
     selectedCategory: CategoryType | null = null;
     categoriesSaved: Category[] | null = null;
-    valid: boolean = true ;
+    valid = true;
 
-
-    @productCreation.Getter(PRODUCT_CREATION_GET_CATEGORIES) availableCategories!: CategoryType[];
+    @productCreation.Getter(PRODUCT_CREATION_GET_CATEGORIES)
+    availableCategories!: CategoryType[];
 }
 </script>
 

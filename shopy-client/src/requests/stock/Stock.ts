@@ -1,7 +1,6 @@
-import {Product} from "@/requests/products/Product";
+import { Product } from '@/requests/products/Product';
 
-export class Stock
-{
+export class Stock {
     id?: number;
     quantity?: number;
     minimumQuantity?: number;

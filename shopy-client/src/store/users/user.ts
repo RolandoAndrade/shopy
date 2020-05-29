@@ -1,6 +1,6 @@
 import { Module } from 'vuex';
 import { USER_FETCH_PRODUCTS } from '@/store/users/actions/user.products.actions';
-import {USER_LOGIN_FEDERATED} from '@/store/users/actions/user.actions';
+import {UPDATE_USER, USER_LOGIN_FEDERATED} from '@/store/users/actions/user.actions';
 import { USER_SET_PRODUCTS } from '@/store/users/mutations/user.products.mutations';
 import { Product } from '@/requests/products/Product';
 import { usersRepository } from '@/requests/users/users.repository';
@@ -45,7 +45,7 @@ const user: Module<UserStateInterface, any> = {
             try {
                 const userProducts: User = await usersRepository.getByUrl(
                     'products',
-                    4
+                    state.user.id!
                 );
                 commit(USER_SET_PRODUCTS, userProducts);
                 return true;
@@ -55,9 +55,10 @@ const user: Module<UserStateInterface, any> = {
         },
         async [USER_LOGIN_FEDERATED]({commit, state},loginInfo :{email:string,username:string,image:string}): Promise<any>{
             try{
-                console.log(loginInfo);
+
                 const payload: PayloadInterface = await authRepository.signInFederated(loginInfo);
-                console.log(payload)
+                localStorage.setItem("token", payload.token);
+                commit(USER_SET_USER, payload.user);
                 return true;
             }catch(e){
                 return false;
@@ -87,6 +88,17 @@ const user: Module<UserStateInterface, any> = {
                 const payload: PayloadInterface = await authRepository.login(user);
                 commit(USER_SET_USER, payload.user);
                 localStorage.setItem("token", payload.token);
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        },
+        async [UPDATE_USER]({commit}, user: User)
+        {
+            try{
+                const p :User = await usersRepository.put(user.id!, user)
+                commit(USER_SET_USER, p);
                 return true;
             }
             catch (e) {

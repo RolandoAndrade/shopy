@@ -28,8 +28,11 @@ export default class FederatedLogin extends Vue{
 
     private async signIn(){
           let user = await signInFederatedRepository.verifyEmail();
-          console.log(user);
-         await this.signupFederated(user);
+
+         if(await this.signupFederated(user))
+         {
+             this.$router.push("/");
+         }
     }
 
     @user.Action('USER_LOGIN_FEDERATED')

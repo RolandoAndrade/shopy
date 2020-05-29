@@ -10,6 +10,11 @@ import {
     USER_GET_USER
 } from '@/store/users/getters/user.getters';
 import { USER_ONE_STATE } from '@/store/users/states/user.states';
+import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
+import {UserSignupInterface} from "@/interfaces/user-signup.interface";
+import {PayloadInterface} from "@/interfaces/payload.interface";
+import {authRepository} from "@/requests/auth/auth.repository";
+import {USER_SET_USER} from "@/store/users/mutations/user.mutations";
 
 const user: Module<UserStateInterface, any> = {
     namespaced: true,
@@ -24,8 +29,10 @@ const user: Module<UserStateInterface, any> = {
     },
     mutations: {
         [USER_SET_PRODUCTS](state, userProducts: User): void {
-            console.log('en set');
             state.user = userProducts;
+        },
+        [USER_SET_USER](state, user: User): void {
+            state.user = user;
         }
     },
     actions: {
@@ -40,6 +47,19 @@ const user: Module<UserStateInterface, any> = {
             } catch (e) {
                 return false;
             }
+        },
+        async [USER_SIGN_UP]({commit}, user: UserSignupInterface): Promise<boolean>
+        {
+            try {
+                const payload: PayloadInterface = await authRepository.signUp(user);
+                commit(USER_SET_USER, payload.user);
+                localStorage.setItem("token", payload.token);
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+
         }
     }
 };

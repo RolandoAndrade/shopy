@@ -1,12 +1,12 @@
 <template>
     <section class="section-book">
-        <div class="book" v-if="mostrar === true">
+        <div class="book" v-if="isShow">
             <div class="book__form">
-                <UserAccountForm v-on:changePage="changePage()" />
+                <UserAccountForm @changePage="changePage" />
             </div>
         </div>
         <div class="book__signup" v-else>
-            <PersonalInfoForm />
+            <PersonalInfoForm :user-data.sync="user"/>
         </div>
     </section>
 </template>
@@ -16,7 +16,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import UserAccountForm from '@/components/login/UserAccountForm.vue';
 import PersonalInfoForm from '@/components/login/PersonalInfoForm.vue';
-
+import {User} from "@/requests/users/User";
+import {Person} from "@/requests/person/Person";
+import {Address} from "@/requests/address/Address";
 @Component({
     components: {
         UserAccountForm,
@@ -24,10 +26,25 @@ import PersonalInfoForm from '@/components/login/PersonalInfoForm.vue';
     }
 })
 export default class SignUp extends Vue {
-    private mostrar = true;
+    private isShow = true;
+    private user!: User;
 
-    private changePage() {
-        this.mostrar = !this.mostrar;
+    public changePage(user: User) {
+        this.isShow = !this.isShow;
+        Object.assign(this.user, user);
+    }
+
+    mounted()
+    {
+        this.user = new User();
+        this.user.person = new Person();
+        this.user.person.image = "";
+        this.user.addresses=[new Address()];
+    }
+
+    public register()
+    {
+
     }
 }
 </script>

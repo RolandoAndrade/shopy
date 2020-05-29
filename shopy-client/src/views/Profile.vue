@@ -125,8 +125,8 @@
                             <input
                                 type="text"
                                 class="form__input "
-                                :placeholder="user.address.first_line"
-                                v-model="userEdit.address.first_line"
+                                :placeholder="user.address.firstLine"
+                                v-model="userEdit.address.firstLine"
                                 required
                             />
                         </div>
@@ -141,8 +141,8 @@
                             <input
                                 type="text"
                                 class="form__input "
-                                :placeholder="user.address.second_line"
-                                v-model="userEdit.address.second_line"
+                                :placeholder="user.address.secondLine"
+                                v-model="userEdit.address.secondLine"
                                 required
                             />
                         </div>
@@ -187,8 +187,8 @@
                                 <input
                                     type="number"
                                     class="form__input "
-                                    :placeholder="user.address.postal_code"
-                                    v-model="userEdit.address.postal_code"
+                                    :placeholder="user.address.postalCode"
+                                    v-model="userEdit.address.postalCode"
                                     required
                                 />
                             </div>
@@ -297,11 +297,11 @@ export default class Profile extends Vue {
         email: 'scruz.17@est.ucab.edu.ve',
         date: new Date().toISOString().substr(0, 10),
         address: {
-            first_line: '7704 NW 5th st',
-            second_line: '',
+            firstLine: '7704 NW 5th st',
+            secondLine: '',
             city: 'FL',
             state: 'FL',
-            postal_code: 33324
+            postalCode: 33324
         }
     };
 
@@ -314,11 +314,11 @@ export default class Profile extends Vue {
         email: '',
         date: '',
         address: {
-            first_line: '',
-            second_line: '',
+            firstLine: '',
+            secondLine: '',
             city: '',
             state: '',
-            postal_code: 0
+            postalCode: 0
         }
     };
 

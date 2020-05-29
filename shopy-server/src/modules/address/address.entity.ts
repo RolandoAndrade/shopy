@@ -8,10 +8,10 @@ export class Address extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ name: 'firts_line', type: 'varchar', nullable: false })
-    firtsLine: string;
+    @Column({ name: 'first_line', type: 'varchar', nullable: false })
+    firstLine: string;
 
-    @Column({ name: 'second_line', type: 'varchar', nullable: false })
+    @Column({ name: 'second_line', type: 'varchar', default: ''})
     secondLine: string;
 
     @Column({ type: 'varchar', length: 25, nullable: false })

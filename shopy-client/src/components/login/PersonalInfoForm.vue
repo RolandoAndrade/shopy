@@ -11,13 +11,13 @@
             <v-avatar
                 color="orange"
                 size="60"
-                class="mb-4 "
-                onclick="document.getElementById('file').click();"
+                class="mb-4 hoverImage"
+                @click="openWidget"
             >
-                <v-icon large v-if="getImage === ''" color="white"
+                <v-icon large v-if="image == ''" color="white"
                     >mdi-camera</v-icon
                 >
-                <img v-else :src="imageData" />
+                <img v-else :src="image" />
             </v-avatar>
         </div>
         <input
@@ -35,7 +35,7 @@
                 <div class="form__group mt-2 ">
                     <input
                         type="text"
-                        v-model="firstName"
+                        v-model="user.person.name"
                         class="form__input"
                         :placeholder="this.$language.get('user.name')"
                         id="name"
@@ -55,7 +55,7 @@
                 <div class="form__group">
                     <input
                         type="text"
-                        v-model="lastName"
+                        v-model="user.person.lastname"
                         class="form__input"
                         :placeholder="this.$language.get('user.last-name')"
                         id="lastname"
@@ -72,15 +72,16 @@
                         {{ i }}
                     </div>
                 </div>
-                <div class="form__group" v-on:click="openModal">
+                <div class="form__group" @click="openModal">
                     <input
                         type=""
                         class="form__input"
                         :placeholder="date"
-                        id="birthday"
+                        id="date"
                         readonly
+                        v-model="user.person.birthDate"
                     />
-                    <label for="birthday" class="form__label">{{ date }}</label>
+                    <label for="birthday" class="form__label">Birthday</label>
                 </div>
                 <DatePopup ref="dateModal" :date="date" @getDate="getDate" />
                 <ButtonPrimary
@@ -98,7 +99,7 @@
                     <input
                         type=""
                         class="form__input"
-                        v-model="addressPrimaryLine"
+                        v-model="user.addresses[0].firstLine"
                         :placeholder="
                             this.$language.get('address.primary-line')
                         "
@@ -127,6 +128,7 @@
                             this.$language.get('address.secondary-line')
                         "
                         id="secondary-line"
+                        v-model="user.addresses[0].secondLine"
                         required
                     />
 
@@ -141,6 +143,7 @@
                             class="form__input"
                             :placeholder="this.$language.get('address.city')"
                             id="city"
+                            v-model="user.addresses[0].city"
                             required
                         />
                         <label for="city" class="form__label">{{
@@ -158,7 +161,7 @@
                     <div class="form__group-half">
                         <input
                             type=""
-                            v-model="addressState"
+                            v-model="user.addresses[0].state"
                             class="form__input"
                             :placeholder="this.$language.get('address.state')"
                             id="state"
@@ -183,6 +186,7 @@
                         :placeholder="this.$language.get('address.zip-code')"
                         id="code"
                         required
+                        v-model="user.addresses[0].postalCode"
                     />
                     <label for="code" class="form__label">{{
                         this.$language.get('address.zip-code')
@@ -190,14 +194,6 @@
                 </div>
             </div>
         </div>
-        <!--   <v-dialog ref="dialog" v-model="dateModal" :return-value.sync="date"
-                               persistent width="290px">
-                            <v-date-picker v-model="date" color="purple" scrollable>
-                                 <v-spacer></v-spacer>
-                                     <v-btn text color="purple" @click="modal = false">Cancel</v-btn>
-                                     <v-btn text color="purple" @click="$refs.dialog.save(date)">OK</v-btn>
-                                 </v-date-picker>
-                    </v-dialog>-->
 
         <PopupDecition
             ref="decitionModal"
@@ -217,6 +213,11 @@ import { validationMixin } from 'vuelidate';
 import { required } from 'vuelidate/lib/validators';
 import DatePopup from '@/components/generic/popups/DatePopup.vue';
 import GoBackButton from '@/components/generic/GoBackButton.vue';
+import {PropSync} from "vue-property-decorator";
+import {User} from "@/requests/users/User";
+import {ImageWidget} from "@/utils/image-widget";
+import {user} from "@/store/namespaces";
+import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
 
 @Component({
     components: {
@@ -228,16 +229,27 @@ import GoBackButton from '@/components/generic/GoBackButton.vue';
     },
     mixins: [validationMixin],
     validations: {
-        firstName: { required },
-        lastName: { required },
-        addressPrimaryLine: { required },
-        addressCity: { required },
-        addressState: { required }
+        user: {
+            person: {
+                name: {required},
+                lastname: {required},
+                birthDate: {required}
+            },
+            addresses: {
+                $each: {
+                    firstLine: {required},
+                    city: { required },
+                    state: { required }
+                }
+            }
+        }
     }
 })
 export default class PersonalInfoForm extends Vue {
+    private imageWidget!: ImageWidget;
+
     private imageData: string | null = '';
-    private image!: File;
+    public image: string = "";
     private menu = false;
     private dateModal = false;
     private date = new Date().toISOString().substr(0, 10);
@@ -245,6 +257,8 @@ export default class PersonalInfoForm extends Vue {
         decitionModal: any;
         dateModal: any;
     };
+    @PropSync("userData", {required: true, type: Object})
+    user!: User;
 
     private imageModal = false;
     private firstName = '';
@@ -266,18 +280,21 @@ export default class PersonalInfoForm extends Vue {
     }
 
     get getImage() {
-        if (this.imageData!.length > 0) return this.imageData!;
-        else return '';
+        return this.user.person!.image;
     }
 
-    private signUp() {
-        if (!this.image) {
+    public async signUp() {
+        if (!this.user.person!.image) {
             this.$refs.decitionModal.openModal();
         }
         this.$v.$touch();
         if (this.$v.$invalid) {
             return;
         }
+        const u: User = {...this.user};
+        delete u.person;
+        await this.signUpUser({user: u, person: this.user.person});
+        this.$router.push("/");
     }
 
     private receiveResponse(response: string) {}
@@ -287,20 +304,21 @@ export default class PersonalInfoForm extends Vue {
     }
 
     private getDate(date: string) {
+        this.user.person!.birthDate! = date;
         this.date = date;
     }
 
     get firstNameErrors() {
         const errors: Array<string> = [];
-        if (!this.$v.firstName.$dirty) return errors;
-        !this.$v.firstName.required &&
+        if (!this.$v.user.person!.name.$dirty) return errors;
+        !this.$v.user.person!.name.required &&
             errors.push(this.$language.get('sign-up.errors.name-required'));
         return errors;
     }
     get lastNameErrors() {
         const errors: Array<string> = [];
-        if (!this.$v.lastName.$dirty) return errors;
-        !this.$v.lastName.required &&
+        if (!this.$v.user.person!.lastname!.$dirty) return errors;
+        !this.$v.user.person!.lastname.required &&
             errors.push(
                 this.$language.get('sign-up.errors.last-name-required')
             );
@@ -309,32 +327,59 @@ export default class PersonalInfoForm extends Vue {
 
     get addressPrimaryLineErrors() {
         const errors: Array<string> = [];
-        if (!this.$v.addressPrimaryLine.$dirty) return errors;
+        /*if (!this.$v.addressPrimaryLine.$dirty) return errors;
         !this.$v.addressPrimaryLine.required &&
-            errors.push(this.$language.get('sign-up.errors.address-required'));
+            errors.push(this.$language.get('sign-up.errors.address-required'));*/
         return errors;
     }
     get addressCityErrors() {
         const errors: Array<string> = [];
-        if (!this.$v.addressCity.$dirty) return errors;
+        /*if (!this.$v.addressCity.$dirty) return errors;
         !this.$v.addressCity.required &&
-            errors.push(this.$language.get('sign-up.errors.city-required'));
+            errors.push(this.$language.get('sign-up.errors.city-required'));*/
         return errors;
     }
     get addressStateErrors() {
         const errors: Array<string> = [];
-        if (!this.$v.addressState.$dirty) return errors;
+        /*if (!this.$v.addressState.$dirty) return errors;
         !this.$v.addressState.required &&
-            errors.push(this.$language.get('sign-up.errors.state-required'));
+            errors.push(this.$language.get('sign-up.errors.state-required'));*/
         return errors;
     }
+
+    setImage(url: string)
+    {
+        this.user.person!.image = url;
+        this.image = url;
+    }
+
+    openWidget()
+    {
+        this.imageWidget.open();
+    }
+
+    mounted()
+    {
+        this.imageWidget = new ImageWidget(this.setImage)
+    }
+
+    @user.Action(USER_SIGN_UP) signUpUser!: Function;
 }
 </script>
 
 <style>
+.hoverImage{
+    cursor: pointer;
+}
+
+.hoverImage:hover{
+    opacity: 0.7;
+}
+
 .image-preview {
     width: min-content;
     margin-left: 125px;
+    cursor: pointer;
     margin-bottom: 10px;
 }
 

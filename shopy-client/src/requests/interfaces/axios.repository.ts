@@ -46,6 +46,10 @@ export abstract class AxiosRepository implements RepositoryInterface {
         return (await axios.get(this.URL + '/' + url + '/' + id)).data;
     }
 
+    async postByUrl(url: string, data: {}): Promise<any> {
+        return (await axios.post(this.URL + '/' + url, data)).data;
+    }
+
     public createAuthenticationHeader(data: string): {} {
         return {};
     }

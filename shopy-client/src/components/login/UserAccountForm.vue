@@ -99,6 +99,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { validationMixin } from 'vuelidate';
 import Vue from 'vue';
+import {User} from "@/requests/users/User";
 
 @Component({
     components: {
@@ -155,7 +156,11 @@ export default class UserAccountForm extends Vue {
         if (this.$v.$invalid) {
             return;
         } else {
-            this.$emit('changePage');
+            let u = new User();
+            u.email = this.accountEmail;
+            u.password = this.accountPassword;
+            u.username = u.email.split("@")[0];
+            this.$emit('changePage', u);
         }
     }
 }

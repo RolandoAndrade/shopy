@@ -10,10 +10,10 @@ export class LobRepository {
         try {
             await Lob.usVerifications.verify(
                 {
-                    primary_line: address.first_line,
+                    primary_line: address.firstLine,
                     city: address.city,
                     state: address.state,
-                    zip_code: address.postal_code
+                    zip_code: address.postalCode
                 },
                 function(error: any, res: any) {
                     if (res.deliverability === 'undeliverable')
@@ -23,7 +23,7 @@ export class LobRepository {
             );
             return response;
         } catch (err) {
-            // if ((!address!.first_line!) || ((!address!.city! && !address!.state!) && (!address!.postal_code!)))
+            // if ((!address!.firstLine!) || ((!address!.city! && !address!.state!) && (!address!.postalCode!)))
             response =
                 'The address is incorrect. Make sure you have filled the Primary line, City and the State,or Primary line and the Zip Code at least';
             return response;

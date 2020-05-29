@@ -23,25 +23,20 @@ export class UserService {
     }
 
     /**
-     * 
+     * updateUser
      * @param user: User
-     * @param person: Person
-     * @returns Promise<Boolean>
+     * @returns Promise<User> 
      */
-    async createUser(user: User, person: Person): Promise<Boolean>{
-        this.logger.log(`createUser: Creando a un usuario`,
+    async updateUser(user: User): Promise<User> {
+        this.logger.log(`updateUser: Actualizando un usuario [userId: ${user.id}]`,
             'UserService');
-
-        user.role = await this.roleService.getGeneralRol();
-        user.badge = await this.badgeService.getDolarBadge();
-
+        
         return await getManager().transaction(async transactionEntityManager => {
             try {
                 const personTransactionRepository: Repository<Person> = transactionEntityManager.getRepository(Person);
-                user.person = await personTransactionRepository.save(person);
+                await personTransactionRepository.save(user.person);
                 const userTransactionRepository: Repository<User> = transactionEntityManager.getRepository(User);
-                await userTransactionRepository.save(user);
-                return true;
+                return await userTransactionRepository.save(user);
             } catch (error) {
                 throw error;
             }
@@ -59,7 +54,9 @@ export class UserService {
 
         return await this.userRepository
                         .createQueryBuilder('user')
+                        .innerJoinAndSelect('user.person', 'person')
                         .innerJoinAndSelect('user.addresses', 'addresses')
+                        .innerJoinAndSelect('user.badge', 'badge')
                         .where('user.id = :id ', { id: userId })
                         .getOne()
     }

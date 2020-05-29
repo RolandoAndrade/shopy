@@ -28,13 +28,13 @@ export class User extends BaseEntity {
     @Column({ type: 'boolean', default: false })
     federate: boolean;
 
-    @JoinColumn({ name: 'fk_person_id' }) // es el que tiene la clave foranea
+    @JoinColumn({ name: 'fk_person_id' }) 
     @OneToOne(type => Person, person => person.user,
-        { nullable: false })
+        { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     person: Person;
 
     @JoinColumn({ name: 'fk_role_id' }) 
-    @ManyToOne(type => Role, role => role.users, // nos encontramos en role como "users"
+    @ManyToOne(type => Role, role => role.users, 
         { nullable: false })
     role: Role;
 

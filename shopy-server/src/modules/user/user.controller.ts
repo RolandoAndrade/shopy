@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Param, ParseIntPipe, UseGuards, UseInterceptors, ClassSerializerInterceptor, Put, Body } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -13,6 +13,25 @@ export class UserController {
 
     constructor(private readonly userService: UserService) {
         this.logger = logger;
+    }
+
+
+    @Get(':id')
+    @UseInterceptors(ClassSerializerInterceptor)
+    getUser(@Param('id', new ParseIntPipe()) userId: number): Promise<User> {
+        this.logger.log('getUser: Obteniendo a un usuario',
+            'UserController');
+
+        return this.userService.getUser(userId);
+    }
+
+    @Put(':id')
+    @UseInterceptors(ClassSerializerInterceptor)
+    updateUser(@Param('id', new ParseIntPipe()) userId: number, @Body() user: User): Promise<User> {
+        this.logger.log('updateUser: Actualizando a un usuario',
+            'UserController');
+
+        return this.userService.updateUser(user);
     }
 
     @Get('/products/:id')

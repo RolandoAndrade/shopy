@@ -56,6 +56,7 @@
                             </div>    
                          </div>
                         <DatePopup ref="dateModal" :date="user.date" @getDate="getDate"/>     
+                        <ButtonSecondary  @click.native="saveChanges">{{this.$language.get('generic.save')}}</ButtonSecondary>
                     </v-expansion-panel-content>
             </v-expansion-panel>
             <v-expansion-panel>
@@ -67,8 +68,8 @@
                                 <input
                                     type="text"
                                     class="form__input "
-                                    :placeholder="user.address.primaryLine"                     
-                                    v-model="userEdit.name"
+                                    :placeholder="user.address.first_line"                     
+                                    v-model="userEdit.address.first_line"
                                     required
                                 />  
                             </div>
@@ -77,8 +78,8 @@
                                 <input
                                     type="text"
                                     class="form__input "
-                                    :placeholder="user.address.secondaryLine"                     
-                                    v-model="userEdit.lastName"
+                                    :placeholder="user.address.second_line"                     
+                                    v-model="userEdit.address.second_line"
                                     required
                                 />  
                             </div>
@@ -91,7 +92,7 @@
                                         type="text"
                                         class="form__input "
                                         :placeholder="user.address.city"                     
-                                        v-model="userEdit.name"
+                                        v-model="userEdit.address.city"
                                         required
                                     />  
                                 </div>
@@ -101,7 +102,7 @@
                                         type="text"
                                         class="form__input "
                                         :placeholder="user.address.state"                     
-                                        v-model="userEdit.name"
+                                        v-model="userEdit.address.state"
                                         required
                                     />  
                                 </div>
@@ -110,16 +111,19 @@
                                 <div class="form__group column half pr-4 mt-4 mb-4">
                                     <label >{{this.$language.get('address.zip-code')}} * :</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         class="form__input "
-                                        :placeholder="user.address.zipCode"                     
-                                        v-model="userEdit.name"
+                                        :placeholder="user.address.postal_code"                     
+                                        v-model="userEdit.address.postal_code"
                                         required
                                     />  
                                 </div>
                             </div>
                             
                         </div>
+                        <div class="text-error">{{addressError}}</div>
+                        <ButtonSecondary @click.native="saveAddress">{{this.$language.get('generic.save')}}</ButtonSecondary>
+
                 </v-expansion-panel-content>
             </v-expansion-panel>
          <v-expansion-panel>
@@ -159,12 +163,11 @@
                                     />  
                                 </div>
                 </div>
+                <ButtonSecondary  @click.native="saveChanges">{{this.$language.get('generic.save')}}</ButtonSecondary>
+
              </v-expansion-panel-content>
          </v-expansion-panel>
         </v-expansion-panels>
-        <div class="flex ma-4">
-            <ButtonSecondary  @click.native="saveChanges">{{this.$language.get('generic.save')}}</ButtonSecondary>
-        </div>  
     </Container>
 </template>
 
@@ -175,6 +178,7 @@ import Title from '@/components/typography/Title.vue';
 import { ProfileInterface} from '../interfaces/profile.interface';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import DatePopup from '@/components/generic/popups/DatePopup.vue';
+import {lobRepository} from '../requests/address/lob.repository';
 
 @Component({
     components: {
@@ -188,19 +192,20 @@ export default class Profile extends Vue {
     private image: boolean = false;
     private imageData :  string | null ='';
     private dateModal =false;
-
+    private addressError: string=' ';
     //de pruebita
     private user: ProfileInterface = {
         name: 'Stephanie',
         lastName: 'Cruz',
         email:'scruz.17@est.ucab.edu.ve',
         date:new Date().toISOString().substr(0, 10),
-        address: {
-            primaryLine: '7704 NW 5th st',
-            secondaryLine:'',
+        address:  {
+            first_line: '7704 NW 5th st',
+            second_line:'',
             city:'FL',
             state:'FL',
-            zipCode: 33324
+            postal_code: 33324
+           
 
         }
     };
@@ -214,8 +219,16 @@ export default class Profile extends Vue {
         name:'',
         lastName:'',
         email:'',
-        date: ''
+        date: '',
+         address: {
+            first_line: '',
+            second_line:'',
+            city:'',
+            state:'',
+            postal_code: 0
+        }
     }
+
     private prueba? :string;
     $refs!: {
         dateModal: any
@@ -244,6 +257,18 @@ export default class Profile extends Vue {
        // console.log(this.userEdit.name, this.user.name);
         //  this.userEdit.name=this.user.name;
     }
+
+    public async saveAddress(){
+       let address = await lobRepository.verifyAddress(this.userEdit!.address!);
+       if (address === true) {
+         this.addressError=' '
+       }
+       else {
+           this.addressError= address;
+       }
+   }
+
+  
 
     private getDate(date: string){
         this.userEdit!.date=date;

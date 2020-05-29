@@ -77,9 +77,9 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list-group>
-                <v-list-item v-for="(child, i) in item.types" :key="i" link>
+                <v-list-item v-for="(child, i) in item.types" :key="i" link @click="searchNew(!child.used)">
                     <v-list-item-action class="ml-2">
-                        <v-icon x-small style="font-size: 20px !important;">{{
+                        <v-icon  x-small style="font-size: 20px !important;">{{
                             child.icon
                         }}</v-icon>
                     </v-list-item-action>
@@ -94,6 +94,8 @@
                     :key="i"
                     link
                     class="ml-4"
+                    @click="searchReview(child)"
+                   
                 >
                     <Icon
                         v-for="n in child"
@@ -118,7 +120,9 @@ import Vue from 'vue';
 import { productsView } from '@/store/namespaces';
 import {
     PRODUCTS_VIEW_FETCH_ALL_PRODUCTS,
-    PRODUCTS_VIEW_SEARCH_BY_CATEGORIES
+    PRODUCTS_VIEW_SEARCH_BY_CATEGORIES,
+    PRODUCTS_VIEW_SEARCH_BY_NEW,
+    PRODUCTS_VIEW_SEARCH_BY_REVIEW
 } from '@/store/products/actions/products.view.actions';
 import {
     GET_SEARCH,
@@ -146,12 +150,24 @@ export default class ProductFilter extends Vue {
         console.log(this.total);
     }
 
+    async searchNew(newProduct: boolean){
+        await this.searchByNew(newProduct)
+    }
+
+    async searchReview(score: number){
+        await this.searchByReview(score)
+    }
+
     async searchAll() {
         await this.searchAllProducts();
     }
 
     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_CATEGORIES)
     searchByCategories!: Function;
+     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_NEW)
+    searchByNew!: Function; 
+     @productsView.Action(PRODUCTS_VIEW_SEARCH_BY_REVIEW)
+    searchByReview!: Function; 
     @productsView.Action(PRODUCTS_VIEW_FETCH_ALL_PRODUCTS)
     searchAllProducts!: Function;
     @productsView.Getter(GET_TOTAL_PRODUCTS) total!: number;

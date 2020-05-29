@@ -12,6 +12,9 @@ export class Cart extends BaseEntity {
     @Column({ type: 'int', nullable: false })
     quantity: number;
 
+    @Column({ name: 'in_process', type: 'boolean', default: false })
+    inProcess?: boolean;
+
     @JoinColumn({ name: 'fk_user_id' })
     @ManyToOne(type => User, user => user.carts,
         { nullable: false })

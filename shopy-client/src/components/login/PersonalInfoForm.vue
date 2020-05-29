@@ -1,6 +1,6 @@
 <template>
-
-    <div  class="form">
+    <div class="form">
+            <GoBackButton/>
              <Title :size="'title-secondary'"  class="pt-6" style="tex-align:start;">{{this.$language.get('sign-up.title')}}</Title>
                 <div class="flex mt-2 mb-2">
                     <v-avatar color="orange" size="60" class="mb-4 " onclick="document.getElementById('file').click();" >
@@ -86,13 +86,15 @@
     import {validationMixin} from 'vuelidate';
     import {required} from 'vuelidate/lib/validators';
     import DatePopup from '@/components/generic/popups/DatePopup.vue';
+    import GoBackButton from  '@/components/generic/GoBackButton.vue';
 
     @Component({
     components:{
         Title,
         ButtonPrimary,
         PopupDecition,
-        DatePopup
+        DatePopup,
+        GoBackButton
     },
     mixins: [validationMixin],
     validations: {

@@ -3,15 +3,19 @@
         <Container>
             <div class="column mt-4 mb-8" style="margin:0 auto;">
                 <Title size="title-secondary-big">{{this.$language.get('my-product.title')}}</Title>
-                <div class="title-center">5 {{this.$language.get('cart.items')}}</div>
+                <div class="title-center">{{products.length}} {{this.$language.get('cart.items')}}</div>
             </div>
             <div class="divider" style="height:1px; width:70%"></div>
-            <div class="flex wrap cover" style="width:100%;">
-                <ProductCard v-for="(n, k) in this.visibleProducts" :key="k" :product="n" condition='my-products'>
+            <div class="flex wrap cover" style="width:100%;" v-if="products">
+                <ProductCard v-for="(n, k) in this.products" :key="k" :product="n" condition='my-products' @updateProducts="updateProducts">
                 </ProductCard>
             </div>
+            <v-content v-else>
+                <Title size="title-secondary">There are no publications yet</Title>
+            </v-content>
             <div style="margin:25px auto;">
                 <v-pagination
+                    v-if="products"
                     total-visible="10"
                     v-model="currentPage"
                     :length="getLength"
@@ -38,8 +42,11 @@ import Icon from '@/components/typography/Icon.vue';
 import PopupDecition from '@/components/generic/PopupDecition.vue';
 import Container from '@/components/layout/Container.vue';
 import { maxLength, minValue, required } from 'vuelidate/lib/validators';
+import {USER_FETCH_PRODUCTS} from '../store/users/actions/user.products.actions';
+import {user} from '../store/namespaces';
 import { validationMixin } from 'vuelidate';
 import Vue from 'vue';
+import {GET_PRODUCTS_DATA} from "@/store/users/getters/user.getters";
 
 @Component({
     components: {
@@ -71,128 +78,6 @@ export default class MyProducts extends Vue {
         decitionModal: any;
     };
     private currentProduct?: Product;
-    private myProducts: Product[] = [
-        {
-            id: 1,
-            name: 'Banana',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 2,
-            name: 'Laptop Pro Hp',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 3,
-            name: 'Iphone 11 max',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 4,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 5,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 6,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 7,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 8,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 9,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        },
-        {
-            id: 10,
-            name: 'Sacapuntas',
-            price: 234,
-            new:true,
-            description: 'Hola que tal',
-            width: 12,
-            height: 43,
-            productImages:[{image:'https://images-na.ssl-images-amazon.com/images/I/71erj%2BkgoSL._UL1500_.jpg'}],
-            stock: 2,
-            user: 'Tete'
-        }
-    ];
 
     private openDeleteModal() {
         this.$refs.decitionModal.openModal();
@@ -203,11 +88,11 @@ export default class MyProducts extends Vue {
     }
 
     private findProduct(product: number) {
-        this.currentProduct = this.myProducts.find(p => p.id === product);
+        this.currentProduct = this.products!.find(p => p.id === product);
     }
 
     get getLength() {
-        return Math.ceil(this.myProducts.length / this.pageSize);
+        return Math.ceil(this.products!.length / this.pageSize);
     }
     beforeMount() {
         this.updateVisibleProducts();
@@ -216,15 +101,24 @@ export default class MyProducts extends Vue {
         this.updateVisibleProducts();
     }
     private updateVisibleProducts() {
-        this.visibleProducts = this.myProducts.slice(
+        this.visibleProducts = this.products!.slice(
             (this.currentPage - 1) * this.pageSize,
             (this.currentPage - 1) * this.pageSize + this.pageSize
         );
     }
 
-   
+     mounted() {
+            this.updateProducts();
+    }
 
+    public async updateProducts(){
+            await this.fetchProducts();
+    }
+    
 
+    @user.Getter(GET_PRODUCTS_DATA) products?: Product[];
+    @user.Action(USER_FETCH_PRODUCTS)
+    fetchProducts!: Function;
 }
 </script>
 

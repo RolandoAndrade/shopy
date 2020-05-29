@@ -1,10 +1,10 @@
 <template>
     <v-app-bar app color="purple" class="pa-0">
         <div class="cover space-between">
-            <div class="inline" v-if="showLogo === true">
-                <img class="logo" src="@/assets/shopy1w.png" @click="() => this.$router.push('/')" />
+            <div class="inline" >
+                <img :class="onMobile" src="@/assets/shopy1w.png" @click="() => this.$router.push('/')" />
             </div>
-            <SearchBar @onMobile="onMobile"/>
+            <SearchBar />
            
             <v-menu :close-on-content-click="false" offset-x offset-y >
                 <template v-slot:activator="{ on }">
@@ -101,8 +101,11 @@ export default class Header extends Vue {
         { title: 'Log out', icon: 'mdi-logout' }
     ];
 
-    private onMobile(){
-        this.showLogo=false;
+
+    get onMobile() {
+        if (this.$vuetify.breakpoint.smAndDown)
+        return 'logo__small'
+        else return 'logo__big'
     }
 }
 </script>

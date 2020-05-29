@@ -1,8 +1,9 @@
 <template>
-    <div class="flex">
+    <div class="product-detail-container">
+        <GoBackButton/>
         <div
-            class="product-detail-container to-column space-between"
-            style="margin:40px auto;width:90%"
+            class=" to-column space-between"
+            style="margin:5px auto;width:90%"
         >
             <ProductImages :product="product" class="mx-12" />
             <ProductDetail :product="product" />
@@ -15,6 +16,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import ProductDetail from '../components/products/ProductDetail.vue';
 import ProductImages from '../components/products/ProductImages.vue';
+import GoBackButton from '@/components/generic/GoBackButton.vue';
 import { productDetail } from '@/store/namespaces';
 import { PRODUCTS_DETAIL_FETCH_PRODUCT } from '@/store/products/actions/products.detail.actions';
 import { GET_PRODUCT_DATA } from '@/store/products/getters/products.detail.getters';
@@ -22,7 +24,8 @@ import { Product } from '@/requests/products/Product';
 @Component({
     components: {
         ProductDetail,
-        ProductImages
+        ProductImages,
+        GoBackButton
     }
 })
 export default class ProductDetailView extends Vue {

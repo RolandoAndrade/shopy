@@ -49,6 +49,10 @@ export class PaymentService {
         this.logger.log(`createOrder: Creando una orden para el usuario [userId: ${checkoutCarts.userId}]`,
             'PaymentService');
         
+        checkoutCarts.cartsForCheckout.forEach( cart => {
+            cart.inProcess = true;
+        });
+        
         const user = await this.userService.getUser(checkoutCarts.userId);
         let price = this.cartService.getPrice(checkoutCarts.cartsForCheckout);
         const commission = await this.commissionService.getActiveCommission();
@@ -121,9 +125,9 @@ export class PaymentService {
 
         return await this.paymentRepository.createQueryBuilder('payment')
                                             .leftJoinAndSelect('payment.address', 'address')
-                                            .innerJoinAndSelect('address.user', 'user')
+                                            .leftJoinAndSelect('address.user', 'user')
                                             .leftJoinAndSelect('payment.carts','carts')
-                                            .innerJoinAndSelect('carts.product', 'product')
+                                            .leftJoinAndSelect('carts.product', 'product')
                                             .where('payment.id = :id', { id: paymentId })
                                             .getOne();
     }

@@ -22,6 +22,8 @@ import {
     PRODUCTS_VIEW_FETCH_CATEGORIES,
     PRODUCTS_VIEW_SEARCH,
     PRODUCTS_VIEW_SEARCH_BY_CATEGORIES,
+    PRODUCTS_VIEW_SEARCH_BY_NEW,
+    PRODUCTS_VIEW_SEARCH_BY_REVIEW,
     PRODUCTS_VIEW_SEARCH_BY_FILTERS
 } from '@/store/products/actions/products.view.actions';
 import { productsRepository } from '@/requests/products/products.repository';
@@ -173,7 +175,40 @@ const productsView: Module<ProductsViewStateInterface, any> = {
             } catch (e) {
                 return false;
             }
+        },
+        async [PRODUCTS_VIEW_SEARCH_BY_NEW](
+            {commit,dispatch},
+             newProduct : boolean
+        ): Promise<boolean>{
+            try{
+                const data: ProductFilters = {new: newProduct};
+                const filter : Filter = new Filter(data);
+                console.log(filter);
+                commit(PRODUCTS_VIEW_SET_SEARCH, '');
+                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS,filter)
+                return true;
+            }
+            catch(e){
+                return false;
+            }
+        },
+        async [PRODUCTS_VIEW_SEARCH_BY_REVIEW](
+            {commit,dispatch},
+             productScore : number
+        ): Promise<boolean>{
+            try{
+                const data: ProductFilters = {score: productScore};
+                const filter : Filter = new Filter(data);
+                console.log(filter);
+                commit(PRODUCTS_VIEW_SET_SEARCH, '');
+                dispatch(PRODUCTS_VIEW_SEARCH_BY_FILTERS,filter)
+                return true;
+            }
+            catch(e){
+                return false;
+            }
         }
+
     }
 };
 

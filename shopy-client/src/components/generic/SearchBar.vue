@@ -1,10 +1,10 @@
 <template>
-<div style="width:300px;">
-    <div class="search" v-if="!this.$vuetify.breakpoint.xs">
+<div style="width:300px;" class="mr-2">
+    <div class="search" >
         <input
             type="text"
             class="search__input"
-            placeholder="Search your product"
+            :placeholder="onMobile"
             v-model="searchTerm"
         />
         <button class="search__button" @click="search">
@@ -13,14 +13,7 @@
             </svg>
         </button>
     </div>
-     <div class="flex" v-else>
-                <div class="ml-4" style="width:cover;" v-if="expand===true">
-                    <v-text-field  color="purple2"  single-line hide-details style="width:100%;"></v-text-field>
-                </div>
-                <v-btn icon class="mr-2" v-on:click="expandSearch">
-                    <v-icon large color="purple2">mdi-magnify</v-icon>
-                </v-btn>  
-    </div>
+   
 </div>
 </template>
 
@@ -42,9 +35,12 @@ export default class SearchBar extends Vue {
 
     @productsView.Action(PRODUCTS_VIEW_SEARCH) searchProducts!: Function;
 
-    private expandSearch(){
-        this.expand=true;
-        this.$emit('onMobile');
+  
+
+     get onMobile() {
+        if (this.$vuetify.breakpoint.smAndDown)
+        return ' '
+        else return 'Search your product'
     }
 }
 </script>

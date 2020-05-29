@@ -55,6 +55,11 @@ const routes: Array<RouteConfig> = [
         component: () => import('../views/Profile.vue')
     },
     {
+        path:'/waiting',
+        name:'Waiting',
+        component: () => import('../views/Waiting.vue')
+    },
+    {
         path: '*',
         name: 'NotFound',
         redirect: '/'

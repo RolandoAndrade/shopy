@@ -14,6 +14,10 @@ export abstract class AxiosRepository implements RepositoryInterface {
         return (await axios.delete(this.URL + '/' + id)).data;
     }
 
+    public async deleteAll(data:{}): Promise<any>{
+        return (await axios.delete(this.URL,{data})).data;
+    }
+
     public async get(id: number): Promise<any> {
         return (await axios.get(this.URL + '/' + id)).data;
     }
@@ -35,7 +39,12 @@ export abstract class AxiosRepository implements RepositoryInterface {
     }
 
     async put(id: number, data: {}): Promise<any> {
+       
         return (await axios.put(this.URL + '/' + id, data)).data;
+    }
+
+    async getByUrl(url: string,id: number): Promise<any>{
+        return (await axios.get(this.URL+'/'+url+'/'+id)).data;
     }
 
     public createAuthenticationHeader(data: string): {} {

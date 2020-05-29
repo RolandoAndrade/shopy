@@ -4,24 +4,23 @@
             <Title size="title-secondary-big">{{this.$language.get('my-orders.title')}}</Title>
             <div class="divider" style="height:1px; width:70%"></div>
         </div>
-        <v-row
-            class="card-order pa-6 to-column"
-            v-for="(n, i) in visibleProducts"
-            :key="i"
-        >
+        <v-row class="card-order pa-6 to-column" v-for="(n, i) in visibleProducts" :key="i">
             <img
                 src="https://i.ebayimg.com/images/g/NgUAAOSwZntccwEN/s-l300.jpg"
                 class="card-order__image"
             />
             <v-col class="ml-4">
-                <Title size="title-secondary" style="text-align:start;">{{
+                <Title size="title-secondary" style="text-align:start;">
+                    {{
                     n.title
-                }}</Title>
-                <Title size="title-terciary " style="text-align:start;"
-                    >{{ currency }} {{ n.price }}</Title
-                >
+                    }}
+                </Title>
+                <Title size="title-terciary " style="text-align:start;">{{ currency }} {{ n.price }}</Title>
             </v-col>
-            <ButtonSecondary style="margin:20px;">See order</ButtonSecondary>
+            <div class="mr-4">
+                <v-rating background-color="purple" color="orange" v-model="n.rating" small></v-rating>
+                <ButtonSecondary style="margin:10px;">See order</ButtonSecondary>
+            </div>
         </v-row>
         <v-content class="mb-6">
             <v-pagination
@@ -42,6 +41,7 @@ import Component from 'vue-class-component';
 import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Title from '@/components/typography/Title.vue';
 import { getItemsPerPage, getLength } from '../utils/global-functions';
+
 import Vue from 'vue';
 @Component({
     components: {
@@ -57,27 +57,32 @@ export default class Orders extends Vue {
         {
             id: 1,
             title: 'Camisa linda',
-            price: 202
+            price: 202,
+            rating: ''
         },
         {
             id: 2,
             title: 'Camisa linda',
-            price: 203
+            price: 203,
+            rating: 3
         },
         {
             id: 3,
             title: 'Camisa linda',
-            price: 204
+            price: 204,
+            rating: 3
         },
         {
             id: 4,
             title: 'Camisa linda',
-            price: 205
+            price: 205,
+            rating: 5
         },
         {
             id: 5,
             title: 'Camisa linda',
-            price: 206
+            price: 206,
+            rating: 2
         }
     ];
 

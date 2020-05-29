@@ -31,14 +31,14 @@ export class ProductImageService {
     }
 
     /**
-    * deleteProductImages
-    * @param productImageIds: number
+    * deleteProductImage
+    * @param productImageId: number
     * @returns Promise<DeleteResult>
     */
-    async deleteProductImages(productImageIds: number[]): Promise<DeleteResult> {
-        this.logger.log(`deleteProductImages: Borrando un conjunto de imagenes de un producto [productImageIds: ${productImageIds}`,
+    async deleteProductImages(productImageId: number[]): Promise<DeleteResult> {
+        this.logger.log(`deleteProductImage: Borrando una imagen de un producto [productImageId: ${productImageId}`,
             'ProductImageService');
 
-        return await this.productImageRepository.delete(productImageIds);
+        return await this.productImageRepository.delete(productImageId);
     }
 }

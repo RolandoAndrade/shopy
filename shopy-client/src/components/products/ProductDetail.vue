@@ -13,7 +13,7 @@
             {{ product.stock.minimumQuantity }} min quantity on stock
         </div>
         <div class="product-detail__stock mb-4" v-if="onlyDetails">
-            {{ product.width }} x {{ product.height }} dimensions
+            {{ product.width }} x {{ product.height }} dimentions
         </div>
         <v-row class="product-detail__rating justify-end" v-if="!onlyDetails">
             <Icon

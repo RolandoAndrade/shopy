@@ -1,0 +1,1 @@
+export const USER_SET_PRODUCTS='USER_SET_PRODUCTS'

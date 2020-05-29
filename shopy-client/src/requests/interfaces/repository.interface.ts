@@ -8,4 +8,6 @@ export interface RepositoryInterface {
     post(data: {}): Promise<any>;
     put(id: number, data: {}): Promise<any>;
     delete(id: number): Promise<any>;
+    deleteAll(data:{}): Promise<any>;
+    getByUrl(url: string,id: number): Promise<any>
 }

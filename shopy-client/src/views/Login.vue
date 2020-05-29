@@ -1,6 +1,7 @@
 <template>
     <section class="section-book">
         <div class="book">
+            <GoBackButton/>
             <div class="book__form">
                 <SignInForm />
             </div>
@@ -11,10 +12,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SignInForm from '@/components/login/SignInForm.vue';
+import GoBackButton from '@/components/generic/GoBackButton.vue';
 
 @Component({
     components: {
-        SignInForm
+        SignInForm,
+        GoBackButton
     }
 })
 export default class Login extends Vue {

@@ -1,30 +1,24 @@
 import Vue from "vue";
 import {ImageWidget} from "@/utils/image-widget";
 import {Component} from "vue-property-decorator";
+import {ProductImage} from '../requests/product-image/ProductImage';
 
 @Component
-export default class MultipleImageLoader extends Vue{
+export default class UpdateImagesLoader extends Vue{
     private _uploadWidget!: ImageWidget;
-    images: (string|undefined)[] = [undefined];
+    images: ProductImage[] = [];
     selectedImage: number = 0;
+    newImages :ProductImage[] = [];
 
     uploadImage(index?: number)
     {
-       if (index) this.selectedImage = index;
         this._uploadWidget.open();
     }
 
     addImage(url: string): void
     {
-        if(this.images.length)
-        {
-            this.images[this.selectedImage] = url;
-        }
-        else
-        {
-            this.images.push(url);
-        }
-        this.images.push(undefined);
+        this.images.push({image:url}); 
+        this.newImages.push({image:url});
     }
 
 

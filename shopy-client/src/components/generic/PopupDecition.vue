@@ -55,4 +55,8 @@ export default class PopupDecition extends Vue {
 }
 </script>
 
-<style></style>
+<style scoped>
+.headline{
+    font-size: 16px !important;
+}
+</style>

@@ -7,10 +7,7 @@ import { logger } from 'src/logger/loggerConst';
 import { ProductParameters } from './interfaces/product-parameters';
 import { PaginatedProducts } from './interfaces/paginated-products';
 import {DEFAULT_PRODUCT_START_INDEX, MAX_PRODUCTS_BY_PAGE} from "../../constants/products.constants";
-import { ProductCategoryService } from '../product-category/product-category.service';
 import { ProductCategory } from '../product-category/product-category.entity';
-import { ProductImage } from '../product-image/product-image.entity';
-import { ProductImageService } from '../product-image/product-image.service';
 import { Review } from '../review/review.entity';
 import { ReviewService } from '../review/review.service';
 import { ProductCreationInterface } from "./interfaces/product-creation-interface";
@@ -76,6 +73,7 @@ export class ProductService {
                                                     .innerJoin('category.categoryType', 'categoryType')
                                                     .innerJoinAndSelect('product.user', 'user')
         
+
         !(parameters.userId) || query.andWhere('product.fk_user_id = :userId', { userId: parameters.userId });
         !(parameters.name) || query.andWhere('UPPER(product.name) LIKE :name', { name: `%${parameters.name.toUpperCase()}%` });
         !(parameters.score) || query.andWhere('FLOOR(product.score) = :score', { score: parameters.score });

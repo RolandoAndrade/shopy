@@ -10,7 +10,7 @@ export class ProductsRepository extends AxiosRepository {
         super(RESOURCE);
     }
 
-    public async delete(id: number): Promise<boolean> {
+    public async delete(id: number): Promise<any> {
         return super.delete(id);
     }
 
@@ -36,7 +36,7 @@ export class ProductsRepository extends AxiosRepository {
         return super.post(data);
     }
 
-    async put(id: number, data: Product): Promise<boolean> {
+    async put(id: number, data: {}): Promise<Product> {
         return super.put(id, data);
     }
 }

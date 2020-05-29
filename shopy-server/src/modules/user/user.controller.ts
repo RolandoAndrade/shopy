@@ -6,7 +6,7 @@ import { logger } from 'src/logger/loggerConst';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
-@UseGuards(AuthGuard())
+//@UseGuards(AuthGuard())
 export class UserController {
 
     private logger: ILogger;
@@ -15,7 +15,7 @@ export class UserController {
         this.logger = logger;
     }
 
-    @Get(':id/products')
+    @Get('/products/:id')
     getUserProducts(@Param('id', new ParseIntPipe()) userId: number): Promise<User> {
         this.logger.log('getUserCarts: Obteniendo los productos de un usuario',
             'UserController');

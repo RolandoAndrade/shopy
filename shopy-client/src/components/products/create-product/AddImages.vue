@@ -52,8 +52,7 @@ import ButtonSecondary from '@/components/generic/ButtonSecondary.vue';
 import Icon from '@/components/typography/Icon.vue';
 import Popup from '@/components/generic/Popup.vue';
 import Vue from 'vue';
-import MultipleImageLoader from "@/mixins/multiple-image-loader.mixin";
-
+import MultipleImageLoader from "../../../mixins/multiple-image-loader.mixin";
 @Component({
     components: {
         ButtonSecondary,

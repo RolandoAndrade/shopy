@@ -19,7 +19,7 @@ export class ProductController {
     }
 
     @Post()
-    @UseGuards(AuthGuard())
+   // @UseGuards(AuthGuard())
     createProduct(@Body() product: ProductCreationInterface): Promise<Product> {
         this.logger.log('createProduct: Creando un producto',
             'ProductController');
@@ -42,9 +42,9 @@ export class ProductController {
         return this.productService.getProductDetail(productId);
     }
 
-    @Put()
-    @UseGuards(AuthGuard())
-    updateProduct(@Body() product: Product): Promise<Product> {
+    @Put(':id')
+   // @UseGuards(AuthGuard())
+    updateProduct(@Param('id', new ParseIntPipe()) productId: number,@Body() product: Product): Promise<Product> {
         this.logger.log('updateProduct: Actualizando un producto',
             'ProductController');
 
@@ -52,7 +52,7 @@ export class ProductController {
     }
 
     @Post(':id/reviews')
-    @UseGuards(AuthGuard())
+   // @UseGuards(AuthGuard())
     createProductReview(@Param('id', new ParseIntPipe()) productId: number, @Body() review: Partial<Review>): Promise<Review> {
         this.logger.log('createProductReview: Creando el review de un producto',
             'ProductController');
@@ -61,7 +61,7 @@ export class ProductController {
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard())
+   // @UseGuards(AuthGuard())
     deleteProduct(@Param('id', new ParseIntPipe()) productId: number): Promise<DeleteResult> {
         this.logger.log('deleteProduct: Eliminando un producto',
             'ProductController');

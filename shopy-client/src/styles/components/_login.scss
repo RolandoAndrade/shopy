@@ -27,7 +27,7 @@
 
     &__form{
         width: 50%;
-        padding: 2.5rem 4rem;
+        padding: 10px 50px;
 
         @include respond(tab-port){
             width: 100%;

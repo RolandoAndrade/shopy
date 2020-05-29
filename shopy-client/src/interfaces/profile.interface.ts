@@ -1,3 +1,5 @@
+import { Address } from '@/requests/address/Address';
+
 export interface Profile {
     name?: string;
     email?: string;
@@ -14,10 +16,3 @@ export interface ProfileInterface {
     address?: Address
 };
 
-export interface Address{
-    primaryLine: string;
-    secondaryLine?: string;
-    city: string;
-    state: string;
-    zipCode: number;
-}

@@ -79,7 +79,6 @@ export class CartService {
         });
     }
 
-
     /**
     * deleteCart
     * @param cartId: number
@@ -152,7 +151,6 @@ export class CartService {
         return description;
     }
 
-
     async getCarts(userId: number): Promise<Cart[]>
     {
         this.logger.log(`getCarts: Obteniendo el carrito de compra de un usuario [userId: ${userId}]`,
@@ -160,7 +158,8 @@ export class CartService {
         return await this.cartRepository.find({relations: ['product', 'user', 'product.productImages', 'product.stock'], where: {
             user: {
                 id: userId
-            }
+            },
+            inProcess: false
         }})
     }
 }

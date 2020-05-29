@@ -84,6 +84,7 @@
                     <label for="birthday" class="form__label">Birthday</label>
                 </div>
                 <DatePopup ref="dateModal" :date="date" @getDate="getDate" />
+                <div class="text-error">{{userErrors}}</div>
                 <ButtonPrimary
                     :color="'purple'"
                     class="flex mb-6"
@@ -195,11 +196,10 @@
             </div>
         </div>
 
-        <PopupDecition
-            ref="decitionModal"
-            @receiveResponse="receiveResponse"
-            :text="this.$language.get('messages.profile-pic')"
-        />
+     
+        <Popup ref="invalidModal" :response="false" :message="this.$language.get('messages.address')"/>
+        <Popup ref="invalid2Modal" :response="false" :message="this.$language.get('messages.register-account')"/>
+
     </div>
 </template>
 
@@ -218,6 +218,8 @@ import {User} from "@/requests/users/User";
 import {ImageWidget} from "@/utils/image-widget";
 import {user} from "@/store/namespaces";
 import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
+import { lobRepository } from "../../requests/address/lob.repository";
+import Popup from "@/components/generic/Popup.vue";
 
 @Component({
     components: {
@@ -225,7 +227,8 @@ import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
         ButtonPrimary,
         PopupDecition,
         DatePopup,
-        GoBackButton
+        GoBackButton,
+        Popup
     },
     mixins: [validationMixin],
     validations: {
@@ -234,13 +237,6 @@ import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
                 name: {required},
                 lastname: {required},
                 birthDate: {required}
-            },
-            addresses: {
-                $each: {
-                    firstLine: {required},
-                    city: { required },
-                    state: { required }
-                }
             }
         }
     }
@@ -248,15 +244,15 @@ import {USER_SIGN_UP} from "@/store/users/actions/user.actions";
 
 export default class PersonalInfoForm extends Vue {
     private imageWidget!: ImageWidget;
-
     private imageData: string | null = '';
     public image: string = "";
     private menu = false;
     private dateModal = false;
     private date = new Date().toISOString().substr(0, 10);
     $refs!: {
-        decitionModal: any;
-        dateModal: any;
+        dateModal: any,
+        invalidModal: any,
+        invalid2Modal: any
     };
     @PropSync("userData", {required: true, type: Object})
     user!: User;
@@ -267,6 +263,8 @@ export default class PersonalInfoForm extends Vue {
     private addressPrimaryLine = '';
     private addressCity = '';
     private addressState = '';
+    private errors:Array<string>=[];
+    private addressError? ='';
 
     private previewImage(e: Event) {
         console.log(e.target);
@@ -284,18 +282,38 @@ export default class PersonalInfoForm extends Vue {
         return this.user.person!.image;
     }
 
+    get userErrors(){
+          return this.errors[0];
+    }
+
     public async signUp() {
-        if (!this.user.person!.image) {
-            this.$refs.decitionModal.openModal();
-        }
-        this.$v.$touch();
-        if (this.$v.$invalid) {
-            return;
-        }
-        const u: User = {...this.user};
-        delete u.person;
-        await this.signUpUser({user: u, person: this.user.person});
-        this.$router.push("/");
+       console.log('entro')
+            if (!this.user.person!.name! || !this.user.person!.lastname! || !this.user.person!.birthDate!){
+                 //  this.errors=this.$language.get('messages.user-info-req');
+                 this.errors.push(this.$language.get('messages.personal-info'))
+                return;
+            }
+            
+                let address = await lobRepository.verifyAddress(
+                    {firstLine: this.user.addresses![0]!.firstLine,
+                    city: this.user.addresses![0]!.city,
+                    state: this.user.addresses![0]!.state,
+                    postalCode: this.user.addresses![0]!.postalCode}
+                );
+                if (address !== true) {
+                    this.$refs.invalidModal.openModal();
+                }
+            else {
+                 const u: User = {...this.user};
+                    delete u.person;
+                let x: any = await this.signUpUser({user: u, person: this.user.person}); 
+                        console.log(x);
+                        
+                    if (x === true)
+                    this.$router.push("/")
+                    else  this.$refs.invalid2Modal.openModal();
+            }
+       
     }
 
     private receiveResponse(response: string) {}
@@ -333,6 +351,7 @@ export default class PersonalInfoForm extends Vue {
             errors.push(this.$language.get('sign-up.errors.address-required'));*/
         return errors;
     }
+
     get addressCityErrors() {
         const errors: Array<string> = [];
         /*if (!this.$v.addressCity.$dirty) return errors;

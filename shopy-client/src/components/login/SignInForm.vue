@@ -38,7 +38,11 @@
                 {{ this.$language.get('user.password') }}</label
             >
         </div>
-        <ButtonPrimary :color="'purple'" class="flex mb-4" @click.native="signIn">
+        <ButtonPrimary
+            :color="'purple'"
+            class="flex mb-4"
+            @click.native="signIn"
+        >
             {{ this.$language.get('login.name') }}</ButtonPrimary
         >
         <div class="title-center mr-2">
@@ -47,6 +51,11 @@
                 {{ this.$language.get('sign-up.name') }}</a
             >
         </div>
+        <Popup
+            ref="errorModal"
+            :message="this.$language.get('messages.user-password')"
+            :response="false"
+        />
     </form>
 </template>
 
@@ -58,42 +67,39 @@ import FederatedLogin from '@/components/login/FederatedLogin.vue';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Vue from 'vue';
-import {user} from "@/store/namespaces";
-import {USER_LOGIN} from "@/store/users/actions/user.actions";
-
+import { user } from '@/store/namespaces';
+import { USER_LOGIN } from '@/store/users/actions/user.actions';
+import Popup from '../generic/Popup';
 @Component({
     components: {
         Title,
         ButtonPrimary,
-        FederatedLogin
+        FederatedLogin,
+        Popup
     }
 })
 export default class SignInForm extends Vue {
     private provider = new firebase.auth.GoogleAuthProvider();
-    public email: string ="";
-    public password: string ="";
-
-    async signIn()
-    {
-        if(this.email && this.password)
-        {
-            if(await this.login({email: this.email, password: this.password}))
-            {
-                this.$router.push("/");
+    public email: string = '';
+    public password: string = '';
+    $refs!: {
+        errorModal: any;
+    };
+    async signIn() {
+        if (this.email && this.password) {
+            if (
+                await this.login({ email: this.email, password: this.password })
+            ) {
+                this.$router.push('/');
+            } else {
+                this.$refs.errorModal.openModal();
             }
-            else
-            {
-                //error
-            }
+        } else {
+            this.$refs.errorModal.openModal();
         }
-        else
-        {
-            //error
-        }
-
     }
 
-    @user.Action(USER_LOGIN) login !: Function;
+    @user.Action(USER_LOGIN) login!: Function;
 }
 </script>
 

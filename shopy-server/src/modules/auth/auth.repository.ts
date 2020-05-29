@@ -45,8 +45,13 @@ export class AuthRepository extends Repository<User> {
         user.badge = await badgeRepository.findOne({ name: DOLAR_BADGE });
 
         let person = new Person();
-        person.name = userGoogleSignin.name;
-        person.lastname = userGoogleSignin.lastname;
+        const names = userGoogleSignin.email.split(' ');
+        person.name = names[0];
+        if(names.length > 1){
+            person.lastname = names[1];
+        } else {
+            person.lastname = '';
+        }
         person.image = userGoogleSignin.image; 
 
         return await getManager().transaction(async transactionEntityManager => {

@@ -10,7 +10,6 @@ import { ConfigKeys } from 'src/config/config.keys';
 import { EXPIRATION_TIME } from './auth.constan';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthRepository } from './auth.repository';
-import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
   imports: [
@@ -33,7 +32,7 @@ import { GoogleStrategy } from './strategies/google.strategy';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, GoogleStrategy],
-  exports: [JwtStrategy, GoogleStrategy, PassportModule]
+  providers: [AuthService, JwtStrategy],
+  exports: [JwtStrategy, PassportModule]
 })
 export class AuthModule {}

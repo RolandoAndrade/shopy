@@ -7,6 +7,7 @@ import { UserSignup } from './interfaces/user-signup';
 import { User } from '../user/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { Payload } from './interfaces/payload';
+import { UserGoogleSignin } from './interfaces/user-google-signin';
 
 @Controller('auth')
 export class AuthController {
@@ -36,16 +37,11 @@ export class AuthController {
         return await this._authService.signup(userSignup);
     }
 
-    @Get('google/signin')
-    @UseGuards(AuthGuard('google'))
-    async googleAuth(@Req() req) { }
-
-    @Get('google/redirect')
-    @UseGuards(AuthGuard('google'))
-    async googleAuthRedirect(@Req() req): Promise<Payload> {
-        this.logger.log(`googleAuthRedirect: Redirección de google`,
+    @Post('google/signin')
+    async googleSignin(@Body() userGoogleSignin: UserGoogleSignin): Promise<Payload> {
+        this.logger.log(`googleSignin: Inicio de sesión con Google`,
             'AuthController');
 
-        return this._authService.googleSignin(req.user)
+        return await this._authService.googleSignin(userGoogleSignin);
     }
 }

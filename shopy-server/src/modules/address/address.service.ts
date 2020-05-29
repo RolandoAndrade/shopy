@@ -17,6 +17,18 @@ export class AddressService {
     }
 
     /**
+     * createAddress
+     * @param address: Address
+     * @returns Promise<Address>
+     */
+    async createAddress(address: Address): Promise<Address> {
+        this.logger.log(`createAddress: Creando una dirección para un usuario`,
+            'AddressService');
+
+        return await this.addressRepository.save(address);
+    }
+
+    /**
      * updateAddress
      * @param address: Address
      * @returns Promise<Address>

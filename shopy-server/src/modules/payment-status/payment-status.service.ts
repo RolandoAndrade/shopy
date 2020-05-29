@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { StatusService } from '../status/status.service';
 import { Payment } from '../payment/payment.entity';
 import { Status } from '../status/status.entity';
+import { PENDING_ORDER, CONFIRMING_ORDER, PAID_ORDER, INVALID_ORDER, EXPIRED_ORDER, CANCELED_ORDER } from '../status/status.constants';
 
 @Injectable()
 export class PaymentStatusService {
@@ -34,26 +35,26 @@ export class PaymentStatusService {
         let status: Status;
 
         switch (orderStatus) {
-            case 'pending':
+            case PENDING_ORDER:
                 status = await this.statusService.getPendingOrderStatus();
                 break;
-            case 'confirming':
+            case CONFIRMING_ORDER:
                 status = await this.statusService.getConfirmingOrderStatus();
                 break;
-            case 'paid':
+            case PAID_ORDER:
                 status = await this.statusService.getPaidOrderStatus();
                 break;
-            case 'invalid':
+            case INVALID_ORDER:
                 status = await this.statusService.getInvalidOrderStatus();
                 break;
-            case 'expired':
+            case EXPIRED_ORDER:
                 status = await this.statusService.getExpiredOrderStatus();
                 break;
-            case 'canceled':
+            case CANCELED_ORDER:
                 status = await this.statusService.getCanceledOrderStatus();
                 break;
             default:
-                this.logger.error('Ocurrio en error en el estatus del pago')
+                this.logger.error(`Ocurrio un error en el estatus del pago [statusOrder: ${orderStatus}]`)
         }
 
         let paymentStatus = new PaymentStatus();

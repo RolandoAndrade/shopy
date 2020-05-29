@@ -151,15 +151,55 @@ export class CartService {
         return description;
     }
 
-    async getCarts(userId: number): Promise<Cart[]>
-    {
+
+    /**
+    * getCarts
+    * @param userId: number
+    * @returns Promise<Cart[]>
+    */
+    async getCarts(userId: number): Promise<Cart[]> {
         this.logger.log(`getCarts: Obteniendo el carrito de compra de un usuario [userId: ${userId}]`,
             'CartService');
+
         return await this.cartRepository.find({relations: ['product', 'user', 'product.productImages', 'product.stock'], where: {
             user: {
                 id: userId
             },
             inProcess: false
         }})
+    }
+
+    /**
+     * desactivateCarts
+     * @param carts: Carts[]
+     * @param transactionEntityManager: EntityManager
+     * @returns Promise<Cart[]>
+    */
+    async desactivateCarts(carts: Cart[], transactionEntityManager: EntityManager): Promise<Cart[]>{
+        this.logger.log(`desactivateCarts: Desactivando carritos de compra debido a su compra`,
+            'CartService');
+        
+        carts.forEach(cart => {
+            cart.inProcess = true;
+        });
+
+        const cartTransactionRepository: Repository<Cart> = transactionEntityManager.getRepository(Cart);
+        return await cartTransactionRepository.save(carts);
+    }
+
+    /**
+     * activateCarts
+     * @param carts: Carts[]
+     * @returns Promise<Cart[]>
+    */
+    async activateCarts(carts: Cart[]): Promise<Cart[]> {
+        this.logger.log(`activateCarts: Activando carritos de compra debido a una compra fallida`,
+            'CartService');
+
+        carts.forEach(cart => {
+            cart.inProcess = false;
+        });
+
+        return await this.cartRepository.save(carts);
     }
 }

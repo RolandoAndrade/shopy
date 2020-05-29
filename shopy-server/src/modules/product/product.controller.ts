@@ -43,7 +43,7 @@ export class ProductController {
     }
 
     @Put(':id')
-   // @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard())
     updateProduct(@Param('id', new ParseIntPipe()) productId: number,@Body() product: Product): Promise<Product> {
         this.logger.log('updateProduct: Actualizando un producto',
             'ProductController');

@@ -26,6 +26,7 @@ export class Cart extends BaseEntity {
     product: Product;
 
     @JoinColumn({ name: 'fk_payment_id' })
-    @ManyToOne(type => Payment, payment => payment.carts)
+    @ManyToOne(type => Payment, payment => payment.carts,
+        { onDelete: 'SET NULL', onUpdate: 'CASCADE' })
     payment?: Payment;
 }

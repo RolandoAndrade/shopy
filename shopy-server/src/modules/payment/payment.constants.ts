@@ -7,5 +7,4 @@ export const PREFIX_SUCCESS_URL = `${PREFIX_ORDERS_URL}/success`;
 export const PAYMENT_TITLE = 'New Order'
 export const PRICE_CURRENCY = 'USD';
 export const RECEIVE_CURRENCY = 'BTC';
-export const ORDER_PAID = 'paid';
 

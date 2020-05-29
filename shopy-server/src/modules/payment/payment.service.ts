@@ -16,8 +16,8 @@ import { NewPayment } from './interfaces/new-payment'
 import { OrderStatus } from './interfaces/order-status';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaymentStatusService } from '../payment-status/payment-status.service';
-import { ORDER_PAID } from './payment.constants';
 import { ShoppingHistoryService } from '../shopping-history/shopping-history.service';
+import { PAID_ORDER, INVALID_ORDER, EXPIRED_ORDER, CANCELED_ORDER } from '../status/status.constants';
 
 @Injectable()
 export class PaymentService {
@@ -71,6 +71,7 @@ export class PaymentService {
 
         payment = await getManager().transaction(async transactionEntityManager => {
             try {
+                await this.cartService.desactivateCarts(checkoutCarts.cartsForCheckout,transactionEntityManager);
                 const paymentTransactionRepository: Repository<Payment> = transactionEntityManager.getRepository(Payment);
                 return await paymentTransactionRepository.save(payment);
             } catch (error) {
@@ -99,10 +100,17 @@ export class PaymentService {
         const payment = await this.getPaymentById(parseInt(order.order_id));
         await this.paymentStatusService.createPaymentStatus(payment, order.status);
 
-        if(order.status === ORDER_PAID){
-            this.shoppingHistoryService.createShoppingHistories(payment, payment.address.user);
+        switch (order.status) {
+            case PAID_ORDER:
+                await this.shoppingHistoryService.createShoppingHistories(payment, payment.address.user);
+                break;
+            case INVALID_ORDER:
+            case EXPIRED_ORDER:
+            case CANCELED_ORDER:
+                await this.cartService.activateCarts(payment.carts);
+                break;
         }
-        
+ 
         return order;
     }
 

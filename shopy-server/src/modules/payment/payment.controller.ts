@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, UseGuards, Get } from '@nestjs/common';
 import { ILogger } from 'src/logger/ILogger';
 import { logger } from 'src/logger/loggerConst';
 import { PaymentService } from './payment.service';
@@ -35,7 +35,7 @@ export class PaymentController {
         return this.paymentService.callbackOrders(order);
     }
 
-    @Post('/orders/cancel')
+    @Get('/orders/cancel')
     canceledOrders(): Promise<any> {
         this.logger.log('canceledOrders: Recibiendo orden cancelada',
             'PaymentController');
@@ -43,7 +43,7 @@ export class PaymentController {
         return this.paymentService.canceledOrders();
     }
 
-    @Post('/orders/success')
+    @Get('/orders/success')
     successfulOrders(): Promise<any> {
         this.logger.log('createOrder: Recibiendo orden exitosa',
             'PaymentController');

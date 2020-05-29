@@ -17,7 +17,6 @@ export class ProductImageController {
         this.logger = logger;
     }
 
-
     @Post()
     createProductImages(@Body() productImagesCreate: ProductImagesCreate): Promise<ProductImage[]> {
         this.logger.log('createProductImages: Asociando un conjunto de imagenes a un producto',

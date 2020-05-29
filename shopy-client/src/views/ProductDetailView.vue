@@ -2,7 +2,7 @@
     <div class="product-detail-container">
         <GoBackButton />
         <div class=" to-column space-between" style="margin:5px auto;width:90%">
-            <ProductImages :product="product" class="mx-12" />
+            <ProductImages type="detail" :product="product" class="mx-12" />
             <ProductDetail :product="product" />
         </div>
     </div>

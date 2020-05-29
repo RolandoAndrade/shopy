@@ -7,6 +7,7 @@ import { PersonModule } from '../person/person.module';
 import { RoleModule } from '../role/role.module';
 import { BadgeModule } from '../badge/badge.module';
 import { AuthModule } from '../auth/auth.module';
+import {SendGridMailService} from "../mails/send-grid-mail.service";
 
 @Module({
   imports: [

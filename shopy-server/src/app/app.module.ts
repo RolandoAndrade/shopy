@@ -6,6 +6,7 @@ import { ConfigService } from "../config/config.service";
 import { ConfigKeys } from "../config/config.keys";
 import { DatabaseModule } from '../database/database.module';
 import { indexModules } from '../modules/indexModule';
+import {SendGridMailService} from "../modules/mails/send-grid-mail.service";
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { indexModules } from '../modules/indexModule';
       DatabaseModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SendGridMailService],
 })
 export class AppModule {
     static port: number | string;

@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserGoogleSignin } from './interfaces/user-google-signin';
 import { Payload } from './interfaces/payload';
 import { User } from '../user/user.entity';
+import {SendGridMailService} from "../mails/send-grid-mail.service";
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,8 @@ export class AuthService {
     constructor(
         @InjectRepository(AuthRepository)
         private readonly _authRepository: AuthRepository,
-        private readonly _jwtService: JwtService
+        private readonly _jwtService: JwtService,
+        private readonly _mailService: SendGridMailService
     ) {
         this.logger = logger;
     }
@@ -93,7 +95,16 @@ export class AuthService {
         const salt = await genSalt(10);
         userSignup.user.password = await hash(userSignup.user.password,salt);
 
-        return await this._authRepository.signup(userSignup.user, userSignup.person); 
+        const b = await this._authRepository.signup(userSignup.user, userSignup.person);
+        if (b)
+        {
+            this.logger.log(`Enviando correo`,
+                'AuthService');
+            const user: User = userSignup.user;
+            user.person = userSignup.person;
+            await this._mailService.sendUserEmail(user)
+        }
+        return  b;
     }
 
     /**

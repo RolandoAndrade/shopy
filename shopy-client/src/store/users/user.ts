@@ -51,10 +51,12 @@ const user: Module<UserStateInterface, any> = {
         async [USER_SIGN_UP]({commit}, user: UserSignupInterface): Promise<boolean>
         {
             try {
-                const payload: PayloadInterface = await authRepository.signUp(user);
-                commit(USER_SET_USER, payload.user);
-                localStorage.setItem("token", payload.token);
-                return true;
+                const payload: boolean = await authRepository.signUp(user);
+                if(payload)
+                {
+                    //dispatchLogin
+                }
+                return payload;
             }
             catch (e) {
                 return false;

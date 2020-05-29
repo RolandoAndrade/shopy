@@ -11,7 +11,7 @@ export class AuthRepository extends AxiosRepository {
         super(RESOURCE);
     }
 
-    signUp(user: UserSignupInterface): Promise<PayloadInterface>
+    signUp(user: UserSignupInterface): Promise<boolean>
     {
         return super.postByUrl(SIGN_UP, user);
     }

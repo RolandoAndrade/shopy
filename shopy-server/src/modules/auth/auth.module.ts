@@ -10,6 +10,9 @@ import { ConfigKeys } from 'src/config/config.keys';
 import { EXPIRATION_TIME } from './auth.constan';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthRepository } from './auth.repository';
+import { GoogleStrategy } from './strategies/google.strategy';
+import {SendGridMailService} from "../mails/send-grid-mail.service";
+
 
 @Module({
   imports: [
@@ -32,7 +35,8 @@ import { AuthRepository } from './auth.repository';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule]
+  providers: [AuthService, JwtStrategy, GoogleStrategy, ConfigService, SendGridMailService],
+  exports: [JwtStrategy, GoogleStrategy, PassportModule]
+
 })
 export class AuthModule {}

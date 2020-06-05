@@ -16,24 +16,6 @@ $ npm i
 
 Ya teniendo todas las dependiencias instaladas es necesario crear los archivos de configuracion pertienentes (Estos archivos deben crearse en la raiz de shopy-server):
 
-### .env
-
-```
-PORT = 3000
-HOST = localhost
-USERNAME = Usuario de base de datos
-PASSWORD = Contraseña de la base de datos
-DATABASE = Nombre de la base de datos
-PORT_DATABASE = Puerto de la base de datos
-JWT_SECRET = destino_o_casualidad_1245454584
-SEND_GRID_API_KEY = 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
-POEDITOR_KEY = 2cc261005eaf01e6f30bfec54ead1b4f
-POEDITOR_PROJECT = 342377
-CRIPTO_TEST_APY_KEY = AhRxx1uBxYyyAByDCXjb8bL1iszzcshCksAXaksv
-BLOCKCHAIN_MODE = TEST
-PRODUCTION_URL = Url de producción
-```
-NOTA: Posteriormente se mencionará que se coloca en PRODUCTION_URL, por los momentos puede quedar vacío o asignarle ''
 
 ### ormconfig.json
 ```
@@ -164,11 +146,6 @@ Coingate es una pasarela de pagos con criptomonedas y tambien un exchange. Este 
 Lo que se realizo anteriormente con ngrok es de vital importancia para poder realizar la integración con la pasarela de pago, por lo que se deben seguir los siguientes pasos con cautela
 
 Primero se debe iniciar sesión en **sandbox-coingate** (https://sandbox.coingate.com/login), para esto se usaran las siguientes credenciales:
-
-```
-email:gabrielgatg12@gmail.com
-password:krakatoacripto43!
-```
 
 Ya habiendo iniciado sesión, se encontraran con esto:
 
